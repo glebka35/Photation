@@ -15,6 +15,13 @@
 		2B6BC13B24AF45DE00ED4125 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BC13A24AF45DD00ED4125 /* CameraViewController.swift */; };
 		2B6BC13D24AF45EB00ED4125 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BC13C24AF45EB00ED4125 /* SettingsViewController.swift */; };
 		2B6BC13F24AF468E00ED4125 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BC13E24AF468E00ED4125 /* MainTabBarController.swift */; };
+		2B80002224BDA628004D1A12 /* TableStyleHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B80002124BDA628004D1A12 /* TableStyleHeaderReusableView.swift */; };
+		2B9EF09924B89F98001CCEA3 /* CollectionViewDelegatesFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9EF09824B89F98001CCEA3 /* CollectionViewDelegatesFlowLayout.swift */; };
+		2BAD878024B4A85700F0DAC0 /* CollectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE61E3524B4A7F9007F9C19 /* CollectionManager.swift */; };
+		2BAD878224B4A8AB00F0DAC0 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAD878124B4A8AB00F0DAC0 /* NavigationBar.swift */; };
+		2BE3AB5D24B601A200EFAFA0 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE3AB5C24B601A200EFAFA0 /* Model.swift */; };
+		2BE3AB5F24B602D400EFAFA0 /* PresentationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE3AB5E24B602D400EFAFA0 /* PresentationStyle.swift */; };
+		2BE61E3324B4A43D007F9C19 /* TranslatorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE61E3224B4A43D007F9C19 /* TranslatorCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +35,13 @@
 		2B6BC13A24AF45DD00ED4125 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		2B6BC13C24AF45EB00ED4125 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2B6BC13E24AF468E00ED4125 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		2B80002124BDA628004D1A12 /* TableStyleHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableStyleHeaderReusableView.swift; sourceTree = "<group>"; };
+		2B9EF09824B89F98001CCEA3 /* CollectionViewDelegatesFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDelegatesFlowLayout.swift; sourceTree = "<group>"; };
+		2BAD878124B4A8AB00F0DAC0 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		2BE3AB5C24B601A200EFAFA0 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		2BE3AB5E24B602D400EFAFA0 /* PresentationStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationStyle.swift; sourceTree = "<group>"; };
+		2BE61E3224B4A43D007F9C19 /* TranslatorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatorCollectionViewCell.swift; sourceTree = "<group>"; };
+		2BE61E3524B4A7F9007F9C19 /* CollectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +90,7 @@
 				2B6BC13324AF455400ED4125 /* Favorite */,
 				2B6BC13424AF456F00ED4125 /* Camera */,
 				2B6BC13524AF457700ED4125 /* Settings */,
+				2BAD878324B4A8BB00F0DAC0 /* Services */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -100,7 +115,9 @@
 		2B6BC13224AF454900ED4125 /* Collection */ = {
 			isa = PBXGroup;
 			children = (
+				2BE61E3424B4A7E7007F9C19 /* CollectionView */,
 				2B6BC13624AF45B500ED4125 /* CollectionViewController.swift */,
+				2BE3AB5C24B601A200EFAFA0 /* Model.swift */,
 			);
 			path = Collection;
 			sourceTree = "<group>";
@@ -127,6 +144,26 @@
 				2B6BC13C24AF45EB00ED4125 /* SettingsViewController.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		2BAD878324B4A8BB00F0DAC0 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2BAD878124B4A8AB00F0DAC0 /* NavigationBar.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		2BE61E3424B4A7E7007F9C19 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				2BE61E3524B4A7F9007F9C19 /* CollectionManager.swift */,
+				2B9EF09824B89F98001CCEA3 /* CollectionViewDelegatesFlowLayout.swift */,
+				2BE61E3224B4A43D007F9C19 /* TranslatorCollectionViewCell.swift */,
+				2BE3AB5E24B602D400EFAFA0 /* PresentationStyle.swift */,
+				2B80002124BDA628004D1A12 /* TableStyleHeaderReusableView.swift */,
+			);
+			path = CollectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,11 +236,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BE3AB5D24B601A200EFAFA0 /* Model.swift in Sources */,
+				2B9EF09924B89F98001CCEA3 /* CollectionViewDelegatesFlowLayout.swift in Sources */,
 				2B6BC13724AF45B500ED4125 /* CollectionViewController.swift in Sources */,
+				2BAD878024B4A85700F0DAC0 /* CollectionManager.swift in Sources */,
 				2B6BC13F24AF468E00ED4125 /* MainTabBarController.swift in Sources */,
+				2BE61E3324B4A43D007F9C19 /* TranslatorCollectionViewCell.swift in Sources */,
 				2B6BC13D24AF45EB00ED4125 /* SettingsViewController.swift in Sources */,
+				2BE3AB5F24B602D400EFAFA0 /* PresentationStyle.swift in Sources */,
+				2BAD878224B4A8AB00F0DAC0 /* NavigationBar.swift in Sources */,
 				2B6BC11624AB0FE400ED4125 /* AppDelegate.swift in Sources */,
 				2B6BC13924AF45C400ED4125 /* FavoriteViewController.swift in Sources */,
+				2B80002224BDA628004D1A12 /* TableStyleHeaderReusableView.swift in Sources */,
 				2B6BC13B24AF45DE00ED4125 /* CameraViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,7 +387,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7YVHA5MAY4;
 				INFOPLIST_FILE = VTB_project/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -362,7 +406,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7YVHA5MAY4;
 				INFOPLIST_FILE = VTB_project/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

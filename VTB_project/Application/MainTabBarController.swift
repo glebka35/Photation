@@ -15,22 +15,23 @@ class MainTabBarController: UITabBarController {
 
         let collectionVC = CollectionViewController()
         
-        collectionVC.tabBarItem = UITabBarItem(title: "Коллекция", image: UIImage(named: "tray"), tag: 0)
+        collectionVC.tabBarItem = UITabBarItem(title: "Коллекция", image: UIImage(named: "collection"), tag: 0)
         
         let favoriteVC = FavoriteViewController()
-        favoriteVC.tabBarItem = UITabBarItem(title: "Избранное", image: UIImage(named: "heart"), tag: 1)
-        
+        favoriteVC.tabBarItem = UITabBarItem(title: "Избранное", image: UIImage(named: "favorite"), tag: 1)
         
         let cameraVC = CameraViewController()
         cameraVC.tabBarItem = UITabBarItem(title: "Камера", image: UIImage(named: "camera"), tag: 2)
         
         let settingsVC = SettingsViewController()
-        settingsVC.tabBarItem = UITabBarItem(title: "Настройки", image: UIImage(named: "gear"), tag: 3)
+        settingsVC.tabBarItem = UITabBarItem(title: "Настройки", image: UIImage(named: "settings"), tag: 3)
         
         let tabBarList = [collectionVC, favoriteVC, cameraVC, settingsVC]
         
-        viewControllers = tabBarList.map {
-            UINavigationController(rootViewController: $0)
+        viewControllers = tabBarList.map() {
+            let controller = UINavigationController(rootViewController: $0)
+            controller.isNavigationBarHidden = true
+            return controller
         }
     }
 }

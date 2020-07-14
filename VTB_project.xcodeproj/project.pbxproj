@@ -16,12 +16,13 @@
 		2B6BC13D24AF45EB00ED4125 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BC13C24AF45EB00ED4125 /* SettingsViewController.swift */; };
 		2B6BC13F24AF468E00ED4125 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BC13E24AF468E00ED4125 /* MainTabBarController.swift */; };
 		2B80002224BDA628004D1A12 /* TableStyleHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B80002124BDA628004D1A12 /* TableStyleHeaderReusableView.swift */; };
+		2B80002424BDFB41004D1A12 /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B80002324BDFB41004D1A12 /* ListCollectionViewCell.swift */; };
 		2B9EF09924B89F98001CCEA3 /* CollectionViewDelegatesFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9EF09824B89F98001CCEA3 /* CollectionViewDelegatesFlowLayout.swift */; };
 		2BAD878024B4A85700F0DAC0 /* CollectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE61E3524B4A7F9007F9C19 /* CollectionManager.swift */; };
 		2BAD878224B4A8AB00F0DAC0 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAD878124B4A8AB00F0DAC0 /* NavigationBar.swift */; };
 		2BE3AB5D24B601A200EFAFA0 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE3AB5C24B601A200EFAFA0 /* Model.swift */; };
 		2BE3AB5F24B602D400EFAFA0 /* PresentationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE3AB5E24B602D400EFAFA0 /* PresentationStyle.swift */; };
-		2BE61E3324B4A43D007F9C19 /* TranslatorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE61E3224B4A43D007F9C19 /* TranslatorCollectionViewCell.swift */; };
+		2BE61E3324B4A43D007F9C19 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE61E3224B4A43D007F9C19 /* ImageCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,11 +37,12 @@
 		2B6BC13C24AF45EB00ED4125 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2B6BC13E24AF468E00ED4125 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		2B80002124BDA628004D1A12 /* TableStyleHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableStyleHeaderReusableView.swift; sourceTree = "<group>"; };
+		2B80002324BDFB41004D1A12 /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
 		2B9EF09824B89F98001CCEA3 /* CollectionViewDelegatesFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDelegatesFlowLayout.swift; sourceTree = "<group>"; };
 		2BAD878124B4A8AB00F0DAC0 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		2BE3AB5C24B601A200EFAFA0 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		2BE3AB5E24B602D400EFAFA0 /* PresentationStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationStyle.swift; sourceTree = "<group>"; };
-		2BE61E3224B4A43D007F9C19 /* TranslatorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatorCollectionViewCell.swift; sourceTree = "<group>"; };
+		2BE61E3224B4A43D007F9C19 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		2BE61E3524B4A7F9007F9C19 /* CollectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -159,9 +161,10 @@
 			children = (
 				2BE61E3524B4A7F9007F9C19 /* CollectionManager.swift */,
 				2B9EF09824B89F98001CCEA3 /* CollectionViewDelegatesFlowLayout.swift */,
-				2BE61E3224B4A43D007F9C19 /* TranslatorCollectionViewCell.swift */,
 				2BE3AB5E24B602D400EFAFA0 /* PresentationStyle.swift */,
 				2B80002124BDA628004D1A12 /* TableStyleHeaderReusableView.swift */,
+				2BE61E3224B4A43D007F9C19 /* ImageCollectionViewCell.swift */,
+				2B80002324BDFB41004D1A12 /* ListCollectionViewCell.swift */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -241,9 +244,10 @@
 				2B6BC13724AF45B500ED4125 /* CollectionViewController.swift in Sources */,
 				2BAD878024B4A85700F0DAC0 /* CollectionManager.swift in Sources */,
 				2B6BC13F24AF468E00ED4125 /* MainTabBarController.swift in Sources */,
-				2BE61E3324B4A43D007F9C19 /* TranslatorCollectionViewCell.swift in Sources */,
+				2BE61E3324B4A43D007F9C19 /* ImageCollectionViewCell.swift in Sources */,
 				2B6BC13D24AF45EB00ED4125 /* SettingsViewController.swift in Sources */,
 				2BE3AB5F24B602D400EFAFA0 /* PresentationStyle.swift in Sources */,
+				2B80002424BDFB41004D1A12 /* ListCollectionViewCell.swift in Sources */,
 				2BAD878224B4A8AB00F0DAC0 /* NavigationBar.swift in Sources */,
 				2B6BC11624AB0FE400ED4125 /* AppDelegate.swift in Sources */,
 				2B6BC13924AF45C400ED4125 /* FavoriteViewController.swift in Sources */,

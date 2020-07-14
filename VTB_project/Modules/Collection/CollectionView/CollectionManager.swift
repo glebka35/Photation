@@ -27,6 +27,17 @@ class CollectionManager: NSObject, CollectionViewManager {
     private var collectionView: UICollectionView
     public var storage = Storage()
     
+    private var numberOfRows: Int {
+        switch(presentationStyle) {
+        case .images:
+            return storage.objectsOnImages.count
+        case .table:
+            return storage.onlyObjects.count
+        default:
+            return 0
+        }
+    }
+    
     private var presentationStyle: PresentationStyle!
     
     override init() {
@@ -35,7 +46,7 @@ class CollectionManager: NSObject, CollectionViewManager {
         layout.sectionHeadersPinToVisibleBounds = true
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
-        for _ in 1...20 {
+        for _ in 1...10 {
             storage.add(imagesWithObjects: [ObjectsOnImage(image: UIImage(named: "car")!.jpegData(compressionQuality: 1)!, objects: [SingleObject(nativeName: "машина", foreignName: "car"), SingleObject(nativeName: "дерево", foreignName: "tree"), SingleObject(nativeName: "медведь", foreignName: "bear")], nativeLanguage: "Русский", foreignLanguage: "Английский")])
         }
     }
@@ -55,7 +66,9 @@ class CollectionManager: NSObject, CollectionViewManager {
     
     public func getConfiguredCollection(with style: PresentationStyle)->UICollectionView {
         
-        collectionView.register(TranslatorCollectionViewCell.self, forCellWithReuseIdentifier: "translatorCell")
+        collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
+        collectionView.register(ListCollectionViewCell.self, forCellWithReuseIdentifier: "listCell")
+        
         collectionView.register(TableStyleHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "tablePresentationHeader")
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -71,9 +84,7 @@ class CollectionManager: NSObject, CollectionViewManager {
     public func updatePresentationStyle(with style: PresentationStyle) {
         presentationStyle = style
         collectionView.delegate = styleDelegates[style]
-//        collectionView.performBatchUpdates({
-            collectionView.reloadData()
-//        }, completion: nil)
+        collectionView.reloadData()
     }
 }
 
@@ -83,31 +94,27 @@ extension CollectionManager: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch(presentationStyle) {
-        case .images:
-            return storage.getImagesWithObjects().count
-        case .table:
-            return storage.getOnlyObjects().count
-        default:
-            return 0
-        }
+        return numberOfRows
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "translatorCell", for: indexPath) as? TranslatorCollectionViewCell {
-            switch(presentationStyle) {
-            case .images:
-                let imageWithObjects = storage.getImagesWithObjects()[indexPath.row]
+        switch(presentationStyle) {
+        case .images:
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as? ImageCollectionViewCell {
+                let imageWithObjects = storage.objectsOnImages[indexPath.row]
                 cell.updateStateWith(image: imageWithObjects)
-            case .table:
-                let object = storage.getOnlyObjects()[indexPath.row]
-                cell.updateStateWith(object: object)
-            default:
-                break
+                return cell
             }
-            return cell
+        case .table:
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "listCell", for: indexPath) as? ListCollectionViewCell {
+                let object = storage.onlyObjects[indexPath.row]
+                cell.updateStateWith(object: object)
+                return cell
+            }
+        default:
+            break
         }
-        return TranslatorCollectionViewCell()
+        return UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

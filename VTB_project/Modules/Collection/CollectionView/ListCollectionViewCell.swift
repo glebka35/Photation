@@ -1,0 +1,58 @@
+//
+//  ListCollectionViewCell.swift
+//  VTB_project
+//
+//  Created by Gleb Uvarkin on 14.07.2020.
+//  Copyright © 2020 Gleb Uvarkin. All rights reserved.
+//
+
+import UIKit
+
+class ListCollectionViewCell: UICollectionViewCell {
+    private var objectNativeLabel = UILabel()
+    private var objectForeignLabel = UILabel()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        layer.cornerRadius = 10
+        
+        addAndConfigureLabels()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+        
+    private func addAndConfigureLabels() {
+        configure(label: objectNativeLabel)
+        configure(label: objectForeignLabel)
+        
+        let stackForLabels = UIStackView(arrangedSubviews: [objectNativeLabel, objectForeignLabel])
+        
+        stackForLabels.axis = .horizontal
+        stackForLabels.alignment = .center
+        stackForLabels.distribution = .equalCentering
+        
+        stackForLabels.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(stackForLabels)
+        
+        NSLayoutConstraint.activate([
+            stackForLabels.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+            stackForLabels.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            stackForLabels.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+    }
+    
+    private func configure(label: UILabel) {
+        label.numberOfLines = 1
+        label.textColor = #colorLiteral(red: 0.007841579616, green: 0.007844133303, blue: 0.007841020823, alpha: 1)
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+    }
+    
+    public func updateStateWith(object: SingleObject) {
+        objectNativeLabel.text = object.nativeName
+        objectForeignLabel.text = object.foreignName
+    }
+}

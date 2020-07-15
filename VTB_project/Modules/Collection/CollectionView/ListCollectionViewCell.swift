@@ -16,6 +16,8 @@ class ListCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         layer.cornerRadius = 10
+        layer.borderWidth = 1
+        layer.borderColor = #colorLiteral(red: 0.9371728301, green: 0.937307477, blue: 0.9410645366, alpha: 1)
         
         addAndConfigureLabels()
     }

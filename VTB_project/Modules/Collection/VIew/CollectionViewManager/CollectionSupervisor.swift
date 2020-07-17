@@ -16,26 +16,20 @@ struct CollectionSizes {
     static let topSpacing: CGFloat = 15
 }
 
-protocol CollectionViewManager {
+protocol CollectionViewSupervisor {
     var styleDelegates: [PresentationStyle: CollectionViewSelectableItemDelegate] { get }
+    var objects: [ObjectsOnImage] { get set }
     
     func getConfiguredCollection(with style: PresentationStyle)->UICollectionView
     func updatePresentationStyle(with style: PresentationStyle)
 }
 
-class CollectionManager: NSObject, CollectionViewManager {
+class CollectionSupervisor: NSObject, CollectionViewSupervisor {
     private var collectionView: UICollectionView
-    public var storage = Storage()
+    public var objects = [ObjectsOnImage]()
     
     private var numberOfRows: Int {
-        switch(presentationStyle) {
-        case .images:
-            return storage.objectsOnImages.count
-        case .table:
-            return storage.onlyObjects.count
-        default:
-            return 0
-        }
+        return objects.count
     }
     
     private var presentationStyle: PresentationStyle!
@@ -45,10 +39,6 @@ class CollectionManager: NSObject, CollectionViewManager {
         layout.scrollDirection = .vertical
         layout.sectionHeadersPinToVisibleBounds = true
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
-        for _ in 1...10 {
-            storage.add(imagesWithObjects: [ObjectsOnImage(image: UIImage(named: "car")!.jpegData(compressionQuality: 1)!, objects: [SingleObject(nativeName: "машина", foreignName: "car"), SingleObject(nativeName: "дерево", foreignName: "tree"), SingleObject(nativeName: "медведь", foreignName: "bear")], nativeLanguage: "Русский", foreignLanguage: "Английский")])
-        }
     }
 
     public var styleDelegates: [PresentationStyle: CollectionViewSelectableItemDelegate] = {
@@ -88,7 +78,7 @@ class CollectionManager: NSObject, CollectionViewManager {
     }
 }
 
-extension CollectionManager: UICollectionViewDataSource {
+extension CollectionSupervisor: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -101,14 +91,16 @@ extension CollectionManager: UICollectionViewDataSource {
         switch(presentationStyle) {
         case .images:
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as? ImageCollectionViewCell {
-                let imageWithObjects = storage.objectsOnImages[indexPath.row]
+                let imageWithObjects = objects[indexPath.row]
                 cell.updateStateWith(image: imageWithObjects)
                 return cell
             }
         case .table:
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "listCell", for: indexPath) as? ListCollectionViewCell {
-                let object = storage.onlyObjects[indexPath.row]
-                cell.updateStateWith(object: object)
+                if let object = objects[indexPath.row].objects.first {
+                    cell.updateStateWith(object: object)
+                }
+                
                 return cell
             }
         default:

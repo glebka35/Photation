@@ -10,28 +10,25 @@ import UIKit
 
 
 
-class CollectionViewController: UIViewController {
+class CollectionView: UIViewController, CollectionViewProtocol {
+    var presenter: CollectionPresenterProtocol?
     
-    private var collectionManager: CollectionViewManager?
+    private var collectionSupervisor: CollectionViewSupervisor = CollectionSupervisor()
     private let navigationBar = NavigationBar()
-    private var presentationStyle: PresentationStyle = .images {
-        didSet {
-            updatePresentationStyle()
-        }
-    }
     
+    private var currentStyle: PresentationStyle = .images
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let assembly = CollectionAssembly()
+        assembly.createCollectionModule(collectionRef: self)
+        presenter?.viewDidLoad(with: currentStyle)
 
         view.backgroundColor = .white
         
         addAndConfigureNavigationBar()
         addAndConfigureCollectionView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-
     }
     
     func addAndConfigureNavigationBar() {
@@ -51,14 +48,12 @@ class CollectionViewController: UIViewController {
         
         navigationBar.titleString = "Коллекция"
         navigationBar.rightTitleString = "English"
-        navigationBar.rightButtonImage = UIImage(named: presentationStyle.buttonImage)
+        navigationBar.rightButtonImage = UIImage(named: currentStyle.buttonImage)
         navigationBar.delegate = self
     }
 
     func addAndConfigureCollectionView() {
-        collectionManager = CollectionManager()
-        
-        guard let collectionView = collectionManager?.getConfiguredCollection(with: presentationStyle) else { return }
+        let collectionView = collectionSupervisor.getConfiguredCollection(with: currentStyle)
 
         view.addSubview(collectionView)
         
@@ -70,18 +65,19 @@ class CollectionViewController: UIViewController {
         ])
     }
     
-    private func updatePresentationStyle() {
-        navigationBar.rightButtonImage = UIImage(named: presentationStyle.buttonImage)
-        
-        collectionManager?.updatePresentationStyle(with: presentationStyle)
+    func updatePresentation(with style: PresentationStyle) {
+        navigationBar.rightButtonImage = UIImage(named: style.buttonImage)
+        collectionSupervisor.updatePresentationStyle(with: style)
+        currentStyle = style
+    }
+    
+    func updateContent(with objects: [ObjectsOnImage]) {
+        collectionSupervisor.objects = objects
     }
 }
 
-extension CollectionViewController: NavigationBarDelegate {
+extension CollectionView: NavigationBarDelegate {
     func rightAction(sender: UIButton!) {
-        let allCases = PresentationStyle.allCases
-        guard let index = allCases.firstIndex(of: presentationStyle) else { return }
-        let nextIndex = (index + 1) % allCases.count
-        presentationStyle = allCases[nextIndex]
+        presenter?.changePresentation()
     }
 }

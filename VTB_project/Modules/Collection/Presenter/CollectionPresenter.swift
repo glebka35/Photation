@@ -11,7 +11,7 @@ import Foundation
 class CollectionPresenter: CollectionPresenterProtocol {
     var interactor: CollectionInputInteractorProtocol?
     weak var view: CollectionViewProtocol?
-    var wireframe: CollectionWireFrameProtocol?
+    var assembly: CollectionAssemblyProtocol?
     
     private var currentStyle: PresentationStyle!
     
@@ -41,7 +41,9 @@ extension CollectionPresenter: CollectionOutputInteractorProtocol {
         case .table:
             var singleObjects = [SingleObject]()
             objects.forEach { singleObjects.append(contentsOf: $0.objects) }
-            singleObjects.forEach { objectsToDisplay.append(ObjectsOnImage(image: Data(), objects: [$0], nativeLanguage: objects[0].nativeLanguage, foreignLanguage: objects[0].foreignLanguage))}
+            if let nativeLanguage = objects.first?.nativeLanguage, let foreignLanguage = objects.first?.foreignLanguage {
+                singleObjects.forEach { objectsToDisplay.append(ObjectsOnImage(image: Data(), objects: [$0], nativeLanguage: nativeLanguage, foreignLanguage: foreignLanguage))}
+            }
         default:
             break
         }

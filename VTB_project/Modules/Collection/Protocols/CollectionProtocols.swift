@@ -20,7 +20,7 @@ protocol CollectionPresenterProtocol: AnyObject {
 //    VIEW -> PRESENTER
     var interactor: CollectionInputInteractorProtocol? { get set }
     var view: CollectionViewProtocol? { get set }
-    var wireframe: CollectionWireFrameProtocol? { get set }
+    var assembly: CollectionAssemblyProtocol? { get set }
     
     func viewDidLoad(with style: PresentationStyle)
     func changePresentation()
@@ -39,8 +39,7 @@ protocol CollectionOutputInteractorProtocol: AnyObject {
     
 }
 
-protocol CollectionWireFrameProtocol: AnyObject {
-//    PRESENTER -> WIREFRAME
-    
-    static func createCollectionModule(collectionRef: CollectionView)
+protocol CollectionAssemblyProtocol: AnyObject {
+//    PRESENTER -> ASSEMBLY
+    func createCollectionModule(collectionRef: CollectionView)
 }

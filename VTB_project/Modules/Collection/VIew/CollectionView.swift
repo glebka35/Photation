@@ -13,15 +13,16 @@ import UIKit
 class CollectionView: UIViewController, CollectionViewProtocol {
     var presenter: CollectionPresenterProtocol?
     
-    private var collectionManager: CollectionViewManager = CollectionManager()
+    private var collectionSupervisor: CollectionViewSupervisor = CollectionSupervisor()
     private let navigationBar = NavigationBar()
     
     private var currentStyle: PresentationStyle = .images
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        CollectionWireFrame.createCollectionModule(collectionRef: self)
+
+        let assembly = CollectionAssembly()
+        assembly.createCollectionModule(collectionRef: self)
         presenter?.viewDidLoad(with: currentStyle)
 
         view.backgroundColor = .white
@@ -52,7 +53,7 @@ class CollectionView: UIViewController, CollectionViewProtocol {
     }
 
     func addAndConfigureCollectionView() {
-        let collectionView = collectionManager.getConfiguredCollection(with: currentStyle)
+        let collectionView = collectionSupervisor.getConfiguredCollection(with: currentStyle)
 
         view.addSubview(collectionView)
         
@@ -66,12 +67,12 @@ class CollectionView: UIViewController, CollectionViewProtocol {
     
     func updatePresentation(with style: PresentationStyle) {
         navigationBar.rightButtonImage = UIImage(named: style.buttonImage)
-        collectionManager.updatePresentationStyle(with: style)
+        collectionSupervisor.updatePresentationStyle(with: style)
         currentStyle = style
     }
     
     func updateContent(with objects: [ObjectsOnImage]) {
-        collectionManager.objects = objects
+        collectionSupervisor.objects = objects
     }
 }
 

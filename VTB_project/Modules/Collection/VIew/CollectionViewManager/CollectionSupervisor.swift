@@ -16,7 +16,7 @@ struct CollectionSizes {
     static let topSpacing: CGFloat = 15
 }
 
-protocol CollectionViewManager {
+protocol CollectionViewSupervisor {
     var styleDelegates: [PresentationStyle: CollectionViewSelectableItemDelegate] { get }
     var objects: [ObjectsOnImage] { get set }
     
@@ -24,7 +24,7 @@ protocol CollectionViewManager {
     func updatePresentationStyle(with style: PresentationStyle)
 }
 
-class CollectionManager: NSObject, CollectionViewManager {
+class CollectionSupervisor: NSObject, CollectionViewSupervisor {
     private var collectionView: UICollectionView
     public var objects = [ObjectsOnImage]()
     
@@ -78,7 +78,7 @@ class CollectionManager: NSObject, CollectionViewManager {
     }
 }
 
-extension CollectionManager: UICollectionViewDataSource {
+extension CollectionSupervisor: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }

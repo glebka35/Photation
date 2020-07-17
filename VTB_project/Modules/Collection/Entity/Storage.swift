@@ -13,7 +13,7 @@ public struct Storage {
         objectsOnImages.append(contentsOf: imagesWithObjects)
     }
     
-    private(set) var objectsOnImages = [ObjectsOnImage]()
+    private(set) var objectsOnImages: [ObjectsOnImage] = []
 }
 
 public struct ObjectsOnImage {

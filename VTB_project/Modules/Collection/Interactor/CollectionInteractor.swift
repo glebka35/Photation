@@ -15,7 +15,7 @@ class CollectionInteractor: CollectionInputInteractorProtocol {
     var storage = Storage()
     
     init() {
-        for _ in 1...10 {
+        (1...10).forEach { _ in
             storage.add(imagesWithObjects: [ObjectsOnImage(image: UIImage(named: "car")!.jpegData(compressionQuality: 1)!, objects: [SingleObject(nativeName: "машина", foreignName: "car"), SingleObject(nativeName: "дерево", foreignName: "tree"), SingleObject(nativeName: "медведь", foreignName: "bear")], nativeLanguage: "Русский", foreignLanguage: "Английский")])
         }
     }

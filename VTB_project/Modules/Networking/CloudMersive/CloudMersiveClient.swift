@@ -9,17 +9,6 @@
 import Foundation
 import GUNetworkLayer
 
-struct HTTPProvider: ClientSettingsProviderProtocol {
-    var settings: ClientSettings
-    var baseURL: URL
-}
-
-enum Environment {
-    case prod
-    case debug
-    case adhoc
-}
-
 class CloudMersiveClient {
 
     var baseURL = URL(string: "https://api.cloudmersive.com")!
@@ -40,7 +29,7 @@ class CloudMersiveClient {
 
     func getRecognition(of image: Data?, name: String, completion: @escaping (_ objects: [Object]?, _ success: Bool?)->()) {
         if let data = image {
-            let request = Request(headers: headers, boundary: boundary, path: "/image/recognize/detect-objects", httpMethod: .post, task: .requestFormDataAndHeaders(bodyParameters: nil, urlParameters: nil, additionHeaders: headers, boundary: boundary, data: data, mimeType: "image/jpg", filename: name))
+            let request = Request(path: "/image/recognize/detect-objects", httpMethod: .post, task: .requestParameters(bodyParameters: nil, bodyContentType: .multipartFormData(boundary: boundary, data: data, mimeType: "image/jpg", filename: name), urlParameters: nil))
 
             networkManager.execute(request: request) {(response, error) in
                 if let response = response {

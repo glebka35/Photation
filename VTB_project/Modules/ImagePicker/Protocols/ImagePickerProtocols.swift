@@ -37,11 +37,6 @@ protocol ImagePickerOutputInteractorProtocol: AnyObject {
 //    INTERACTOR->PRESENTER
 }
 
-protocol ImagePickerAssemblyProtocol: AnyObject {
-//    PRESENTER->ASSEMBLY
-    func createImagePickerModule(imagePickerRef: ImagePickerView)
-}
-
 protocol ImagePickerRouterInputProtocol: AnyObject {
 //    PRESENTER -> ROUTER
     var view: ImagePickerView? { get set }

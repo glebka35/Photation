@@ -20,7 +20,7 @@ class MainTabBarController: UITabBarController {
         let favoriteVC = FavoriteViewController()
         favoriteVC.tabBarItem = UITabBarItem(title: "Избранное", image: UIImage(named: "favorite"), tag: 1)
         
-        let cameraVC = CameraViewController()
+        let cameraVC = ImagePickerView()
         cameraVC.tabBarItem = UITabBarItem(title: "Камера", image: UIImage(named: "camera"), tag: 2)
         
         let settingsVC = SettingsViewController()

@@ -12,7 +12,7 @@ class CollectionView: UIViewController, CollectionViewProtocol {
     var presenter: CollectionPresenterProtocol?
     
     private var collectionSupervisor: CollectionViewSupervisor = CollectionSupervisor()
-    private let navigationBar = NavigationBar()
+    private var navigationBar: NavigationBar!
     
     private var currentStyle: PresentationStyle = .images
 
@@ -30,6 +30,7 @@ class CollectionView: UIViewController, CollectionViewProtocol {
     }
     
     func addAndConfigureNavigationBar() {
+        navigationBar = NavigationBar(title: "Коллекция", rightTitle: "English", rightButtonImage: UIImage(named: currentStyle.buttonImage), isSearchBarNeeded: true)
         view.addSubview(navigationBar)
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         
@@ -43,10 +44,7 @@ class CollectionView: UIViewController, CollectionViewProtocol {
         
         let height = CGFloat(90) ///calculated height
         constraint.constant = height
-        
-        navigationBar.titleString = "Коллекция"
-        navigationBar.rightTitleString = "English"
-        navigationBar.rightButtonImage = UIImage(named: currentStyle.buttonImage)
+
         navigationBar.delegate = self
     }
 

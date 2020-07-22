@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "GUNetworkLayer",
+        "repositoryURL": "https://github.com/glebka35/GUNetworkLayer.git",
+        "state": {
+          "branch": "master",
+          "revision": "df3e23739d73e0da94195d54f5e35cc881aaa379",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class CollectionView: UIViewController, CollectionViewProtocol {
     var presenter: CollectionPresenterProtocol?
     

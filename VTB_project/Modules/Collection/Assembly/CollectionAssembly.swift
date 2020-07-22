@@ -8,14 +8,23 @@
 
 import Foundation
 
-class CollectionAssembly: CollectionAssemblyProtocol {
-    func createCollectionModule(collectionRef: CollectionView) {
+class CollectionAssembly {
+    func createCollectionModule()->CollectionView {
         let presenter: CollectionPresenterProtocol & CollectionOutputInteractorProtocol = CollectionPresenter()
-        
-        collectionRef.presenter = presenter
-        collectionRef.presenter?.assembly = self
-        collectionRef.presenter?.view = collectionRef
-        collectionRef.presenter?.interactor = CollectionInteractor()
-        collectionRef.presenter?.interactor?.presenter = presenter
+        let collectionView = CollectionView()
+        let router = CollectionRouter()
+        let interactor = CollectionInteractor()
+
+        router.view = collectionView
+
+        interactor.presenter = presenter
+
+        presenter.router = router
+        presenter.view = collectionView
+        presenter.interactor = interactor
+
+        collectionView.presenter = presenter
+
+        return collectionView
     }
 }

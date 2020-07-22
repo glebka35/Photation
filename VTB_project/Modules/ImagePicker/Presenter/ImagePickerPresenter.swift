@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class ImagePickerPresenter: ImagePickerPresenterProtocol {
-    var assembly: ImagePickerAssemblyProtocol?
+    var router: ImagePickerRouterInputProtocol?
     var interactor: ImagePickerInputInteractorProtocol?
     weak var view: ImagePickerView?
 

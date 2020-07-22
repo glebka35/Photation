@@ -20,7 +20,7 @@ protocol CollectionPresenterProtocol: AnyObject {
 //    VIEW -> PRESENTER
     var interactor: CollectionInputInteractorProtocol? { get set }
     var view: CollectionViewProtocol? { get set }
-    var assembly: CollectionAssemblyProtocol? { get set }
+    var router: CollectionRouterInputProtocol? { get set }
     
     func viewDidLoad(with style: PresentationStyle)
     func changePresentation()
@@ -36,10 +36,11 @@ protocol CollectionInputInteractorProtocol: AnyObject {
 protocol CollectionOutputInteractorProtocol: AnyObject {
 //    INTERACTOR -> PRESENTER
     func objectsDidFetch(objects: [ObjectsOnImage])
-    
 }
 
-protocol CollectionAssemblyProtocol: AnyObject {
-//    PRESENTER -> ASSEMBLY
-    func createCollectionModule(collectionRef: CollectionView)
+protocol CollectionRouterInputProtocol: AnyObject {
+//    PRESENTER -> ROUTER
+    var view: CollectionView? { get set }
+
+    func closeModule()
 }

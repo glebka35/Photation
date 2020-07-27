@@ -11,7 +11,7 @@ import Foundation
 class CollectionPresenter: CollectionPresenterProtocol {
     var interactor: CollectionInputInteractorProtocol?
     weak var view: CollectionViewProtocol?
-    var assembly: CollectionAssemblyProtocol?
+    var router: CollectionRouterInputProtocol?
     
     private var currentStyle: PresentationStyle!
     

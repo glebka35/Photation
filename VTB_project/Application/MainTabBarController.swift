@@ -13,14 +13,14 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let collectionVC = CollectionView()
+        let collectionVC = CollectionAssembly().createCollectionModule()
         
         collectionVC.tabBarItem = UITabBarItem(title: "Коллекция", image: UIImage(named: "collection"), tag: 0)
         
         let favoriteVC = FavoriteViewController()
         favoriteVC.tabBarItem = UITabBarItem(title: "Избранное", image: UIImage(named: "favorite"), tag: 1)
         
-        let cameraVC = ImagePickerView()
+        let cameraVC = ImagePickerAssembly().createImagePickerModule()
         cameraVC.tabBarItem = UITabBarItem(title: "Камера", image: UIImage(named: "camera"), tag: 2)
         
         let settingsVC = SettingsViewController()

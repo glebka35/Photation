@@ -20,9 +20,6 @@ class ImagePickerView: UIViewController, ImagePickerViewProtocol {
 
         addAndConfigureNavigationBar()
         addAndConfigurePhotoSourceButtons()
-
-        let assembly = ImagePickerAssembly()
-        assembly.createImagePickerModule(imagePickerRef: self)
     }
 
     private func addAndConfigureNavigationBar() {

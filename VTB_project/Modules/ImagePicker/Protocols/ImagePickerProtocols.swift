@@ -21,7 +21,7 @@ protocol ImagePickerPresenterProtocol: AnyObject {
 //    VIEW->PRESENTER
     var interactor: ImagePickerInputInteractorProtocol? { get set }
     var view: ImagePickerView? { get set }
-    var assembly: ImagePickerAssemblyProtocol? { get set }
+    var router: ImagePickerRouterInputProtocol? { get set }
 
     func cameraButtonPressed()
     func galeryButtonPressed()
@@ -37,7 +37,9 @@ protocol ImagePickerOutputInteractorProtocol: AnyObject {
 //    INTERACTOR->PRESENTER
 }
 
-protocol ImagePickerAssemblyProtocol: AnyObject {
-//    PRESENTER->ASSEMBLY
-    func createImagePickerModule(imagePickerRef: ImagePickerView)
+protocol ImagePickerRouterInputProtocol: AnyObject {
+//    PRESENTER -> ROUTER
+    var view: ImagePickerView? { get set }
+
+    func closeModule()
 }

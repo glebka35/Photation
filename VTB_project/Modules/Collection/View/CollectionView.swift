@@ -19,8 +19,6 @@ class CollectionView: UIViewController, CollectionViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let assembly = CollectionAssembly()
-        assembly.createCollectionModule(collectionRef: self)
         presenter?.viewDidLoad(with: currentStyle)
 
         view.backgroundColor = .white

@@ -10,8 +10,8 @@ import Foundation
 import UIKit // Надо убрать отсюда зависимость от UIKit, пока этого нельзя сделать, так как
 // вместо картинок использую заглушки из ассетов, но после подключения api эта проблема уйдет
 
-class CollectionInteractor: CollectionInputInteractorProtocol {
-    weak var presenter: CollectionOutputInteractorProtocol?
+class CollectionInteractor: CollectionInteractorInput {
+    weak var presenter: CollectionInteractorOutput?
     var storage = Storage()
     
     init() {

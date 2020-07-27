@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-class ImagePickerPresenter: ImagePickerPresenterProtocol {
-    var router: ImagePickerRouterInputProtocol?
-    var interactor: ImagePickerInputInteractorProtocol?
+class ImagePickerPresenter: ImagePickerViewOutput {
+    var router: ImagePickerRouterInput?
+    var interactor: ImagePickerInteractorInput?
     weak var view: ImagePickerView?
 
     func cameraButtonPressed() {
@@ -24,9 +24,11 @@ class ImagePickerPresenter: ImagePickerPresenterProtocol {
 
     func receiveImageFromUser(image: UIImage) {
         print("good")
+        let newView = DetailAssembly().createDetailModule()
+        view?.navigationController?.pushViewController(newView, animated: true)
     }
 }
 
-extension ImagePickerPresenter: ImagePickerOutputInteractorProtocol {
+extension ImagePickerPresenter: ImagePickerInteractorOutput {
 
 }

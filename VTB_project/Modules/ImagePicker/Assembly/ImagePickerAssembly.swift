@@ -10,7 +10,7 @@ import Foundation
 
 class ImagePickerAssembly {
    func createImagePickerModule()->ImagePickerView {
-        let presenter: ImagePickerPresenterProtocol & ImagePickerOutputInteractorProtocol = ImagePickerPresenter()
+        let presenter: ImagePickerViewOutput & ImagePickerInteractorOutput = ImagePickerPresenter()
         let view = ImagePickerView()
         let router = ImagePickerRouter()
         let interactor = ImagePickerInteractor()

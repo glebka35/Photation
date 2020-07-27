@@ -8,11 +8,11 @@
 
 import UIKit
 
-class CollectionView: UIViewController, CollectionViewProtocol {
-    var presenter: CollectionPresenterProtocol?
+class CollectionView: UIViewController, CollectionViewInput {
+    var presenter: CollectionViewOutput?
     
     private var collectionSupervisor: CollectionViewSupervisor = CollectionSupervisor()
-    private var navigationBar: NavigationBar!
+    private var navigationBar: MainNavigationBar!
     
     private var currentStyle: PresentationStyle = .images
 
@@ -28,20 +28,16 @@ class CollectionView: UIViewController, CollectionViewProtocol {
     }
     
     func addAndConfigureNavigationBar() {
-        navigationBar = NavigationBar(title: "Коллекция", rightTitle: "English", rightButtonImage: UIImage(named: currentStyle.buttonImage), isSearchBarNeeded: true)
+        navigationBar = MainNavigationBar(title: "Коллекция", rightTitle: "English", rightButtonImage: UIImage(named: currentStyle.buttonImage), isSearchBarNeeded: true)
         view.addSubview(navigationBar)
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         
-        let constraint = navigationBar.heightAnchor.constraint(equalToConstant: 0)
         NSLayoutConstraint.activate([
             navigationBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
             navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            constraint
+            navigationBar.bottomAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 90)
         ])
-        
-        let height = CGFloat(90) ///calculated height
-        constraint.constant = height
 
         navigationBar.delegate = self
     }
@@ -71,7 +67,7 @@ class CollectionView: UIViewController, CollectionViewProtocol {
 }
 
 extension CollectionView: NavigationBarDelegate {
-    func rightAction(sender: UIButton!) {
+    func action(sender: UIButton!) {
         presenter?.changePresentation()
     }
 }

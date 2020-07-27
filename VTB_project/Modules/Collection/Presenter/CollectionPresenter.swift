@@ -8,10 +8,10 @@
 
 import Foundation
 
-class CollectionPresenter: CollectionPresenterProtocol {
-    var interactor: CollectionInputInteractorProtocol?
-    weak var view: CollectionViewProtocol?
-    var router: CollectionRouterInputProtocol?
+class CollectionPresenter: CollectionViewOutput {
+    var interactor: CollectionInteractorInput?
+    weak var view: CollectionViewInput?
+    var router: CollectionRouterInput?
     
     private var currentStyle: PresentationStyle!
     
@@ -31,7 +31,7 @@ class CollectionPresenter: CollectionPresenterProtocol {
     }
 }
 
-extension CollectionPresenter: CollectionOutputInteractorProtocol {
+extension CollectionPresenter: CollectionInteractorOutput {
     func objectsDidFetch(objects: [ObjectsOnImage]) {
         var objectsToDisplay = [ObjectsOnImage]()
         

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CollectionRouter: CollectionRouterInputProtocol {
+class CollectionRouter: CollectionRouterInput {
     weak var view: CollectionView?
 
     func closeModule() {

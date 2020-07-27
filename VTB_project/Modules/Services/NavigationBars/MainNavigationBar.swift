@@ -8,11 +8,7 @@
 
 import UIKit
 
-protocol NavigationBarDelegate: class {
-    func rightAction(sender: UIButton!)
-}
-
-class NavigationBar: UIView {
+class MainNavigationBar: UIView {
     
     weak var delegate: NavigationBarDelegate?
     
@@ -94,7 +90,7 @@ class NavigationBar: UIView {
     }
     
     @objc func rightButtonAction(sender: UIButton!) {
-        delegate?.rightAction(sender: sender)
+        delegate?.action(sender: sender)
     }
     
     private func addAndConfigureSearchBar() {

@@ -26,8 +26,8 @@ protocol CollectionViewSupervisor {
 
 class CollectionSupervisor: NSObject, CollectionViewSupervisor {
     private var collectionView: UICollectionView
-    public var objects = [ObjectsOnImage]()
-    
+    public var objects: [ObjectsOnImage] = []
+
     private var numberOfRows: Int {
         return objects.count
     }
@@ -48,14 +48,13 @@ class CollectionSupervisor: NSObject, CollectionViewSupervisor {
         ]
         result.values.forEach {
             $0.didSelectItem = { _ in
-                print("Item selected")
+                
             }
         }
         return result
     } ()
     
-    public func getConfiguredCollection(with style: PresentationStyle)->UICollectionView {
-        
+    func getConfiguredCollection(with style: PresentationStyle)->UICollectionView {
         collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
         collectionView.register(ListCollectionViewCell.self, forCellWithReuseIdentifier: "listCell")
         
@@ -71,7 +70,7 @@ class CollectionSupervisor: NSObject, CollectionViewSupervisor {
         return collectionView
     }
     
-    public func updatePresentationStyle(with style: PresentationStyle) {
+    func updatePresentationStyle(with style: PresentationStyle) {
         presentationStyle = style
         collectionView.delegate = styleDelegates[style]
         collectionView.reloadData()

@@ -8,37 +8,37 @@
 
 import Foundation
 
-protocol CollectionViewProtocol: AnyObject {
+protocol CollectionViewInput: AnyObject {
 //    PRESENTER -> VIEW
-    var presenter: CollectionPresenterProtocol? { get set }
+    var presenter: CollectionViewOutput? { get set }
     
     func updatePresentation(with style: PresentationStyle)
     func updateContent(with objects: [ObjectsOnImage])
 }
 
-protocol CollectionPresenterProtocol: AnyObject {
+protocol CollectionViewOutput: AnyObject {
 //    VIEW -> PRESENTER
-    var interactor: CollectionInputInteractorProtocol? { get set }
-    var view: CollectionViewProtocol? { get set }
-    var router: CollectionRouterInputProtocol? { get set }
+    var interactor: CollectionInteractorInput? { get set }
+    var view: CollectionViewInput? { get set }
+    var router: CollectionRouterInput? { get set }
     
     func viewDidLoad(with style: PresentationStyle)
     func changePresentation()
 }
 
-protocol CollectionInputInteractorProtocol: AnyObject {
+protocol CollectionInteractorInput: AnyObject {
 //    PRESENTER -> INTERACTOR
-    var presenter: CollectionOutputInteractorProtocol? { get set }
+    var presenter: CollectionInteractorOutput? { get set }
     
     func getObjects()
 }
 
-protocol CollectionOutputInteractorProtocol: AnyObject {
+protocol CollectionInteractorOutput: AnyObject {
 //    INTERACTOR -> PRESENTER
     func objectsDidFetch(objects: [ObjectsOnImage])
 }
 
-protocol CollectionRouterInputProtocol: AnyObject {
+protocol CollectionRouterInput: AnyObject {
 //    PRESENTER -> ROUTER
     var view: CollectionView? { get set }
 

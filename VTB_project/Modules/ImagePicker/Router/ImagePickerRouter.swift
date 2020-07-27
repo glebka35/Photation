@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ImagePickerRouter: ImagePickerRouterInputProtocol {
+class ImagePickerRouter: ImagePickerRouterInput {
     weak var view: ImagePickerView?
 
     func closeModule() {

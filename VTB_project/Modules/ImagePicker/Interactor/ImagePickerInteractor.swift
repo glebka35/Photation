@@ -8,6 +8,6 @@
 
 import Foundation
 
-class ImagePickerInteractor: ImagePickerInputInteractorProtocol {
-    weak var presenter: ImagePickerOutputInteractorProtocol?
+class ImagePickerInteractor: ImagePickerInteractorInput {
+    weak var presenter: ImagePickerInteractorOutput?
 }

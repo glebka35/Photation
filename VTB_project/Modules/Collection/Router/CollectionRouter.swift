@@ -8,8 +8,13 @@
 
 import Foundation
 
-class CollectionRouter: CollectionRouterInputProtocol {
+class CollectionRouter: CollectionRouterInput {
     weak var view: CollectionView?
+
+    func showDetail(of object: ObjectsOnImage) {
+        let detailView = DetailAssembly().createDetailModule(with: object)
+        view?.navigationController?.pushViewController(detailView, animated: true)
+    }
 
     func closeModule() {
         view?.dismiss(animated: true, completion: nil)

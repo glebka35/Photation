@@ -8,10 +8,12 @@
 
 import Foundation
 
-class CollectionPresenter: CollectionPresenterProtocol {
-    var interactor: CollectionInputInteractorProtocol?
-    weak var view: CollectionViewProtocol?
-    var router: CollectionRouterInputProtocol?
+class CollectionPresenter: CollectionViewOutput {
+    var interactor: CollectionInteractorInput?
+    weak var view: CollectionViewInput?
+    var router: CollectionRouterInput?
+
+    private var displayingObjects: [ObjectsOnImage]?
     
     private var currentStyle: PresentationStyle!
     
@@ -29,21 +31,36 @@ class CollectionPresenter: CollectionPresenterProtocol {
         interactor?.getObjects()
         view?.updatePresentation(with: newStyle)
     }
+
+    func cellSelected(at indexPath: IndexPath) {
+        if let object = displayingObjects?[indexPath.row] {
+            router?.showDetail(of: object)
+        }
+    }
 }
 
-extension CollectionPresenter: CollectionOutputInteractorProtocol {
+extension CollectionPresenter: CollectionInteractorOutput {
     func objectsDidFetch(objects: [ObjectsOnImage]) {
         var objectsToDisplay = [ObjectsOnImage]()
         
         switch(currentStyle) {
         case .images:
             objectsToDisplay = objects
+            displayingObjects = objectsToDisplay
         case .table:
             var singleObjects = [SingleObject]()
-            objects.forEach { singleObjects.append(contentsOf: $0.objects) }
+            var displayingObjects = [ObjectsOnImage]()
+            objects.forEach { objectWithImage in
+                singleObjects.append(contentsOf: objectWithImage.objects)
+                objectWithImage.objects.forEach { _ in
+                    displayingObjects.append(objectWithImage)
+                }
+            }
             if let nativeLanguage = objects.first?.nativeLanguage, let foreignLanguage = objects.first?.foreignLanguage {
                 singleObjects.forEach { objectsToDisplay.append(ObjectsOnImage(image: Data(), objects: [$0], nativeLanguage: nativeLanguage, foreignLanguage: foreignLanguage))}
             }
+
+            self.displayingObjects = displayingObjects
         default:
             break
         }

@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import UIKit
 
-public struct Storage {
+struct Storage {
     public mutating func add(imagesWithObjects: [ObjectsOnImage]) {
         objectsOnImages.append(contentsOf: imagesWithObjects)
     }
@@ -16,15 +17,18 @@ public struct Storage {
     private(set) var objectsOnImages: [ObjectsOnImage] = []
 }
 
-public struct ObjectsOnImage {
+struct ObjectsOnImage {
     let image: Data
-    let objects: [SingleObject]
+    var objects: [SingleObject]
     
     let nativeLanguage: String
     let foreignLanguage: String
 }
 
-public struct SingleObject {
+struct SingleObject {
     let nativeName: String
     let foreignName: String
+
+    let color: UIColor
+    var isFavorite: IsWordFavorite
 }

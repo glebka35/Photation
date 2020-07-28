@@ -10,7 +10,7 @@ import Foundation
 
 class CollectionAssembly {
     func createCollectionModule()->CollectionView {
-        let presenter: CollectionPresenterProtocol & CollectionOutputInteractorProtocol = CollectionPresenter()
+        let presenter: CollectionViewOutput & CollectionInteractorOutput = CollectionPresenter()
         let collectionView = CollectionView()
         let router = CollectionRouter()
         let interactor = CollectionInteractor()

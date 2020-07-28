@@ -8,14 +8,15 @@
 
 import UIKit
 
-class ImagePickerView: UIViewController, ImagePickerViewProtocol {
-    var presenter: ImagePickerPresenterProtocol?
+class ImagePickerView: UIViewController, ImagePickerViewInput {
+    var presenter: ImagePickerViewOutput?
 
-    private var navigationBar: NavigationBar!
+    private var navigationBar: MainNavigationBar!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = "Фото"
         view.backgroundColor = .white
 
         addAndConfigureNavigationBar()
@@ -23,7 +24,7 @@ class ImagePickerView: UIViewController, ImagePickerViewProtocol {
     }
 
     private func addAndConfigureNavigationBar() {
-        navigationBar = NavigationBar(title: "Фото", rightTitle: "English", rightButtonImage: nil, isSearchBarNeeded: false)
+        navigationBar = MainNavigationBar(title: "Фото", rightTitle: "English", rightButtonImage: nil, isSearchBarNeeded: false)
         view.addSubview(navigationBar)
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
 

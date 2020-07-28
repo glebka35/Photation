@@ -9,35 +9,35 @@
 import Foundation
 import UIKit
 
-protocol ImagePickerViewProtocol: AnyObject {
+protocol ImagePickerViewInput: AnyObject {
 //    PRESENTER->VIEW
-    var presenter: ImagePickerPresenterProtocol? { get set }
+    var presenter: ImagePickerViewOutput? { get set }
 
     func showCameraImagePicker()
     func showGaleryImagePicker()
 }
 
-protocol ImagePickerPresenterProtocol: AnyObject {
+protocol ImagePickerViewOutput: AnyObject {
 //    VIEW->PRESENTER
-    var interactor: ImagePickerInputInteractorProtocol? { get set }
+    var interactor: ImagePickerInteractorInput? { get set }
     var view: ImagePickerView? { get set }
-    var router: ImagePickerRouterInputProtocol? { get set }
+    var router: ImagePickerRouterInput? { get set }
 
     func cameraButtonPressed()
     func galeryButtonPressed()
     func receiveImageFromUser(image: UIImage)
 }
 
-protocol ImagePickerInputInteractorProtocol: AnyObject {
+protocol ImagePickerInteractorInput: AnyObject {
 //    PRESENTER->INTERACTOR
-    var presenter: ImagePickerOutputInteractorProtocol? { get set }
+    var presenter: ImagePickerInteractorOutput? { get set }
 }
 
-protocol ImagePickerOutputInteractorProtocol: AnyObject {
+protocol ImagePickerInteractorOutput: AnyObject {
 //    INTERACTOR->PRESENTER
 }
 
-protocol ImagePickerRouterInputProtocol: AnyObject {
+protocol ImagePickerRouterInput: AnyObject {
 //    PRESENTER -> ROUTER
     var view: ImagePickerView? { get set }
 

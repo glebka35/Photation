@@ -59,8 +59,10 @@ class ImageCollectionViewCell: UICollectionViewCell {
     }
     
     public func updateStateWith(image: ObjectsOnImage) {
-        objectImageView.image = UIImage(data: image.image)
-        objectForeignLabel.text = image.objects.first?.foreignName
+        if let imageData = image.image {
+            objectImageView.image = UIImage(data: imageData)
+            objectForeignLabel.text = image.objects.first?.foreignName
+        }
     }
     
     private func setGradientToImage() {

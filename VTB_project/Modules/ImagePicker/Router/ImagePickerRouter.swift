@@ -14,4 +14,9 @@ class ImagePickerRouter: ImagePickerRouterInput {
     func closeModule() {
         view?.dismiss(animated: true, completion: nil)
     }
+
+    func showDetail(of object: ObjectsOnImage) {
+        let detailView = DetailAssembly().createDetailModule(with: object)
+        view?.navigationController?.pushViewController(detailView, animated: true)
+    }
 }

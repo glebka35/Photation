@@ -23,12 +23,15 @@ class ImagePickerPresenter: ImagePickerViewOutput {
     }
 
     func receiveImageFromUser(image: UIImage) {
-        print("good")
-//        let newView = DetailAssembly().createDetailModule()
-//        view?.navigationController?.pushViewController(newView, animated: true)
+        interactor?.handle(image: image)
+        view?.showSpinner()
     }
 }
 
 extension ImagePickerPresenter: ImagePickerInteractorOutput {
+    func imageDidRecieved(objects: ObjectsOnImage) {
+        view?.unshowSpinner()
+        router?.showDetail(of: objects)
+    }
 
 }

@@ -18,17 +18,21 @@ struct Storage {
 }
 
 struct ObjectsOnImage {
-    let image: Data
+    var image: Data?
     var objects: [SingleObject]
     
-    let nativeLanguage: String
-    let foreignLanguage: String
+    var nativeLanguage: String?
+    var foreignLanguage: String?
 }
 
 struct SingleObject {
-    let nativeName: String
-    let foreignName: String
+    var nativeName: String
+    var foreignName: String?
 
-    let color: UIColor
+    var color: UIColor
     var isFavorite: IsWordFavorite
+
+    mutating func setForeignName(name: String) {
+        self.foreignName = name
+    }
 }

@@ -56,7 +56,7 @@ class CollectionHeaderReusableView: UICollectionReusableView {
         NSLayoutConstraint.activate([
             hStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             hStack.topAnchor.constraint(equalTo: topAnchor),
-            hStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            hStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             hStack.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }

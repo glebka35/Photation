@@ -73,6 +73,7 @@ class DetailView: UIViewController, DetailViewInput {
 
         objectsImageView.layer.cornerRadius = 10
         objectsImageView.clipsToBounds = true
+        objectsImageView.contentMode = .scaleAspectFill
 
         objectsImageView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -81,7 +82,7 @@ class DetailView: UIViewController, DetailViewInput {
                 objectsImageView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
                 objectsImageView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
                 objectsImageView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 20),
-                objectsImageView.heightAnchor.constraint(equalToConstant: 0.6 * view.frame.width)
+                objectsImageView.heightAnchor.constraint(equalToConstant: view.frame.width)
             ])
         }
     }

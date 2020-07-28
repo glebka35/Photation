@@ -13,8 +13,8 @@ import UIKit
 protocol DetailViewInput: AnyObject {
     var presenter: DetailViewOutput? { get set }
 
-    func configureCollection(with objects: [DetailObject], and image: UIImage?)
-    func updateContent(with objects: [DetailObject])
+    func configureCollection(with objects: [SingleObject], and image: UIImage?)
+    func updateContent(with objects: [SingleObject])
 }
 
 // MARK: VIEW -> PRESENTER

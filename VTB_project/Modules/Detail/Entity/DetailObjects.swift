@@ -9,8 +9,4 @@
 import Foundation
 import UIKit
 
-struct DetailObject {
-    var singleObject: SingleObject
-    var color: UIColor
-    var isFavorite: IsWordFavorite
-}
+

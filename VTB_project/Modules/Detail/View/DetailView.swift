@@ -27,7 +27,7 @@ class DetailView: UIViewController, DetailViewInput {
         presenter?.viewDidLoad()
     }
 
-    func configureCollection(with objects: [DetailObject], and image: UIImage?) {
+    func configureCollection(with objects: [SingleObject], and image: UIImage?) {
         collectionSupervisor = DetailCollectionSupervisor(with: objects)
         collectionSupervisor?.delegate = self
 
@@ -44,7 +44,7 @@ class DetailView: UIViewController, DetailViewInput {
         setImage(image: image)
     }
 
-    func updateContent(with objects: [DetailObject]) {
+    func updateContent(with objects: [SingleObject]) {
         collectionSupervisor?.updateContent(with: objects)
     }
 

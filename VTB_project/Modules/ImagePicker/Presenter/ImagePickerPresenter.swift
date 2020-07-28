@@ -24,8 +24,8 @@ class ImagePickerPresenter: ImagePickerViewOutput {
 
     func receiveImageFromUser(image: UIImage) {
         print("good")
-        let newView = DetailAssembly().createDetailModule()
-        view?.navigationController?.pushViewController(newView, animated: true)
+//        let newView = DetailAssembly().createDetailModule()
+//        view?.navigationController?.pushViewController(newView, animated: true)
     }
 }
 

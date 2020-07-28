@@ -42,9 +42,9 @@ class DetailCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func updateStateWith(object: DetailObject) {
-        objectNativeLabel.text = object.singleObject.nativeName
-        objectForeignLabel.text = object.singleObject.foreignName
+    func updateStateWith(object: SingleObject) {
+        objectNativeLabel.text = object.nativeName
+        objectForeignLabel.text = object.foreignName
 
         let image = object.isFavorite.image?.withRenderingMode(.alwaysTemplate)
         favoriteImageView.image = image

@@ -16,7 +16,8 @@ class CollectionInteractor: CollectionInteractorInput {
     
     init() {
         (1...10).forEach { _ in
-            storage.add(imagesWithObjects: [ObjectsOnImage(image: UIImage(named: "car")!.jpegData(compressionQuality: 1)!, objects: [SingleObject(nativeName: "машина", foreignName: "car"), SingleObject(nativeName: "дерево", foreignName: "tree"), SingleObject(nativeName: "медведь", foreignName: "bear")], nativeLanguage: "Русский", foreignLanguage: "Английский")])
+            storage.add(imagesWithObjects: [
+                ObjectsOnImage(image: UIImage(named: "car")!.jpegData(compressionQuality: 1)!, objects: [SingleObject(nativeName: "машина", foreignName: "car", color: .black, isFavorite: .no), SingleObject(nativeName: "дерево", foreignName: "tree", color: .yellow, isFavorite: .no), SingleObject(nativeName: "медведь", foreignName: "bear", color: .green, isFavorite: .yes)], nativeLanguage: "Русский", foreignLanguage: "Английский")])
         }
     }
     

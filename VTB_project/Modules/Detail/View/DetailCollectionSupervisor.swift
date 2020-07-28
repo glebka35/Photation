@@ -12,7 +12,7 @@ import UIKit
 protocol DetailCollectionSupervisorProtocol {
     var delegate: DetailCollectionSupervisorDelegate? { get set }
     func getConfiguredCollection()->UICollectionView
-    func updateContent(with objects: [DetailObject])
+    func updateContent(with objects: [SingleObject])
 }
 
 protocol DetailCollectionSupervisorDelegate: AnyObject {
@@ -24,9 +24,9 @@ class DetailCollectionSupervisor: NSObject, DetailCollectionSupervisorProtocol{
     private var sectionInsets = UIEdgeInsets(top: CollectionSizes.topSpacing, left: CollectionSizes.cellSideIndent, bottom: 0, right: CollectionSizes.cellSideIndent)
     weak var delegate: DetailCollectionSupervisorDelegate?
 
-    private var detailObjects: [DetailObject]
+    private var detailObjects: [SingleObject]
 
-    required init(with objects: [DetailObject]) {
+    required init(with objects: [SingleObject]) {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.sectionHeadersPinToVisibleBounds = true
@@ -48,7 +48,7 @@ class DetailCollectionSupervisor: NSObject, DetailCollectionSupervisorProtocol{
         return collectionView
     }
 
-    func updateContent(with objects: [DetailObject]) {
+    func updateContent(with objects: [SingleObject]) {
         detailObjects = objects
         collectionView.reloadData()
     }

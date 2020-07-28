@@ -44,7 +44,7 @@ class CollectionView: UIViewController, CollectionViewInput {
 
     func addAndConfigureCollectionView() {
         let collectionView = collectionSupervisor.getConfiguredCollection(with: currentStyle)
-
+        collectionSupervisor.delegate = self
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
@@ -69,5 +69,11 @@ class CollectionView: UIViewController, CollectionViewInput {
 extension CollectionView: NavigationBarDelegate {
     func action(sender: UIButton!) {
         presenter?.changePresentation()
+    }
+}
+
+extension CollectionView: CollectionViewCellSelectedDelegate {
+    func cellSelected(at indexPath: IndexPath) {
+        presenter?.cellSelected(at: indexPath)
     }
 }

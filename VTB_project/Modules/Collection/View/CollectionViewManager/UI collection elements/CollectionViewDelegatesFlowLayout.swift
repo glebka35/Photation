@@ -9,16 +9,20 @@
 import Foundation
 import UIKit
 
-protocol CollectionViewSelectableItemDelegate: class, UICollectionViewDelegateFlowLayout {
-    var didSelectItem: ((_ indexPath: IndexPath)->Void)? { get set }
+protocol CollectionViewDelegate: AnyObject, UICollectionViewDelegateFlowLayout {
+    var selectionDelegate: CollectionViewCellSelectedDelegate? { get set }
 }
 
-class DefaultCollectionViewDelegate: NSObject, CollectionViewSelectableItemDelegate {
-    var didSelectItem: ((IndexPath) -> Void)?
+protocol CollectionViewCellSelectedDelegate: AnyObject {
+    func cellSelected(at indexPath: IndexPath)
+}
+
+class DefaultCollectionViewDelegate: NSObject, CollectionViewDelegate {
+    var selectionDelegate: CollectionViewCellSelectedDelegate?
     var sectionInsets = UIEdgeInsets(top: CollectionSizes.topSpacing, left: CollectionSizes.cellSideIndent, bottom: 0, right: CollectionSizes.cellSideIndent)
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        didSelectItem?(indexPath)
+        selectionDelegate?.cellSelected(at: indexPath)
     }
 }
 

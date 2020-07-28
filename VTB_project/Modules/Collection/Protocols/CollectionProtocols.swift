@@ -24,6 +24,7 @@ protocol CollectionViewOutput: AnyObject {
     
     func viewDidLoad(with style: PresentationStyle)
     func changePresentation()
+    func cellSelected(at indexPath: IndexPath)
 }
 
 protocol CollectionInteractorInput: AnyObject {
@@ -43,4 +44,5 @@ protocol CollectionRouterInput: AnyObject {
     var view: CollectionView? { get set }
 
     func closeModule()
+    func showDetail(of object: ObjectsOnImage)
 }

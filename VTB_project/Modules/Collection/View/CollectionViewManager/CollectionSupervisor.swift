@@ -17,22 +17,29 @@ struct CollectionSizes {
 }
 
 protocol CollectionViewSupervisor {
-    var styleDelegates: [PresentationStyle: CollectionViewSelectableItemDelegate] { get }
+    var styleDelegates: [PresentationStyle: CollectionViewDelegate] { get }
     var objects: [ObjectsOnImage] { get set }
+    var delegate: CollectionViewCellSelectedDelegate? { get set }
     
     func getConfiguredCollection(with style: PresentationStyle)->UICollectionView
     func updatePresentationStyle(with style: PresentationStyle)
 }
 
 class CollectionSupervisor: NSObject, CollectionViewSupervisor {
-    private var collectionView: UICollectionView
-    public var objects: [ObjectsOnImage] = []
+    var objects: [ObjectsOnImage] = []
+    weak var delegate: CollectionViewCellSelectedDelegate? {
+        didSet {
+            styleDelegates.values.forEach {
+                $0.selectionDelegate = delegate
+            }
+        }
+    }
 
+    private var collectionView: UICollectionView
+    private var presentationStyle: PresentationStyle!
     private var numberOfRows: Int {
         return objects.count
     }
-    
-    private var presentationStyle: PresentationStyle!
     
     override init() {
         let layout = UICollectionViewFlowLayout()
@@ -41,19 +48,15 @@ class CollectionSupervisor: NSObject, CollectionViewSupervisor {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     }
 
-    public var styleDelegates: [PresentationStyle: CollectionViewSelectableItemDelegate] = {
-        let result: [PresentationStyle: CollectionViewSelectableItemDelegate] = [
+    var styleDelegates: [PresentationStyle: CollectionViewDelegate] = {
+        let result: [PresentationStyle: CollectionViewDelegate] = [
             .table: TabledContentCollectionViewDelegate(),
             .images: ImagesContentCollectionViewDelegate()
         ]
-        result.values.forEach {
-            $0.didSelectItem = { _ in
-                
-            }
-        }
+
         return result
     } ()
-    
+
     func getConfiguredCollection(with style: PresentationStyle)->UICollectionView {
         collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
         collectionView.register(ListCollectionViewCell.self, forCellWithReuseIdentifier: "listCell")

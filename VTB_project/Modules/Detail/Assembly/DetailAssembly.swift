@@ -9,8 +9,8 @@
 import Foundation
 
 class DetailAssembly {
-    func createDetailModule()->DetailView {
-        let presenter: DetailViewOutput & DetailInteractorOutput = DetailPresenter()
+    func createDetailModule(with object: ObjectsOnImage)->DetailView {
+        let presenter: DetailViewOutput & DetailInteractorOutput = DetailPresenter(with: object)
         let detailView = DetailView()
         let router = DetailRouter()
         let interactor = DetailInteractor()

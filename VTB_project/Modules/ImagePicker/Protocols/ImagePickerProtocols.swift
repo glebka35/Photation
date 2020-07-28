@@ -15,6 +15,8 @@ protocol ImagePickerViewInput: AnyObject {
 
     func showCameraImagePicker()
     func showGaleryImagePicker()
+    func showSpinner()
+    func unshowSpinner()
 }
 
 protocol ImagePickerViewOutput: AnyObject {
@@ -31,15 +33,18 @@ protocol ImagePickerViewOutput: AnyObject {
 protocol ImagePickerInteractorInput: AnyObject {
 //    PRESENTER->INTERACTOR
     var presenter: ImagePickerInteractorOutput? { get set }
+    func handle(image: UIImage)
 }
 
 protocol ImagePickerInteractorOutput: AnyObject {
 //    INTERACTOR->PRESENTER
+    func imageDidRecieved(objects: ObjectsOnImage)
 }
 
 protocol ImagePickerRouterInput: AnyObject {
 //    PRESENTER -> ROUTER
     var view: ImagePickerView? { get set }
 
+    func showDetail(of object: ObjectsOnImage)
     func closeModule()
 }

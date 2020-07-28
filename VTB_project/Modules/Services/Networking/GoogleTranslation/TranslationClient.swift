@@ -33,7 +33,7 @@ class TranslationClient {
         networkManager = ApiClient(provider: provider)
     }
 
-    func getTranslation(of text: String, from inLanguage: String, to outLanguage: String, completion: @escaping (_ translatedText: String?)->()) {
+    func getTranslation(of text: String, from inLanguage: String, to outLanguage: String, completion: @escaping (_ nativeText: String?, _ translatedText: String?)->()) {
 
         let bodyParameters = ["source":inLanguage, "q":text, "target":outLanguage]
         let request = Request(path: "/language/translate/v2", httpMethod: .post, task: .requestParameters(bodyParameters: bodyParameters, bodyContentType: .urlEncoded, urlParameters: nil))
@@ -44,15 +44,15 @@ class TranslationClient {
                 if let data = response.data {
                     do {
                         let apiResponse = try JSONDecoder().decode(TranslationApiResponse.self, from: data)
-                        completion(apiResponse.data.translations.first?.translatedText)
+                        completion(text, apiResponse.data.translations.first?.translatedText)
                     } catch {
                         print("Can not decode response")
-                        completion(nil)
+                        completion(text, nil)
                     }
                 }
             } else {
                 print("error: response is nil")
-                completion(nil)
+                completion(text, nil)
             }
         }
 

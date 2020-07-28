@@ -12,6 +12,7 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
     var presenter: ImagePickerViewOutput?
 
     private var navigationBar: MainNavigationBar!
+    private let spinner = SpinnerViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +76,6 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
         button.layer.borderWidth = 2
         button.layer.cornerRadius = 20
 
-//        button.titleLabel?.lineBreakMode = .byWordWrapping
         button.titleLabel?.numberOfLines = 1
 
 
@@ -111,19 +111,31 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
         pickerController.allowsEditing = true
         self.present(pickerController, animated: true, completion: nil)
     }
+
+    func showSpinner() {
+        addChild(spinner)
+        view.addSubview(spinner.view)
+        var frame = view.frame
+
+        if let tabBar = tabBarController?.tabBar {
+            frame = CGRect(x: 0, y: navigationBar.frame.maxY, width: view.frame.width, height: tabBar.frame.minY - navigationBar.frame.maxY)
+        }
+
+        spinner.view.frame = frame
+        spinner.didMove(toParent: self)
+    }
+
+    func unshowSpinner() {
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
+    }
 }
 
 extension ImagePickerView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
                 presenter?.receiveImageFromUser(image: pickedImage)
-//                let data = pickedImage.jpegData(compressionQuality: 0)
-//                print(MemoryLayout.size(ofValue: data))
-
-                let data = UIImage(named: "test")!.jpegData(compressionQuality: 0.5)!
-                let nsData = NSData(data: data)
-                var imageSize: Int = nsData.count
-                print(Double(imageSize) / 1000000)
         }
         dismiss(animated: true, completion: nil)
     }

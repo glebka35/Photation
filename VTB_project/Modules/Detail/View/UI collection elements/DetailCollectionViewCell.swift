@@ -14,9 +14,9 @@ enum IsWordFavorite: CaseIterable{
     var image: UIImage? {
         switch self {
         case .yes:
-            return UIImage(named: "no")
-        case .no:
             return UIImage(named: "yes")
+        case .no:
+            return UIImage(named: "no")
         }
     }
 }

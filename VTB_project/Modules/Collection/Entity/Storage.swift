@@ -21,8 +21,8 @@ struct ObjectsOnImage {
     var image: Data?
     var objects: [SingleObject]
     
-    var nativeLanguage: String?
-    var foreignLanguage: String?
+    var nativeLanguage: Language
+    var foreignLanguage: Language
 }
 
 struct SingleObject {
@@ -31,8 +31,4 @@ struct SingleObject {
 
     var color: UIColor
     var isFavorite: IsWordFavorite
-
-    mutating func setForeignName(name: String) {
-        self.foreignName = name
-    }
 }

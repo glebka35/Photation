@@ -27,8 +27,8 @@ class DetailView: UIViewController, DetailViewInput {
         presenter?.viewDidLoad()
     }
 
-    func configureCollection(with objects: [SingleObject], and image: UIImage?) {
-        collectionSupervisor = DetailCollectionSupervisor(with: objects)
+    func configureCollection(with objects: ObjectsOnImage) {
+        collectionSupervisor = DetailCollectionSupervisor(with: objects.objects, nativeLanguage: objects.nativeLanguage, foreignLanguage: objects.foreignLanguage)
         collectionSupervisor?.delegate = self
 
         if let collectionView = collectionSupervisor?.getConfiguredCollection() {
@@ -41,7 +41,9 @@ class DetailView: UIViewController, DetailViewInput {
                 collectionView.topAnchor.constraint(equalTo: objectsImageView.bottomAnchor, constant: 20)
             ])
         }
-        setImage(image: image)
+        if let imageData = objects.image {
+            setImage(image: UIImage(data: imageData))
+        }
     }
 
     func updateContent(with objects: [SingleObject]) {

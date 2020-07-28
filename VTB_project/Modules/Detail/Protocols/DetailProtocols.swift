@@ -13,7 +13,7 @@ import UIKit
 protocol DetailViewInput: AnyObject {
     var presenter: DetailViewOutput? { get set }
 
-    func configureCollection(with objects: [SingleObject], and image: UIImage?)
+    func configureCollection(with objects: ObjectsOnImage)
     func updateContent(with objects: [SingleObject])
 }
 

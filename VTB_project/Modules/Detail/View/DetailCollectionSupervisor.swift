@@ -25,13 +25,17 @@ class DetailCollectionSupervisor: NSObject, DetailCollectionSupervisorProtocol{
     weak var delegate: DetailCollectionSupervisorDelegate?
 
     private var detailObjects: [SingleObject]
+    private var nativeLanguage: Language
+    private var foreignLanguage: Language
 
-    required init(with objects: [SingleObject]) {
+    required init(with objects: [SingleObject], nativeLanguage: Language, foreignLanguage: Language) {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.sectionHeadersPinToVisibleBounds = true
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         self.detailObjects = objects
+        self.nativeLanguage = nativeLanguage
+        self.foreignLanguage = foreignLanguage
     }
 
     func getConfiguredCollection()->UICollectionView {
@@ -75,7 +79,7 @@ extension DetailCollectionSupervisor: UICollectionViewDataSource {
                 else {
                     fatalError("Invalid header view")
             }
-            headerView.updateWith(nativeLanguage: "Русский", foreignLanguage: "English")
+            headerView.updateWith(nativeLanguage: nativeLanguage.humanRepresenting, foreignLanguage: foreignLanguage.humanRepresenting)
             return headerView
         default:
             assert(false, "Invalid element type")

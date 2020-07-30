@@ -28,7 +28,7 @@ class CollectionView: UIViewController, CollectionViewInput {
     }
     
     func addAndConfigureNavigationBar() {
-        navigationBar = MainNavigationBar(title: "Коллекция", rightTitle: "English", rightButtonImage: UIImage(named: currentStyle.buttonImage), isSearchBarNeeded: true)
+        navigationBar = MainNavigationBar(title: "Коллекция", rightTitle: UserSettings.shared.foreignLanguage.humanRepresenting, rightButtonImage: UIImage(named: currentStyle.buttonImage), isSearchBarNeeded: true)
         view.addSubview(navigationBar)
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         

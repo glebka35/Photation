@@ -21,9 +21,7 @@ class DetailPresenter: DetailViewOutput {
     private var objects: ObjectsOnImage
 
     func viewDidLoad() {
-        if let imageData = objects.image {
-            view?.configureCollection(with: objects.objects, and: UIImage(data: imageData))
-        }
+        view?.configureCollection(with: objects)
     }
 
     func wordChosen(at index: Int) {

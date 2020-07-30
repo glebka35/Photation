@@ -23,7 +23,7 @@ class ImageHandler {
             singleObjects.append(SingleObject(nativeName: objects[index].objectClassName, foreignName: objects[index].objectClassName, color: color, isFavorite: .no))
         }
 
-        let objectOnImage = ObjectsOnImage(image: newImage?.jpegData(compressionQuality: 1), objects: singleObjects, nativeLanguage: "ru", foreignLanguage: "en")
+        let objectOnImage = ObjectsOnImage(image: newImage?.jpegData(compressionQuality: 1), objects: singleObjects, nativeLanguage: UserSettings.shared.nativeLanguage, foreignLanguage: UserSettings.shared.foreignLanguage)
         completion(objectOnImage)
     }
 

@@ -23,7 +23,7 @@ class MainTabBarController: UITabBarController {
         let imagePickerVC = ImagePickerAssembly().createImagePickerModule()
         imagePickerVC.tabBarItem = UITabBarItem(title: "Фото", image: UIImage(named: "camera"), tag: 2)
         
-        let settingsVC = SettingsViewController()
+        let settingsVC = SettingsAssembly().createSettingsModule()
         settingsVC.tabBarItem = UITabBarItem(title: "Настройки", image: UIImage(named: "settings"), tag: 3)
         
         let tabBarList = [collectionVC, favoriteVC, imagePickerVC, settingsVC]

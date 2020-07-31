@@ -1,0 +1,68 @@
+//
+//  SettingsViewController.swift
+//  VTB_project
+//
+//  Created by Gleb Uvarkin on 03.07.2020.
+//  Copyright © 2020 Gleb Uvarkin. All rights reserved.
+//
+
+import UIKit
+
+class SettingsView: UIViewController, SettingsViewInput {
+    var presenter: SettingsViewOutput?
+
+    private var navigationBar: MainNavigationBar!
+    private var tableViewSupervisor: TableViewSupervisor?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+        view.backgroundColor = .white
+        title = "Настройки"
+
+        addAndConfigureNavigationBar()
+        addAndConfigureTableView()
+        presenter?.viewDidLoad()
+    }
+
+    func updateTable(with data: [[CellViewModel]]) {
+        tableViewSupervisor?.update(with: data)
+    }
+
+    private func addAndConfigureTableView() {
+        let tableViewSupervisor = TableViewSupervisor()
+        tableViewSupervisor.delegate = self
+        let table = tableViewSupervisor.getConfiguredTableView()
+        view.addSubview(table)
+
+        NSLayoutConstraint.activate([
+            table.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            table.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            table.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 15),
+            table.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor)
+        ])
+
+        self.tableViewSupervisor = tableViewSupervisor
+    }
+
+    private func addAndConfigureNavigationBar() {
+        navigationBar = MainNavigationBar(title: "Настройки", rightTitle: nil, rightButtonImage: nil, isSearchBarNeeded: false)
+
+        view.addSubview(navigationBar)
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            navigationBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
+            navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            navigationBar.bottomAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 90)
+        ])
+    }
+}
+extension SettingsView: DetailTableSupervisorDelegate {
+    func languageChosen(at indexPath: IndexPath) {
+        presenter?.settingChoosed(at: indexPath)
+    }
+
+}

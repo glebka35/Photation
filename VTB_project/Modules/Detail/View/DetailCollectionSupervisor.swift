@@ -33,6 +33,7 @@ class DetailCollectionSupervisor: NSObject, DetailCollectionSupervisorProtocol{
         layout.scrollDirection = .vertical
         layout.sectionHeadersPinToVisibleBounds = true
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+
         self.detailObjects = objects
         self.nativeLanguage = nativeLanguage
         self.foreignLanguage = foreignLanguage
@@ -79,7 +80,7 @@ extension DetailCollectionSupervisor: UICollectionViewDataSource {
                 else {
                     fatalError("Invalid header view")
             }
-            headerView.updateWith(nativeLanguage: nativeLanguage.humanRepresenting, foreignLanguage: foreignLanguage.humanRepresenting)
+            headerView.updateWith(nativeLanguage: nativeLanguage.humanRepresentingNative, foreignLanguage: foreignLanguage.humanRepresentingNative)
             return headerView
         default:
             assert(false, "Invalid element type")

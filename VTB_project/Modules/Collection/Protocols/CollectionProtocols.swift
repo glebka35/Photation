@@ -8,16 +8,18 @@
 
 import Foundation
 
+//MARK: - PRESENTER -> VIEW
+
 protocol CollectionViewInput: AnyObject {
-//    PRESENTER -> VIEW
     var presenter: CollectionViewOutput? { get set }
     
     func updatePresentation(with style: PresentationStyle)
     func updateContent(with objects: [ObjectsOnImage])
 }
 
+//MARK: - VIEW -> PRESENTER
+
 protocol CollectionViewOutput: AnyObject {
-//    VIEW -> PRESENTER
     var interactor: CollectionInteractorInput? { get set }
     var view: CollectionViewInput? { get set }
     var router: CollectionRouterInput? { get set }
@@ -27,20 +29,23 @@ protocol CollectionViewOutput: AnyObject {
     func cellSelected(at indexPath: IndexPath)
 }
 
+//MARK: - PRESENTER -> INTERACTOR
+
 protocol CollectionInteractorInput: AnyObject {
-//    PRESENTER -> INTERACTOR
     var presenter: CollectionInteractorOutput? { get set }
     
     func getObjects()
 }
 
+//MARK:- INTERACTOR -> PRESENTER
+
 protocol CollectionInteractorOutput: AnyObject {
-//    INTERACTOR -> PRESENTER
     func objectsDidFetch(objects: [ObjectsOnImage])
 }
 
+//MARK:- PRESENTER -> ROUTER
+
 protocol CollectionRouterInput: AnyObject {
-//    PRESENTER -> ROUTER
     var view: CollectionView? { get set }
 
     func closeModule()

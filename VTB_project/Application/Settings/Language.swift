@@ -8,10 +8,10 @@
 
 import Foundation
 
-enum Language: String {
+enum Language: String, CaseIterable {
     case ru, en, es, fr, pt, it, de, nl, ja, ko, vi, sv, da, fi, nb, tr, el, id, ms, th, hi, hu, pl, cs, sk, uk, ca, ro, hr
 
-    var humanRepresenting: String {
+    var humanRepresentingNative: String {
         switch (self) {
         case .ru:
             return "Русский"
@@ -72,8 +72,70 @@ enum Language: String {
         case .hr:
             return "Hrvatski"
         }
+    }
+
+    var humanRepresentingEnglish: String {
+        switch (self) {
+        case .ru:
+            return "English"
+        case .en:
+            return "English"
+        case .es:
+            return "Spanish"
+        case .fr:
+            return "French"
+        case .pt:
+            return "Portuguese"
+        case .it:
+            return "Italian"
+        case .de:
+            return "German"
+        case .nl:
+            return "Dutch"
+        case .ja:
+            return "Japanese"
+        case .ko:
+            return "Korean"
+        case .vi:
+            return "Vietnamese"
+        case .sv:
+            return "Swedish"
+        case .da:
+            return "Danish"
+        case .fi:
+            return "Finnish"
+        case .nb:
+            return "Norwegian"
+        case .tr:
+            return "Turkish"
+        case .el:
+            return "Greek"
+        case .id:
+            return "Indonesian"
+        case .ms:
+            return "Malay"
+        case .th:
+            return "Thai"
+        case .hi:
+            return "Hindi"
+        case .hu:
+            return "Hungarian"
+        case .pl:
+            return "Polish"
+        case .cs:
+            return "Czech"
+        case .sk:
+            return "Slovak"
+        case .uk:
+            return "Ukrainian"
+        case .ca:
+            return "Catalan"
+        case .ro:
+            return "Romanian"
+        case .hr:
+            return "Croatian"
+        }
 
     }
-    
 }
 

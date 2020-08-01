@@ -18,25 +18,30 @@ struct CollectionSizes {
 
 protocol CollectionViewSupervisor {
     var styleDelegates: [PresentationStyle: CollectionViewDelegate] { get }
-    var objects: [ObjectsOnImage] { get set }
-    var delegate: CollectionViewCellSelectedDelegate? { get set }
+    var delegate: CollectionViewActionsDelegate? { get set }
     
     func getConfiguredCollection(with style: PresentationStyle)->UICollectionView
     func updatePresentationStyle(with style: PresentationStyle)
+    func updateContent(with objects: [ObjectsOnImage])
 }
 
-class CollectionSupervisor: NSObject, CollectionViewSupervisor {
-    var objects: [ObjectsOnImage] = []
-    weak var delegate: CollectionViewCellSelectedDelegate? {
+final class CollectionSupervisor: NSObject, CollectionViewSupervisor {
+    weak var delegate: CollectionViewActionsDelegate? {
         didSet {
             styleDelegates.values.forEach {
-                $0.selectionDelegate = delegate
+                $0.delegate = delegate
             }
         }
     }
 
     private var collectionView: UICollectionView
     private var presentationStyle: PresentationStyle!
+    private var objects: [ObjectsOnImage] = [] {
+        didSet {
+            collectionView.reloadData()
+            print(objects.count)
+        }
+    }
     private var numberOfRows: Int {
         return objects.count
     }
@@ -76,7 +81,10 @@ class CollectionSupervisor: NSObject, CollectionViewSupervisor {
     func updatePresentationStyle(with style: PresentationStyle) {
         presentationStyle = style
         collectionView.delegate = styleDelegates[style]
-        collectionView.reloadData()
+    }
+
+    func updateContent(with objects: [ObjectsOnImage]) {
+        self.objects = objects
     }
 }
 
@@ -102,7 +110,6 @@ extension CollectionSupervisor: UICollectionViewDataSource {
                 if let object = objects[indexPath.row].objects.first {
                     cell.updateStateWith(object: object)
                 }
-                
                 return cell
             }
         default:

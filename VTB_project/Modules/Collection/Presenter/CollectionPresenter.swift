@@ -14,8 +14,8 @@ class CollectionPresenter: CollectionViewOutput {
     var router: CollectionRouterInput?
 
     private var displayingObjects: [ObjectsOnImage]?
-    
     private var currentStyle: PresentationStyle!
+    private var loadMoreStatus = false
     
     func viewDidLoad(with style: PresentationStyle) {
         currentStyle = style
@@ -35,6 +35,19 @@ class CollectionPresenter: CollectionViewOutput {
     func cellSelected(at indexPath: IndexPath) {
         if let object = displayingObjects?[indexPath.row] {
             router?.showDetail(of: object)
+        }
+    }
+
+    func scrollViewDidScrollToBottom() {
+        if !loadMoreStatus {
+            loadMoreStatus = true
+            loadMoreObjects()
+        }
+    }
+
+    private func loadMoreObjects() {
+        interactor?.loadMoreObjects { [weak self] in
+            self?.loadMoreStatus = false
         }
     }
 }

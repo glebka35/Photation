@@ -62,7 +62,7 @@ class CollectionView: UIViewController, CollectionViewInput {
     }
     
     func updateContent(with objects: [ObjectsOnImage]) {
-        collectionSupervisor.objects = objects
+        collectionSupervisor.updateContent(with: objects)
     }
 }
 
@@ -72,7 +72,11 @@ extension CollectionView: NavigationBarDelegate {
     }
 }
 
-extension CollectionView: CollectionViewCellSelectedDelegate {
+extension CollectionView: CollectionViewActionsDelegate {
+    func scrollViewDidScrollToBottom() {
+        presenter?.scrollViewDidScrollToBottom()
+    }
+
     func cellSelected(at indexPath: IndexPath) {
         presenter?.cellSelected(at: indexPath)
     }

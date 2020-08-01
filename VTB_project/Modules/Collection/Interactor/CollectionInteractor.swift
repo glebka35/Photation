@@ -24,4 +24,21 @@ class CollectionInteractor: CollectionInteractorInput {
     func getObjects() {
         presenter?.objectsDidFetch(objects: storage.objectsOnImages)
     }
+
+    func loadMoreObjects(completion: @escaping () -> Void) {
+        // Add core data
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+             (1...10).forEach { _ in
+                self?.storage.add(imagesWithObjects: [
+                           ObjectsOnImage(image: UIImage(named: "car")!.jpegData(compressionQuality: 1)!, objects: [SingleObject(nativeName: "машина", foreignName: "car", color: .black, isFavorite: .no), SingleObject(nativeName: "дерево", foreignName: "tree", color: .yellow, isFavorite: .no), SingleObject(nativeName: "медведь", foreignName: "bear", color: .green, isFavorite: .yes)], nativeLanguage: .ru, foreignLanguage: .en)])
+                   }
+            DispatchQueue.main.async {
+                completion()
+                if let objects = self?.storage.objectsOnImages {
+                    self?.presenter?.objectsDidFetch(objects: objects)
+                }
+            }
+
+        }
+    }
 }

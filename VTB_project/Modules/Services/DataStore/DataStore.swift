@@ -7,10 +7,10 @@
 //
 
 import Foundation
-import CoreData
 
-class DataStore {
-    init(nativeLanguage: Language,foreignLanguage: Language) {
-        
-    }
+protocol DataStoreProtocol {
+    init(nativeLanguage: Language, foreignLanguage: Language)
+
+    func save(imageWithObjects: ObjectsOnImage)
+    func loadMoreImages()->[ObjectsOnImage]?
 }

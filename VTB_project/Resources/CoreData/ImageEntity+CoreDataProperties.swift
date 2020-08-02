@@ -17,25 +17,25 @@ extension ImageEntity {
         return NSFetchRequest<ImageEntity>(entityName: "ImageEntity")
     }
 
-    @NSManaged public var image: Data?
     @NSManaged public var date: Date?
-    @NSManaged public var toObject: NSSet?
+    @NSManaged public var image: Data?
+    @NSManaged public var object: NSSet?
 
 }
 
-// MARK: Generated accessors for toObject
+// MARK: Generated accessors for object
 extension ImageEntity {
 
-    @objc(addToObjectObject:)
-    @NSManaged public func addToToObject(_ value: ObjectEntity)
+    @objc(addObjectObject:)
+    @NSManaged public func addToObject(_ value: ObjectEntity)
 
-    @objc(removeToObjectObject:)
-    @NSManaged public func removeFromToObject(_ value: ObjectEntity)
+    @objc(removeObjectObject:)
+    @NSManaged public func removeFromObject(_ value: ObjectEntity)
 
-    @objc(addToObject:)
-    @NSManaged public func addToToObject(_ values: NSSet)
+    @objc(addObject:)
+    @NSManaged public func addToObject(_ values: NSSet)
 
-    @objc(removeToObject:)
-    @NSManaged public func removeFromToObject(_ values: NSSet)
+    @objc(removeObject:)
+    @NSManaged public func removeFromObject(_ values: NSSet)
 
 }

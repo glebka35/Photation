@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,8 +22,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.rootViewController = MainTabBarController()
         window?.makeKeyAndVisible()
+
+        let _ = persistentContainer
+        print(NSPersistentContainer.defaultDirectoryURL())
+
         return true
     }
+
+//    MARK: - Core Data
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "PhotationCoreData")
+        container.loadPersistentStores { (storeDescription, error) in
+            if let error = error as NSError? {
+                fatalError("Problem with NSPersistentContainer")
+            }
+        }
+        return container
+    } ()
 
 }
 

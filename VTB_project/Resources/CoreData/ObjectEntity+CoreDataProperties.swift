@@ -17,9 +17,10 @@ extension ObjectEntity {
         return NSFetchRequest<ObjectEntity>(entityName: "ObjectEntity")
     }
 
+    @NSManaged public var color: String?
     @NSManaged public var foreignForm: String?
-    @NSManaged public var nativeForm: String?
     @NSManaged public var isFavorite: Bool
-    @NSManaged public var toImage: ImageEntity?
+    @NSManaged public var nativeForm: String?
+    @NSManaged public var image: ImageEntity?
 
 }

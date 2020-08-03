@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 
 class ImagePickerInteractor: ImagePickerInteractorInput {
+
+//    MARK: - Properties
+    
     weak var presenter: ImagePickerInteractorOutput?
 
     private let imageWorker: ObjectDetectorAndTranslator = ImageHandlerAndTranslationWorker()

@@ -10,7 +10,12 @@ import Foundation
 import UIKit
 
 class ImageHandler {
+
+//    MARK: - Properties
+
     private let colors: [UIColor] = [.black, .green, .red, .blue, .brown, .orange, .purple, .white]
+
+//    MARK: - Handling
 
     func handleResponse(objects: [Object], on image: UIImage, completion: (_ object: ObjectsOnImage)->Void) {
         var singleObjects: [SingleObject] = []

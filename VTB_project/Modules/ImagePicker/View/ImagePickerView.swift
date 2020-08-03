@@ -9,10 +9,15 @@
 import UIKit
 
 class ImagePickerView: UIViewController, ImagePickerViewInput {
+
+//    MARK: - Properties
+
     var presenter: ImagePickerViewOutput?
 
     private var navigationBar: MainNavigationBar!
     private let spinner = SpinnerViewController()
+
+//    MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +28,8 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
         addAndConfigureNavigationBar()
         addAndConfigurePhotoSourceButtons()
     }
+
+//    MARK: - UI configuration
 
     private func addAndConfigureNavigationBar() {
         navigationBar = MainNavigationBar(title: "Фото", rightTitle: UserSettings.shared.foreignLanguage.humanRepresentingNative, rightButtonImage: nil, isSearchBarNeeded: false)
@@ -84,6 +91,8 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
         return button
     }
 
+//    MARK: - User interaction
+
     @objc private func cameraButtonTapped() {
         presenter?.cameraButtonPressed()
     }
@@ -91,6 +100,8 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
     @objc private func galeryButtonTapped() {
         presenter?.galeryButtonPressed()
     }
+
+//    MARK: - UI update
 
     func showCameraImagePicker() {
         let pickerController = UIImagePickerController()
@@ -132,7 +143,9 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
     }
 }
 
-extension ImagePickerView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+//MARK: - UIImagePickerControllerDelegate
+
+extension ImagePickerView: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
                 presenter?.receiveImageFromUser(image: pickedImage)
@@ -140,3 +153,8 @@ extension ImagePickerView: UIImagePickerControllerDelegate, UINavigationControll
         dismiss(animated: true, completion: nil)
     }
 }
+
+//MARK: - UIImagePickerControllerDelegate
+
+
+extension ImagePickerView: UINavigationControllerDelegate {}

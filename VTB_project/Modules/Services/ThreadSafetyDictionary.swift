@@ -9,8 +9,23 @@
 import Foundation
 
 public class SynchronizedStringDictionary {
+
+//    MARK: - Properties
+
     private var dict: [String: String] = [:]
     private let accessQueue = DispatchQueue(label: "SynchronizedDictionaryAccess", attributes: .concurrent)
+
+    public var count: Int {
+           var count = 0
+
+           self.accessQueue.sync {
+               count = self.dict.count
+           }
+
+           return count
+       }
+
+//    MARK: - Actions
 
     public func add(newElement: String, for key: String) {
         self.accessQueue.async(flags:.barrier) {
@@ -23,17 +38,6 @@ public class SynchronizedStringDictionary {
             self.dict.removeAll()
         }
     }
-
-    public var count: Int {
-        var count = 0
-
-        self.accessQueue.sync {
-            count = self.dict.count
-        }
-
-        return count
-    }
-
 
     public subscript(key: String) -> String? {
         set {

@@ -11,8 +11,13 @@ import UIKit // Надо убрать отсюда зависимость от U
 // вместо картинок использую заглушки из ассетов, но после подключения api эта проблема уйдет
 
 class CollectionInteractor: CollectionInteractorInput {
+
+//    MARK: - Properties
+
     weak var presenter: CollectionInteractorOutput?
     var storage = Storage()
+
+//    MARK: - Life cycle
     
     init() {
         (1...10).forEach { _ in
@@ -20,6 +25,8 @@ class CollectionInteractor: CollectionInteractorInput {
                 ObjectsOnImage(image: UIImage(named: "car")!.jpegData(compressionQuality: 1)!, objects: [SingleObject(nativeName: "машина", foreignName: "car", color: .black, isFavorite: .no), SingleObject(nativeName: "дерево", foreignName: "tree", color: .yellow, isFavorite: .no), SingleObject(nativeName: "медведь", foreignName: "bear", color: .green, isFavorite: .yes)], nativeLanguage: .ru, foreignLanguage: .en)])
         }
     }
+
+//    MARK: - Data fetching
     
     func getObjects() {
         presenter?.objectsDidFetch(objects: storage.objectsOnImages)

@@ -9,7 +9,11 @@
 import UIKit
 import CoreData
 
+
 class CoreDataStore: NSObject, DataStoreProtocol {
+
+//    MARK: - Properties
+
     private let nativeLanguage: Language
     private let foreignLanguage: Language
 
@@ -32,10 +36,14 @@ class CoreDataStore: NSObject, DataStoreProtocol {
         return fetchedResultController
     } ()
 
+//    MARK: - Life cycle
+
     required init(nativeLanguage: Language,foreignLanguage: Language) {
         self.nativeLanguage = nativeLanguage
         self.foreignLanguage = foreignLanguage
     }
+
+//    MARK: - Saving
 
     func save(imageWithObjects: ObjectsOnImage) {
         let manageObject = converter.convert(from: imageWithObjects)
@@ -45,6 +53,8 @@ class CoreDataStore: NSObject, DataStoreProtocol {
             print("Error while saving")
         }
     }
+
+//    MARK: - Fetching
 
     func loadMoreImages() -> [ObjectsOnImage]? {
         do {
@@ -61,8 +71,20 @@ class CoreDataStore: NSObject, DataStoreProtocol {
 }
 
 extension CoreDataStore: NSFetchedResultsControllerDelegate {
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            print("insert")
+        case .delete:
+            print("delete")
+        case .move:
+            print("move")
+        case .update:
+            print("update")
+        default:
+            break
+        }
     }
+
 
 }

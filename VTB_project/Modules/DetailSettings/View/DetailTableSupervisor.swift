@@ -8,11 +8,17 @@
 
 import UIKit
 
+//MARK: - DetailTableSupervisorDelegate
+
 protocol DetailTableSupervisorDelegate: AnyObject {
     func languageChosen(at indexPath: IndexPath)
 }
 
+//MARK: - DetailTableSupervisor
+
 class DetailTableSupervisor: NSObject {
+
+//    MARK: - Properties
 
     private var viewModel: [LanguageCellViewModel] = []
     private var tableView: UITableView
@@ -21,9 +27,13 @@ class DetailTableSupervisor: NSObject {
 
     private var selectedRow: IndexPath?
 
+//    MARK: - Life cycle
+
     override init() {
         tableView = UITableView()
     }
+
+//    MARK: - UI configuration
 
     func getConfiguredTableView()->UITableView {
         tableView.delegate = self
@@ -34,11 +44,15 @@ class DetailTableSupervisor: NSObject {
         return tableView
     }
 
+//    MARK: - UI update
+
     func update(with data: [LanguageCellViewModel]) {
         self.viewModel = data
         tableView.reloadData()
     }
 }
+
+//MARK: - UITableViewDelegate
 
 extension DetailTableSupervisor: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -50,6 +64,8 @@ extension DetailTableSupervisor: UITableViewDelegate {
     }
 
 }
+
+//MARK: - UITableViewDataSource
 
 extension DetailTableSupervisor: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

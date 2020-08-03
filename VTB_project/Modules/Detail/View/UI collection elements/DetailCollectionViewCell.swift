@@ -8,6 +8,8 @@
 
 import UIKit
 
+//MARK: - IsWordFavorite enum
+
 enum IsWordFavorite: CaseIterable{
     case yes, no
 
@@ -21,10 +23,17 @@ enum IsWordFavorite: CaseIterable{
     }
 }
 
+//MARK: - DetailCollectionViewCell
+
 class DetailCollectionViewCell: UICollectionViewCell {
+
+//    MARK: - Properties
+
     private var objectNativeLabel = UILabel()
     private var objectForeignLabel = UILabel()
     private var favoriteImageView = UIImageView()
+
+//    MARK: - Life cycle
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,14 +51,7 @@ class DetailCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func updateStateWith(object: SingleObject) {
-        objectNativeLabel.text = object.nativeName
-        objectForeignLabel.text = object.foreignName
-
-        let image = object.isFavorite.image?.withRenderingMode(.alwaysTemplate)
-        favoriteImageView.image = image
-        favoriteImageView.tintColor = object.color
-    }
+//    MARK: - UI configuration
 
     private func configureLabels() {
         configure(label: objectNativeLabel)
@@ -87,5 +89,16 @@ class DetailCollectionViewCell: UICollectionViewCell {
             hStack.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
+
+//    MARK: - UI update
+
+    func updateStateWith(object: SingleObject) {
+           objectNativeLabel.text = object.nativeName
+           objectForeignLabel.text = object.foreignName
+
+           let image = object.isFavorite.image?.withRenderingMode(.alwaysTemplate)
+           favoriteImageView.image = image
+           favoriteImageView.tintColor = object.color
+       }
 
 }

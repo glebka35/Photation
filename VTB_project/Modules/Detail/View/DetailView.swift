@@ -9,11 +9,16 @@
 import UIKit
 
 class DetailView: UIViewController, DetailViewInput {
+
+//    MARK: - Properties
+
     var presenter: DetailViewOutput?
 
     private var collectionSupervisor: DetailCollectionSupervisorProtocol?
     private var objectsImageView = UIImageView()
     private var navigationBar: DefaultNavigationBar?
+
+//    MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +31,8 @@ class DetailView: UIViewController, DetailViewInput {
 
         presenter?.viewDidLoad()
     }
+
+//    MARK: - UI configuration
 
     func configureCollection(with objects: ObjectsOnImage) {
         collectionSupervisor = DetailCollectionSupervisor(with: objects.objects, nativeLanguage: objects.nativeLanguage, foreignLanguage: objects.foreignLanguage)
@@ -44,10 +51,6 @@ class DetailView: UIViewController, DetailViewInput {
         if let imageData = objects.image {
             setImage(image: UIImage(data: imageData))
         }
-    }
-
-    func updateContent(with objects: [SingleObject]) {
-        collectionSupervisor?.updateContent(with: objects)
     }
 
     private func addAndConfigureNavigationBar() {
@@ -88,13 +91,25 @@ class DetailView: UIViewController, DetailViewInput {
             ])
         }
     }
+
+//    MARK: - UI uopdate
+
+    func updateContent(with objects: [SingleObject]) {
+        collectionSupervisor?.updateContent(with: objects)
+    }
+
+
 }
+
+//MARK: - DetailCollectionSupervisor delegate
 
 extension DetailView: DetailCollectionSupervisorDelegate {
     func wordChosen(at index: Int) {
         presenter?.wordChosen(at: index)
     }
 }
+
+//MARK: - NavigationBar delegate
 
 extension DetailView: NavigationBarDelegate {
     func action(sender: UIButton!) {

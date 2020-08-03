@@ -9,6 +9,9 @@
 import Foundation
 
 class DetailInteractor: DetailInteractorInput {
+
+//    MARK: -  Properties
+    
     var presenter: DetailInteractorOutput?
 
 

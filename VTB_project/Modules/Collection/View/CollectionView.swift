@@ -9,12 +9,16 @@
 import UIKit
 
 class CollectionView: UIViewController, CollectionViewInput {
+
+//    MARK: - Properties
+
     var presenter: CollectionViewOutput?
     
-    private var collectionSupervisor: CollectionViewSupervisor = CollectionSupervisor()
+    private var collectionSupervisor: CollectionViewSupervisorProtocol = CollectionViewSupervisor()
     private var navigationBar: MainNavigationBar!
-    
     private var currentStyle: PresentationStyle = .images
+
+//    MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +30,8 @@ class CollectionView: UIViewController, CollectionViewInput {
         addAndConfigureNavigationBar()
         addAndConfigureCollectionView()
     }
+
+//    MARK: - UI configuration
     
     func addAndConfigureNavigationBar() {
         navigationBar = MainNavigationBar(title: "Коллекция", rightTitle: UserSettings.shared.foreignLanguage.humanRepresentingNative, rightButtonImage: UIImage(named: currentStyle.buttonImage), isSearchBarNeeded: true)
@@ -54,6 +60,8 @@ class CollectionView: UIViewController, CollectionViewInput {
             collectionView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor)
         ])
     }
+
+//    MARK: - UI update
     
     func updatePresentation(with style: PresentationStyle) {
         navigationBar.rightButtonImage = UIImage(named: style.buttonImage)
@@ -66,11 +74,15 @@ class CollectionView: UIViewController, CollectionViewInput {
     }
 }
 
+//MARK: - NavigationBar delegate
+
 extension CollectionView: NavigationBarDelegate {
     func action(sender: UIButton!) {
         presenter?.changePresentation()
     }
 }
+
+//MARK: - CollectionView actions delegate
 
 extension CollectionView: CollectionViewActionsDelegate {
     func scrollViewDidScrollToBottom() {

@@ -12,12 +12,16 @@ import GUNetworkLayer
 
 class TranslationClient {
 
+//    MARK: - Properties
+
     var baseURL = URL(string: "https://google-translate1.p.rapidapi.com")!
     var boundary = "Boundary-\(UUID().uuidString)"
     var headers: HTTPHeaders
 
     private let networkManager: ApiClient
     private var settings: ClientSettings
+
+//    MARK: - Life cycle
 
 
     init() {
@@ -32,6 +36,8 @@ class TranslationClient {
         let provider = HTTPProvider(settings: settings, baseURL: baseURL)
         networkManager = ApiClient(provider: provider)
     }
+
+//    MARK: - Translation
 
     func getTranslation(of text: String, from inLanguage: String, to outLanguage: String, completion: @escaping (_ nativeText: String?, _ translatedText: String?)->()) {
 
@@ -57,6 +63,8 @@ class TranslationClient {
         }
 
     }
+
+//    MARK: - Response decoding
 
     private func decodeResponse(response: Response)->[Object]? {
         guard let data = response.data else { return nil }

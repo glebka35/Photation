@@ -9,10 +9,14 @@
 import UIKit
 
 class DetailSettingsView: UIViewController, DetailSettingsViewInput {
+
+    //    MARK: - Properties
     var presenter: DetailSettingsViewOutput?
 
     private var navigationBar: DefaultNavigationBar?
     private var tableViewSupervisor: DetailTableSupervisor?
+
+    //    MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,14 +26,7 @@ class DetailSettingsView: UIViewController, DetailSettingsViewInput {
         presenter?.viewDidLoad()
     }
 
-    func set(title: String) {
-        self.title = title
-        navigationBar?.titleString = title
-    }
-
-    func updateTable(with data: [LanguageCellViewModel]) {
-        tableViewSupervisor?.update(with: data)
-    }
+//    MARK: - UI configuration
 
     private func addAndConfigureTableView() {
         let tableViewSupervisor = DetailTableSupervisor()
@@ -65,13 +62,28 @@ class DetailSettingsView: UIViewController, DetailSettingsViewInput {
         self.navigationBar = navigationBar
     }
 
+//    MARK: - UI update
+
+    func set(title: String) {
+        self.title = title
+        navigationBar?.titleString = title
+    }
+
+    func updateTable(with data: [LanguageCellViewModel]) {
+        tableViewSupervisor?.update(with: data)
+    }
+
 }
+
+//MARK: - NavigationBarDelegate
 
 extension DetailSettingsView: NavigationBarDelegate {
     func action(sender: UIButton!) {
         presenter?.backButtonPressed()
     }
 }
+
+//MARK: - DetailTableSupervisorDelegate
 
 extension DetailSettingsView: DetailTableSupervisorDelegate {
     func languageChosen(at indexPath: IndexPath) {

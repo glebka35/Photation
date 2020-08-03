@@ -11,9 +11,12 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
 
+//    MARK: - Properties
+
     var topSeparator = UIView()
     var bottomSeparator = UIView()
 
+//    MARK: - Life cycle
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,25 +34,7 @@ class TableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
-    func update(with model: CellViewModel, isFirst: Bool, isLast: Bool, isDestructive: Bool) {
-        imageView?.image = model.image
-        textLabel?.text = model.title
-        self.accessoryType = accessoryType
-
-        topSeparator.isHidden = !isFirst
-        bottomSeparator.isHidden = !isLast
-
-        textLabel?.textColor = isDestructive ? .red : .black
-
-        accessoryType = isDestructive ? .none : .disclosureIndicator
-    }
+//    MARK: - UI configuration
 
     private func addTopSeparator() {
         topSeparator.backgroundColor = #colorLiteral(red: 0.9214878678, green: 0.9216204286, blue: 0.9253799319, alpha: 1)
@@ -78,5 +63,19 @@ class TableViewCell: UITableViewCell {
             bottomSeparator.heightAnchor.constraint(equalToConstant: 1)
         ])
     }
-}
 
+    //    MARK: - UI update
+
+    func update(with model: CellViewModel, isFirst: Bool, isLast: Bool, isDestructive: Bool) {
+        imageView?.image = model.image
+        textLabel?.text = model.title
+        self.accessoryType = accessoryType
+
+        topSeparator.isHidden = !isFirst
+        bottomSeparator.isHidden = !isLast
+
+        textLabel?.textColor = isDestructive ? .red : .black
+
+        accessoryType = isDestructive ? .none : .disclosureIndicator
+    }
+}

@@ -9,6 +9,9 @@
 import UIKit
 
 class DefaultNavigationBar: UIView {
+
+//    MARK: - Properties
+
     weak var delegate: NavigationBarDelegate?
 
     public var titleString: String? {
@@ -26,6 +29,8 @@ class DefaultNavigationBar: UIView {
     private var title: UILabel?
     private var backButton: UIButton?
 
+//    MARK: - Life cycle
+
     init(title: String?, backButtonTitle: String?, backButtonImage: UIImage?) {
         super.init(frame: .zero)
 
@@ -37,6 +42,8 @@ class DefaultNavigationBar: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+//    MARK: - UI configuration
 
     private func addAndConfigureTitle(with text: String?) {
         let title = UILabel()
@@ -76,6 +83,8 @@ class DefaultNavigationBar: UIView {
 
         self.backButton = backButton
     }
+
+//    MARK: - User interaction
 
     @objc func buttonAction(sender: UIButton!) {
         delegate?.action(sender: sender)

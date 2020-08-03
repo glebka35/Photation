@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 
+//MARK: - CoreDataObjectConverterProtocol
 
 protocol CoreDataObjectConverterProtocol {
     var nativeLanguage: Language { get }
@@ -19,10 +20,17 @@ protocol CoreDataObjectConverterProtocol {
     func convert(from imageWithObjects: ObjectsOnImage)->ImageEntity?
 }
 
+//MARK: - CoreDataObjectConverter
+
 struct CoreDataObjectConverter: CoreDataObjectConverterProtocol {
+
+//    MARK: -  Properties
+
     let nativeLanguage: Language
     let foreignLanguage: Language
     let context: NSManagedObjectContext
+
+//    MARK: - Convert from coreData
 
     func convert(from managedObject: [ImageEntity]) -> [ObjectsOnImage]? {
         var imageWithObjects: [ObjectsOnImage] = []
@@ -40,6 +48,8 @@ struct CoreDataObjectConverter: CoreDataObjectConverterProtocol {
         }
         return imageWithObjects
     }
+
+//    MARK: - Convert to coreData
 
     func convert(from imageWithObjects: ObjectsOnImage) -> ImageEntity? {
         let managedObjectImage = ImageEntity(context: context)

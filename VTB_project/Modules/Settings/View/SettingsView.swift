@@ -9,10 +9,15 @@
 import UIKit
 
 class SettingsView: UIViewController, SettingsViewInput {
+
+//    MARK: - Properties
+
     var presenter: SettingsViewOutput?
 
     private var navigationBar: MainNavigationBar!
     private var tableViewSupervisor: TableViewSupervisor?
+
+//    MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +31,7 @@ class SettingsView: UIViewController, SettingsViewInput {
         presenter?.viewDidLoad()
     }
 
-    func updateTable(with data: [[CellViewModel]]) {
-        tableViewSupervisor?.update(with: data)
-    }
+//    MARK: -  UI configuration
 
     private func addAndConfigureTableView() {
         let tableViewSupervisor = TableViewSupervisor()
@@ -59,7 +62,16 @@ class SettingsView: UIViewController, SettingsViewInput {
             navigationBar.bottomAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 90)
         ])
     }
+
+//    MARK: - UI update
+
+    func updateTable(with data: [[CellViewModel]]) {
+        tableViewSupervisor?.update(with: data)
+    }
 }
+
+//MARK: - DetailTableSupervisorDelegate
+
 extension SettingsView: DetailTableSupervisorDelegate {
     func languageChosen(at indexPath: IndexPath) {
         presenter?.settingChoosed(at: indexPath)

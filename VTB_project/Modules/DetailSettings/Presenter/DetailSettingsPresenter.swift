@@ -8,7 +8,12 @@
 
 import Foundation
 
+//MARK: - DetailSettingsViewOutput
+
 class DetailSettingsPresenter: DetailSettingsViewOutput {
+
+//    MARK: - Properties
+
     var interactor: DetailSettingsInteractorInput?
     weak var view: DetailSettingsViewInput?
     var router: DetailSettingsRouterInput?
@@ -20,6 +25,8 @@ class DetailSettingsPresenter: DetailSettingsViewOutput {
         }
     }
 
+//    MARK: - Life cycle
+
     required init(with title: String) {
         self.title = title
     }
@@ -28,6 +35,8 @@ class DetailSettingsPresenter: DetailSettingsViewOutput {
         view?.set(title: title)
         interactor?.viewDidLoad()
     }
+
+//    MARK: - User interaction
 
     func languageChoosen(at indexPath: IndexPath) {
         data = data.map {
@@ -41,6 +50,8 @@ class DetailSettingsPresenter: DetailSettingsViewOutput {
     }
 }
 
+//MARK: - DetailSettingsInteractorOutput
+
 extension DetailSettingsPresenter: DetailSettingsInteractorOutput {
     func display(languages: [Language]) {
         var languagesCellModel: [LanguageCellViewModel] = []
@@ -52,4 +63,3 @@ extension DetailSettingsPresenter: DetailSettingsInteractorOutput {
         data = languagesCellModel
     }
 }
-

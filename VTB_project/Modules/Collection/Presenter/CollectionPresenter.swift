@@ -8,7 +8,12 @@
 
 import Foundation
 
+//MARK: - CollectionViewOutput
+
 class CollectionPresenter: CollectionViewOutput {
+
+//    MARK: - Properties
+
     var interactor: CollectionInteractorInput?
     weak var view: CollectionViewInput?
     var router: CollectionRouterInput?
@@ -16,11 +21,14 @@ class CollectionPresenter: CollectionViewOutput {
     private var displayingObjects: [ObjectsOnImage]?
     private var currentStyle: PresentationStyle!
     private var loadMoreStatus = false
-    
+
+//    MARK: - UI life cycle
     func viewDidLoad(with style: PresentationStyle) {
         currentStyle = style
         interactor?.getObjects()
     }
+
+//    MARK: - UI update
     
     func changePresentation() {
         let allCases = PresentationStyle.allCases
@@ -45,12 +53,16 @@ class CollectionPresenter: CollectionViewOutput {
         }
     }
 
+//    MARK: - Data fetching
+
     private func loadMoreObjects() {
         interactor?.loadMoreObjects { [weak self] in
             self?.loadMoreStatus = false
         }
     }
 }
+
+//MARK: - CollectionInteractorOutput
 
 extension CollectionPresenter: CollectionInteractorOutput {
     func objectsDidFetch(objects: [ObjectsOnImage]) {

@@ -9,20 +9,29 @@
 import Foundation
 import UIKit
 
+//MARK: - DetailViewOutput
+
 class DetailPresenter: DetailViewOutput {
+
+//    MARK: - Properties
+
     var interactor: DetailInteractorInput?
     var view: DetailViewInput?
     var router: DetailRouterInput?
+
+    private var objects: ObjectsOnImage
+
+//    MARK: - Life cycle
 
     init(with object: ObjectsOnImage) {
         self.objects = object
     }
 
-    private var objects: ObjectsOnImage
-
     func viewDidLoad() {
         view?.configureCollection(with: objects)
     }
+
+//    MARK: - User interaction
 
     func wordChosen(at index: Int) {
 //        objects[index].isFavorite
@@ -40,6 +49,8 @@ class DetailPresenter: DetailViewOutput {
         router?.dismiss()
     }
 }
+
+//MARK: - DetailInteractorOutput
 
 extension DetailPresenter: DetailInteractorOutput {
     

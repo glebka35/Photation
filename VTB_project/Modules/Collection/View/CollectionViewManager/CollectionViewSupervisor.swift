@@ -9,14 +9,18 @@
 import Foundation
 import UIKit
 
-struct CollectionSizes {
+//MARK: - Collection view constants
+
+enum CollectionSizes {
     static let numberOfCellInRow: CGFloat = 2
     static let cellSideIndent: CGFloat = 8
     static let cellPaddingSpace: CGFloat = 10
     static let topSpacing: CGFloat = 15
 }
 
-protocol CollectionViewSupervisor {
+//MARK: - CollectionView supervisor protocol
+
+protocol CollectionViewSupervisorProtocol {
     var styleDelegates: [PresentationStyle: CollectionViewDelegate] { get }
     var delegate: CollectionViewActionsDelegate? { get set }
     
@@ -25,7 +29,12 @@ protocol CollectionViewSupervisor {
     func updateContent(with objects: [ObjectsOnImage])
 }
 
-final class CollectionSupervisor: NSObject, CollectionViewSupervisor {
+//MARK: - CollectionView supervisor
+
+final class CollectionViewSupervisor: NSObject, CollectionViewSupervisorProtocol {
+
+//    MARK: - Properties
+
     weak var delegate: CollectionViewActionsDelegate? {
         didSet {
             styleDelegates.values.forEach {
@@ -33,6 +42,15 @@ final class CollectionSupervisor: NSObject, CollectionViewSupervisor {
             }
         }
     }
+
+    var styleDelegates: [PresentationStyle: CollectionViewDelegate] = {
+        let result: [PresentationStyle: CollectionViewDelegate] = [
+            .table: TabledContentCollectionViewDelegate(),
+            .images: ImagesContentCollectionViewDelegate()
+        ]
+
+        return result
+    } ()
 
     private var collectionView: UICollectionView
     private var presentationStyle: PresentationStyle!
@@ -45,6 +63,8 @@ final class CollectionSupervisor: NSObject, CollectionViewSupervisor {
     private var numberOfRows: Int {
         return objects.count
     }
+
+//    MARK: - Life cycle
     
     override init() {
         let layout = UICollectionViewFlowLayout()
@@ -53,14 +73,7 @@ final class CollectionSupervisor: NSObject, CollectionViewSupervisor {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     }
 
-    var styleDelegates: [PresentationStyle: CollectionViewDelegate] = {
-        let result: [PresentationStyle: CollectionViewDelegate] = [
-            .table: TabledContentCollectionViewDelegate(),
-            .images: ImagesContentCollectionViewDelegate()
-        ]
-
-        return result
-    } ()
+//    MARK: - CollectionView configuration
 
     func getConfiguredCollection(with style: PresentationStyle)->UICollectionView {
         collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
@@ -77,6 +90,8 @@ final class CollectionSupervisor: NSObject, CollectionViewSupervisor {
         presentationStyle = style
         return collectionView
     }
+
+//    MARK: - UI update
     
     func updatePresentationStyle(with style: PresentationStyle) {
         presentationStyle = style
@@ -88,7 +103,9 @@ final class CollectionSupervisor: NSObject, CollectionViewSupervisor {
     }
 }
 
-extension CollectionSupervisor: UICollectionViewDataSource {
+//MARK: -  UICollectionViewDataSource
+
+extension CollectionViewSupervisor: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }

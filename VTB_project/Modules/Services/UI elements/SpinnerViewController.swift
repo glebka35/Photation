@@ -9,7 +9,12 @@
 import UIKit
 
 class SpinnerViewController: UIViewController {
+
+//    MARK: - Properties
+
     var spinner = UIActivityIndicatorView(style: .whiteLarge)
+
+//    MARK: - Life cycle
 
     override func loadView() {
         view = UIView()

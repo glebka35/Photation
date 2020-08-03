@@ -9,17 +9,26 @@
 import Foundation
 import UIKit
 
+//MARK: - DetailCollectionSupervisor protocol
+
 protocol DetailCollectionSupervisorProtocol {
     var delegate: DetailCollectionSupervisorDelegate? { get set }
     func getConfiguredCollection()->UICollectionView
     func updateContent(with objects: [SingleObject])
 }
 
+//MARK: - DetailCollectionSupervisorDelegate protocol
+
 protocol DetailCollectionSupervisorDelegate: AnyObject {
     func wordChosen(at index: Int)
 }
 
+//MARK: - DetailCollectionSupervisor
+
 class DetailCollectionSupervisor: NSObject, DetailCollectionSupervisorProtocol{
+
+//    MARK: - Properties
+
     private var collectionView: UICollectionView
     private var sectionInsets = UIEdgeInsets(top: CollectionSizes.topSpacing, left: CollectionSizes.cellSideIndent, bottom: 0, right: CollectionSizes.cellSideIndent)
     weak var delegate: DetailCollectionSupervisorDelegate?
@@ -27,6 +36,8 @@ class DetailCollectionSupervisor: NSObject, DetailCollectionSupervisorProtocol{
     private var detailObjects: [SingleObject]
     private var nativeLanguage: Language
     private var foreignLanguage: Language
+
+//    MARK: - Life cycle
 
     required init(with objects: [SingleObject], nativeLanguage: Language, foreignLanguage: Language) {
         let layout = UICollectionViewFlowLayout()
@@ -38,6 +49,8 @@ class DetailCollectionSupervisor: NSObject, DetailCollectionSupervisorProtocol{
         self.nativeLanguage = nativeLanguage
         self.foreignLanguage = foreignLanguage
     }
+
+//    MARK: - CollectionView configuration
 
     func getConfiguredCollection()->UICollectionView {
         collectionView.register(DetailCollectionViewCell.self, forCellWithReuseIdentifier: "detailCell")
@@ -53,11 +66,15 @@ class DetailCollectionSupervisor: NSObject, DetailCollectionSupervisorProtocol{
         return collectionView
     }
 
+//    MARK: - UI update
+
     func updateContent(with objects: [SingleObject]) {
         detailObjects = objects
         collectionView.reloadData()
     }
 }
+
+//MARK: - UICollectionViewDataSource
 
 extension DetailCollectionSupervisor: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -88,6 +105,8 @@ extension DetailCollectionSupervisor: UICollectionViewDataSource {
         }
     }
 }
+
+//MARK: - UICollectionViewDelegateFlowLayout
 
 extension DetailCollectionSupervisor: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

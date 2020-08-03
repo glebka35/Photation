@@ -9,6 +9,9 @@
 import Foundation
 
 class SettingsInteractor: SettingsInteractorInput {
+
+//    MARK: - Properties
+
     weak var presenter: SettingsInteractorOutput?
 
     func viewDidLoad() {

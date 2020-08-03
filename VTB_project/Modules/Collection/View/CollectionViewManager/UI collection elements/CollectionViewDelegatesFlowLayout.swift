@@ -9,18 +9,29 @@
 import Foundation
 import UIKit
 
+//MARK: - CollectionView delegate
+
 protocol CollectionViewDelegate: AnyObject, UICollectionViewDelegateFlowLayout {
     var delegate: CollectionViewActionsDelegate? { get set }
 }
+
+//MARK: - CollectionView actions delegate
 
 protocol CollectionViewActionsDelegate: AnyObject {
     func cellSelected(at indexPath: IndexPath)
     func scrollViewDidScrollToBottom()
 }
 
+//MARK: - DefaultCollectionView delegate
+
 class DefaultCollectionViewDelegate: NSObject, CollectionViewDelegate {
+
+//    MARK: - Properties
+
     var delegate: CollectionViewActionsDelegate?
     var sectionInsets = UIEdgeInsets(top: CollectionSizes.topSpacing, left: CollectionSizes.cellSideIndent, bottom: 0, right: CollectionSizes.cellSideIndent)
+
+//    MARK: - Delegate methods
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.cellSelected(at: indexPath)
@@ -37,6 +48,8 @@ class DefaultCollectionViewDelegate: NSObject, CollectionViewDelegate {
         }
     }
 }
+
+//MARK: - TabledCollectionView delegate
 
 final class TabledContentCollectionViewDelegate: DefaultCollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -57,6 +70,8 @@ final class TabledContentCollectionViewDelegate: DefaultCollectionViewDelegate {
         return CollectionSizes.cellPaddingSpace
     }
 }
+
+//MARK: - ImagesCollectionView delegate
 
 final class ImagesContentCollectionViewDelegate: DefaultCollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

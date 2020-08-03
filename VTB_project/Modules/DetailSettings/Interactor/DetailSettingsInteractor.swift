@@ -9,11 +9,14 @@
 import Foundation
 
 class DetailSettingsInteractor: DetailSettingsInteractorInput {
+//    MARK: - Properties
+
     weak var presenter: DetailSettingsInteractorOutput?
+
+//    MARK: - Life cycle
 
     func viewDidLoad() {
         let languages = Language.allCases
         presenter?.display(languages: languages)
     }
-
 }

@@ -11,6 +11,8 @@ import GUNetworkLayer
 
 class CloudMersiveClient {
 
+//    MARK: - Properties
+
     var baseURL = URL(string: "https://api.cloudmersive.com")!
     var boundary = "Boundary-\(UUID().uuidString)"
     var headers: HTTPHeaders
@@ -18,6 +20,7 @@ class CloudMersiveClient {
     private let networkManager: ApiClient
     private var settings: ClientSettings
 
+//    MARK: - Life cycle
 
     init() {
         headers = ["Apikey": "d90f3529-f5d3-4048-9d7c-46a4a35829c4", "Content-Type":"multipart/form-data; boundary=\(boundary)"]
@@ -26,6 +29,8 @@ class CloudMersiveClient {
         let provider = HTTPProvider(settings: settings, baseURL: baseURL)
         networkManager = ApiClient(provider: provider)
     }
+
+//    MARK: - Recognition
 
     func getRecognition(of image: Data?, name: String, completion: @escaping (_ objects: [Object]?, _ success: Bool?)->()) {
         if let data = image {
@@ -50,6 +55,8 @@ class CloudMersiveClient {
             }
         }
     }
+
+//    MARK: - Response decoding
 
     private func decodeResponse(response: Response)->[Object]? {
         guard let data = response.data else { return nil }

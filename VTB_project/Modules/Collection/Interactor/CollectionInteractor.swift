@@ -11,17 +11,36 @@ import UIKit // Надо убрать отсюда зависимость от U
 // вместо картинок использую заглушки из ассетов, но после подключения api эта проблема уйдет
 
 class CollectionInteractor: CollectionInteractorInput {
+
+    //    MARK: - Properties
+
     weak var presenter: CollectionInteractorOutput?
-    var storage = Storage()
+    private var coreDataStorage = CoreDataStore.shared
+
+    private var page = 0
+
+    //    MARK: - Life cycle
     
     init() {
-        (1...10).forEach { _ in
-            storage.add(imagesWithObjects: [
-                ObjectsOnImage(image: UIImage(named: "car")!.jpegData(compressionQuality: 1)!, objects: [SingleObject(nativeName: "машина", foreignName: "car", color: .black, isFavorite: .no), SingleObject(nativeName: "дерево", foreignName: "tree", color: .yellow, isFavorite: .no), SingleObject(nativeName: "медведь", foreignName: "bear", color: .green, isFavorite: .yes)], nativeLanguage: .ru, foreignLanguage: .en)])
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.needReloadDataNotification), object: nil)
+    }
+
+    //    MARK: - Data fetching
+    
+    func loadObjects(completion: @escaping () -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            if let page = self?.page, let objects = self?.coreDataStorage.loadMoreImages(page: page) {
+                DispatchQueue.main.async {
+                    completion()
+                    self?.presenter?.objectsDidFetch(objects: objects)
+                    self?.page += 1
+                }
+            }
         }
     }
-    
-    func getObjects() {
-        presenter?.objectsDidFetch(objects: storage.objectsOnImages)
+
+    @objc private func reloadData() {
+        page = 0
+        loadObjects {}
     }
 }

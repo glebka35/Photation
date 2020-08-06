@@ -9,6 +9,8 @@
 import UIKit
 
 class MainNavigationBar: UIView {
+
+//    MARK: - Properties
     
     weak var delegate: NavigationBarDelegate?
     
@@ -28,6 +30,8 @@ class MainNavigationBar: UIView {
     private var rightTitle: UILabel?
     private var rightButton: UIButton?
     private var searchBar: UISearchBar?
+
+//    MARK: - Life cycle
 
     init(title: String, rightTitle: String?, rightButtonImage: UIImage?, isSearchBarNeeded: Bool) {
         super.init(frame: .zero)
@@ -53,6 +57,8 @@ class MainNavigationBar: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+//    MARK: - UI configuration
     
     private func addAndConfigureTitle(with text: String) {
         let title = UILabel()
@@ -88,17 +94,13 @@ class MainNavigationBar: UIView {
 
         self.rightButton = rightButton
     }
-    
-    @objc func rightButtonAction(sender: UIButton!) {
-        delegate?.action(sender: sender)
-    }
-    
+
     private func addAndConfigureSearchBar() {
         let searchBar = UISearchBar()
         searchBar.backgroundImage = UIImage()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         addSubview(searchBar)
-        
+
         NSLayoutConstraint.activate([
             searchBar.leadingAnchor.constraint(equalTo: leadingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -107,23 +109,29 @@ class MainNavigationBar: UIView {
 
         self.searchBar = searchBar
     }
-    
+
     private func embedInStackView() {
         let viewsToBeEmbedInStack: [UIView] = [title, rightTitle, rightButton].compactMap({ $0 })
 
         let hStack = UIStackView(arrangedSubviews: viewsToBeEmbedInStack)
-        
+
         hStack.distribution = .equalSpacing
         hStack.alignment = .center
         hStack.axis = .horizontal
-        
+
         addSubview(hStack)
-        
+
         hStack.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             hStack.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             hStack.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
             hStack.topAnchor.constraint(equalTo: topAnchor)
         ])
+    }
+
+//    MARK: - User interaction
+    
+    @objc func rightButtonAction(sender: UIButton!) {
+        delegate?.action(sender: sender)
     }
 }

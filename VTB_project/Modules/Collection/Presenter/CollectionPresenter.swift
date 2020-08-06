@@ -8,19 +8,27 @@
 
 import Foundation
 
+//MARK: - CollectionViewOutput
+
 class CollectionPresenter: CollectionViewOutput {
+
+    //    MARK: - Properties
+
     var interactor: CollectionInteractorInput?
     weak var view: CollectionViewInput?
     var router: CollectionRouterInput?
 
     private var displayingObjects: [ObjectsOnImage]?
-    
     private var currentStyle: PresentationStyle!
-    
+    private var loadMoreStatus = false
+
+    //    MARK: - UI life cycle
     func viewDidLoad(with style: PresentationStyle) {
         currentStyle = style
-        interactor?.getObjects()
+        interactor?.loadObjects() {}
     }
+
+    //    MARK: - UI update
     
     func changePresentation() {
         let allCases = PresentationStyle.allCases
@@ -28,7 +36,11 @@ class CollectionPresenter: CollectionViewOutput {
         let nextIndex = (index + 1) % allCases.count
         let newStyle = allCases[nextIndex]
         currentStyle = newStyle
-        interactor?.getObjects()
+
+        if let objects = displayingObjects {
+            objectsDidFetch(objects: objects)
+        }
+
         view?.updatePresentation(with: newStyle)
     }
 
@@ -37,7 +49,24 @@ class CollectionPresenter: CollectionViewOutput {
             router?.showDetail(of: object)
         }
     }
+
+    func scrollViewDidScrollToBottom() {
+            loadObjects()
+    }
+
+    //    MARK: - Data fetching
+
+    private func loadObjects() {
+        if !loadMoreStatus {
+            loadMoreStatus = true
+            interactor?.loadObjects { [weak self] in
+                self?.loadMoreStatus = false
+            }
+        }
+    }
 }
+
+//MARK: - CollectionInteractorOutput
 
 extension CollectionPresenter: CollectionInteractorOutput {
     func objectsDidFetch(objects: [ObjectsOnImage]) {

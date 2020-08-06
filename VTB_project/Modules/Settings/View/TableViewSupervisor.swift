@@ -10,14 +10,20 @@ import Foundation
 import UIKit
 
 class TableViewSupervisor: NSObject {
+//    MARK: - Properties
+
     private var tableView: UITableView
     private var cellModels: [[CellViewModel]] = []
 
     weak var delegate: DetailTableSupervisorDelegate?
 
+//    MARK: - Life cycle
+
     override init() {
         tableView = UITableView()
     }
+
+//    MARK: - UI configuration
 
     func getConfiguredTableView()->UITableView {
         tableView.delegate = self
@@ -29,11 +35,15 @@ class TableViewSupervisor: NSObject {
         return tableView
     }
 
+//    MARK: - UI update
+
     func update(with data: [[CellViewModel]]) {
         self.cellModels = data
         tableView.reloadData()
     }
 }
+
+//MARK: - UITableViewDelegate
 
 extension TableViewSupervisor: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -51,6 +61,8 @@ extension TableViewSupervisor: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
+
+//MARK: - UITableViewDataSource
 
 extension TableViewSupervisor: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {

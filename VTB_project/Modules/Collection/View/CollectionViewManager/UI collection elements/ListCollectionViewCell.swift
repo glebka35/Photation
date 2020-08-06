@@ -8,9 +8,13 @@
 
 import UIKit
 
-class ListCollectionViewCell: UICollectionViewCell {
+final class ListCollectionViewCell: UICollectionViewCell {
+
+//    MARK: - Properties
     private var objectNativeLabel = UILabel()
     private var objectForeignLabel = UILabel()
+
+//    MARK: - Life cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,7 +29,9 @@ class ListCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
+
+//    MARK: - UI configuration
+
     private func addAndConfigureLabels() {
         configure(label: objectNativeLabel)
         configure(label: objectForeignLabel)
@@ -52,6 +58,8 @@ class ListCollectionViewCell: UICollectionViewCell {
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
     }
+
+//    MARK: - UI update
     
     public func updateStateWith(object: SingleObject) {
         objectNativeLabel.text = object.nativeName

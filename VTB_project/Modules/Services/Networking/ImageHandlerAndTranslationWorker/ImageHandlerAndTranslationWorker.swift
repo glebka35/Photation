@@ -9,15 +9,23 @@
 import Foundation
 import UIKit
 
+//MARK: - ObjectDetectorAndTranslator
+
 protocol ObjectDetectorAndTranslator {
     func performHandling(image: UIImage, completion: @escaping (_ objects: ObjectsOnImage)->Void)
 }
 
+//MARK: - ObjectDetectorAndTranslator
+
 class ImageHandlerAndTranslationWorker: ObjectDetectorAndTranslator {
+
+//    MARK: - Properties
 
     private let cloudMersiveClient = CloudMersiveClient()
     private let translator = Translator()
     private var imageHandler = ImageHandler()
+
+//    MARK: - Handling
     
     func performHandling(image: UIImage, completion: @escaping (_ objects: ObjectsOnImage)->Void) {
         if let data = image.jpegData(compressionQuality: 0.7) {

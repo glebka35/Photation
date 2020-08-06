@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 struct TranslationApiResponse {
     let data: TranslationData
 }

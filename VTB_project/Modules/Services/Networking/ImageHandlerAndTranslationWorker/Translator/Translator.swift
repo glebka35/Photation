@@ -9,10 +9,15 @@
 import Foundation
 
 class Translator {
+
+//    MARK: - Properties
+
     private let translationClient = TranslationClient()
 
     private var firstLangdictionary: SynchronizedStringDictionary = SynchronizedStringDictionary()
     private var secondLangdictionary: SynchronizedStringDictionary = SynchronizedStringDictionary()
+
+//    MARK: - Translation objects
 
     func translate(objects: ObjectsOnImage, nativeLang: Language, foreignLang: Language, completion: @escaping (_ objects: ObjectsOnImage)->Void) {
 
@@ -59,6 +64,8 @@ class Translator {
         }
     }
 
+//    MARK: - Translation words
+
     private func translate(words: [String], from inLanguage: Language, to outLanguage: Language, completion: @escaping (_ dictionary: SynchronizedStringDictionary)->Void) {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             let dispatchGroup = DispatchGroup()
@@ -80,4 +87,3 @@ class Translator {
         }
     }
 }
-

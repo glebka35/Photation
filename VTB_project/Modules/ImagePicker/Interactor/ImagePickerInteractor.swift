@@ -10,14 +10,19 @@ import Foundation
 import UIKit
 
 class ImagePickerInteractor: ImagePickerInteractorInput {
+
+//    MARK: - Properties
+    
     weak var presenter: ImagePickerInteractorOutput?
 
     private let imageWorker: ObjectDetectorAndTranslator = ImageHandlerAndTranslationWorker()
+    private var dataStore: DataStoreProtocol = CoreDataStore.shared
 
     func handle(image: UIImage) {
         imageWorker.performHandling(image: image) { (objects) in
             DispatchQueue.main.async { [weak self] in
                 self?.presenter?.imageDidRecieved(objects: objects)
+                self?.dataStore.save(imageWithObjects: objects)
             }
         }
     }

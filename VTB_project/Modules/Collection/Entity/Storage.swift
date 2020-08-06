@@ -9,14 +9,6 @@
 import Foundation
 import UIKit
 
-struct Storage {
-    public mutating func add(imagesWithObjects: [ObjectsOnImage]) {
-        objectsOnImages.append(contentsOf: imagesWithObjects)
-    }
-    
-    private(set) var objectsOnImages: [ObjectsOnImage] = []
-}
-
 struct ObjectsOnImage {
     var image: Data?
     var objects: [SingleObject]

@@ -9,7 +9,12 @@
 import Foundation
 import UIKit
 
+//MARK: - SettingsViewOutput
+
 class SettingsPresenter: SettingsViewOutput {
+
+//    MARK: - Properties
+
     var interactor: SettingsInteractorInput?
     weak var view: SettingsViewInput?
     var router: SettingsRouterInput?
@@ -20,16 +25,24 @@ class SettingsPresenter: SettingsViewOutput {
         }
     }
 
+//    MARK: - Life cycle
+
     func viewDidLoad() {
         interactor?.viewDidLoad()
     }
 
+//    MARK: - User interaction
+
     func settingChoosed(at indexPath: IndexPath) {
         if data.count - 1 != indexPath.section {
             router?.showDetail(with: data[indexPath.section][indexPath.row].title)
+        } else {
+            interactor?.deleteData()
         }
     }
 }
+
+//MARK: - SettingsInteractorOutput
 
 extension SettingsPresenter: SettingsInteractorOutput {
     func display(settings: [[SettingsList]]) {

@@ -9,10 +9,16 @@
 import Foundation
 import UIKit
 
+//MARK: - ImagePickerViewOutput
+
 class ImagePickerPresenter: ImagePickerViewOutput {
+//    MARK: -  Properties
+
     var router: ImagePickerRouterInput?
     var interactor: ImagePickerInteractorInput?
     weak var view: ImagePickerView?
+
+//    MARK: - User interaction
 
     func cameraButtonPressed() {
         view?.showCameraImagePicker()
@@ -27,6 +33,8 @@ class ImagePickerPresenter: ImagePickerViewOutput {
         view?.showSpinner()
     }
 }
+
+//MARK: - ImagePickerInteractorOutput
 
 extension ImagePickerPresenter: ImagePickerInteractorOutput {
     func imageDidRecieved(objects: ObjectsOnImage) {

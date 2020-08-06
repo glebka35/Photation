@@ -9,24 +9,49 @@
 import Foundation
 import UIKit
 
+//MARK: - CollectionView delegate
+
 protocol CollectionViewDelegate: AnyObject, UICollectionViewDelegateFlowLayout {
-    var selectionDelegate: CollectionViewCellSelectedDelegate? { get set }
+    var delegate: CollectionViewActionsDelegate? { get set }
 }
 
-protocol CollectionViewCellSelectedDelegate: AnyObject {
+//MARK: - CollectionView actions delegate
+
+protocol CollectionViewActionsDelegate: AnyObject {
     func cellSelected(at indexPath: IndexPath)
+    func scrollViewDidScrollToBottom()
 }
+
+//MARK: - DefaultCollectionView delegate
 
 class DefaultCollectionViewDelegate: NSObject, CollectionViewDelegate {
-    var selectionDelegate: CollectionViewCellSelectedDelegate?
+
+//    MARK: - Properties
+
+    var delegate: CollectionViewActionsDelegate?
     var sectionInsets = UIEdgeInsets(top: CollectionSizes.topSpacing, left: CollectionSizes.cellSideIndent, bottom: 0, right: CollectionSizes.cellSideIndent)
+
+//    MARK: - Delegate methods
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectionDelegate?.cellSelected(at: indexPath)
+        delegate?.cellSelected(at: indexPath)
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+
+        let deltaOffset = maximumOffset - currentOffset
+
+        if deltaOffset <= 0 {
+            delegate?.scrollViewDidScrollToBottom()
+        }
     }
 }
 
-class TabledContentCollectionViewDelegate: DefaultCollectionViewDelegate {
+//MARK: - TabledCollectionView delegate
+
+final class TabledContentCollectionViewDelegate: DefaultCollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let availableWidth = collectionView.bounds.width - 2 * CollectionSizes.cellSideIndent
         return CGSize(width: availableWidth, height: 50)
@@ -46,7 +71,9 @@ class TabledContentCollectionViewDelegate: DefaultCollectionViewDelegate {
     }
 }
 
-class ImagesContentCollectionViewDelegate: DefaultCollectionViewDelegate {
+//MARK: - ImagesCollectionView delegate
+
+final class ImagesContentCollectionViewDelegate: DefaultCollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let availableWidth = collectionView.bounds.width - 2 * CollectionSizes.cellSideIndent - (CollectionSizes.numberOfCellInRow - 1) * CollectionSizes.cellPaddingSpace
         let widthPerItem = availableWidth / CollectionSizes.numberOfCellInRow

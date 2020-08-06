@@ -27,6 +27,7 @@ protocol CollectionViewOutput: AnyObject {
     func viewDidLoad(with style: PresentationStyle)
     func changePresentation()
     func cellSelected(at indexPath: IndexPath)
+    func scrollViewDidScrollToBottom()
 }
 
 //MARK: - PRESENTER -> INTERACTOR
@@ -34,7 +35,7 @@ protocol CollectionViewOutput: AnyObject {
 protocol CollectionInteractorInput: AnyObject {
     var presenter: CollectionInteractorOutput? { get set }
     
-    func getObjects()
+    func loadObjects(completion: @escaping ()->Void)
 }
 
 //MARK:- INTERACTOR -> PRESENTER

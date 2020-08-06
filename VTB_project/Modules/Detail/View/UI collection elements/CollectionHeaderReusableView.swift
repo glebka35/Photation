@@ -9,9 +9,14 @@
 import UIKit
 
 class CollectionHeaderReusableView: UICollectionReusableView {
+
+//    MARK: - Properties
+
     private var nativeLanguageLabel = UILabel()
     private var foreignLanguageLabel = UILabel()
     private var favoriteImageView = UIImageView(image: UIImage(named: "heart"))
+
+//    MARK: - Life cycle
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,16 +31,12 @@ class CollectionHeaderReusableView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func updateWith(nativeLanguage: String, foreignLanguage: String) {
-        nativeLanguageLabel.text = nativeLanguage
-        foreignLanguageLabel.text = foreignLanguage
-    }
+//    MARK: - UI configuration
 
     private func configureLabels() {
         configure(label: nativeLanguageLabel)
         configure(label: foreignLanguageLabel)
     }
-
 
     private func configure(label: UILabel) {
         label.numberOfLines = 1
@@ -59,5 +60,12 @@ class CollectionHeaderReusableView: UICollectionReusableView {
             hStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             hStack.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+
+//    MARK: - UI update
+
+    public func updateWith(nativeLanguage: String, foreignLanguage: String) {
+        nativeLanguageLabel.text = nativeLanguage
+        foreignLanguageLabel.text = foreignLanguage
     }
 }

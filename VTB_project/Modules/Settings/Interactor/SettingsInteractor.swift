@@ -19,4 +19,13 @@ class SettingsInteractor: SettingsInteractorInput {
         presenter?.display(settings: settings)
     }
 
+    func deleteData() {
+        let nativeLanguage = UserSettings.shared.nativeLanguage
+        let foreignLanguage = UserSettings.shared.foreignLanguage
+        let coreDataManager = CoreDataStore.shared
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            coreDataManager.deleteEntities(with: nativeLanguage, and: foreignLanguage)
+        }
+    }
 }

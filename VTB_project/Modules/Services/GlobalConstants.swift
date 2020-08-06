@@ -9,5 +9,5 @@
 import Foundation
 
 enum GlobalConstants {
-    static let newImageAddedNotificationName = "NewImageAddedNotificationName"
+    static let needReloadDataNotification = "NeedReloadDataNotification"
 }

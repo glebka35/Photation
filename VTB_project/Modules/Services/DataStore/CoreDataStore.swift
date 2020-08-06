@@ -71,7 +71,7 @@ class CoreDataStore: NSObject, DataStoreProtocol {
     }
 
     private func newImageAdded() {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: GlobalConstants.newImageAddedNotificationName), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: GlobalConstants.needReloadDataNotification), object: nil)
     }
 
 //    MARK: - Fetching
@@ -79,13 +79,37 @@ class CoreDataStore: NSObject, DataStoreProtocol {
     func loadMoreImages(page: Int)->[ObjectsOnImage]? {
         fetchRequest.fetchOffset = page * Constants.pageSize
         do {
-            if let objects = try managedContext.fetch(fetchRequest) as? [ImageEntity] {
-                return converter.convert(managedObject: objects)
-            }
-            return nil
+            let objects = try managedContext.fetch(fetchRequest)
+            return converter.convert(managedObject: objects)
         } catch {
             print("Fetch failed")
             return nil
         }
+    }
+
+//    MARK: - Deleting
+
+    func deleteEntities(with nativeLanguage: Language, and foreignLanguage: Language) {
+        let deleteFetchRequest: NSFetchRequest<ImageEntity> = ImageEntity.fetchRequest()
+        let nativePredicate = NSPredicate(format: "nativeLanguage = %@", nativeLanguage.rawValue)
+        let foreignPredicate = NSPredicate(format: "foreignLanguage = %@", foreignLanguage.rawValue)
+
+        let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [nativePredicate, foreignPredicate])
+
+        deleteFetchRequest.predicate = andPredicate
+
+        do {
+            let objects = try managedContext.fetch(deleteFetchRequest)
+            objects.forEach() {
+                managedContext.delete($0)
+            }
+
+            try managedContext.save()
+
+            NotificationCenter.default.post(name: NSNotification.Name(GlobalConstants.needReloadDataNotification), object: nil)
+        } catch {
+            fatalError("Error while deleting objects")
+        }
+
     }
 }

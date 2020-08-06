@@ -22,7 +22,7 @@ class CollectionInteractor: CollectionInteractorInput {
     //    MARK: - Life cycle
     
     init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(newImageAdded), name: NSNotification.Name(GlobalConstants.newImageAddedNotificationName), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.needReloadDataNotification), object: nil)
     }
 
     //    MARK: - Data fetching
@@ -39,7 +39,7 @@ class CollectionInteractor: CollectionInteractorInput {
         }
     }
 
-    @objc private func newImageAdded() {
+    @objc private func reloadData() {
         page = 0
         loadObjects {}
     }

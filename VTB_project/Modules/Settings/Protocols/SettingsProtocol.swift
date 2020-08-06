@@ -34,6 +34,7 @@ protocol SettingsInteractorInput: AnyObject {
     var presenter: SettingsInteractorOutput? { get set }
 
     func viewDidLoad()
+    func deleteData()
 }
 
 //MARK:- INTERACTOR -> PRESENTER

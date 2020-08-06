@@ -36,6 +36,8 @@ class SettingsPresenter: SettingsViewOutput {
     func settingChoosed(at indexPath: IndexPath) {
         if data.count - 1 != indexPath.section {
             router?.showDetail(with: data[indexPath.section][indexPath.row].title)
+        } else {
+            interactor?.deleteData()
         }
     }
 }

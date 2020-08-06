@@ -57,7 +57,6 @@ final class CollectionViewSupervisor: NSObject, CollectionViewSupervisorProtocol
     private var objects: [ObjectsOnImage] = [] {
         didSet {
             collectionView.reloadData()
-            print(objects.count)
         }
     }
     private var numberOfRows: Int {

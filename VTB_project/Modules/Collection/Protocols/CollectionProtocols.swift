@@ -35,8 +35,7 @@ protocol CollectionViewOutput: AnyObject {
 protocol CollectionInteractorInput: AnyObject {
     var presenter: CollectionInteractorOutput? { get set }
     
-    func getObjects()
-    func loadMoreObjects(completion: @escaping ()->Void)
+    func loadObjects(completion: @escaping ()->Void)
 }
 
 //MARK:- INTERACTOR -> PRESENTER

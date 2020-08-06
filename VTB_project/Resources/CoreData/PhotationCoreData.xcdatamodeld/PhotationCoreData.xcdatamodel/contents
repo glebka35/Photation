@@ -2,7 +2,9 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ImageEntity" representedClassName="ImageEntity" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="foreignLanguage" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="nativeLanguage" optional="YES" attributeType="String"/>
         <relationship name="object" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ObjectEntity" inverseName="image" inverseEntity="ObjectEntity"/>
     </entity>
     <entity name="ObjectEntity" representedClassName="ObjectEntity" syncable="YES">
@@ -13,7 +15,7 @@
         <relationship name="image" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ImageEntity" inverseName="object" inverseEntity="ImageEntity"/>
     </entity>
     <elements>
-        <element name="ImageEntity" positionX="-36" positionY="54" width="128" height="88"/>
+        <element name="ImageEntity" positionX="-36" positionY="54" width="128" height="118"/>
         <element name="ObjectEntity" positionX="-63" positionY="-18" width="128" height="118"/>
     </elements>
 </model>

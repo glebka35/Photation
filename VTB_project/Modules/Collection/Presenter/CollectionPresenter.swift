@@ -12,7 +12,7 @@ import Foundation
 
 class CollectionPresenter: CollectionViewOutput {
 
-//    MARK: - Properties
+    //    MARK: - Properties
 
     var interactor: CollectionInteractorInput?
     weak var view: CollectionViewInput?
@@ -22,13 +22,13 @@ class CollectionPresenter: CollectionViewOutput {
     private var currentStyle: PresentationStyle!
     private var loadMoreStatus = false
 
-//    MARK: - UI life cycle
+    //    MARK: - UI life cycle
     func viewDidLoad(with style: PresentationStyle) {
         currentStyle = style
-        interactor?.getObjects()
+        interactor?.loadObjects() {}
     }
 
-//    MARK: - UI update
+    //    MARK: - UI update
     
     func changePresentation() {
         let allCases = PresentationStyle.allCases
@@ -36,7 +36,11 @@ class CollectionPresenter: CollectionViewOutput {
         let nextIndex = (index + 1) % allCases.count
         let newStyle = allCases[nextIndex]
         currentStyle = newStyle
-        interactor?.getObjects()
+
+        if let objects = displayingObjects {
+            objectsDidFetch(objects: objects)
+        }
+
         view?.updatePresentation(with: newStyle)
     }
 
@@ -47,17 +51,17 @@ class CollectionPresenter: CollectionViewOutput {
     }
 
     func scrollViewDidScrollToBottom() {
-        if !loadMoreStatus {
-            loadMoreStatus = true
-            loadMoreObjects()
-        }
+            loadObjects()
     }
 
-//    MARK: - Data fetching
+    //    MARK: - Data fetching
 
-    private func loadMoreObjects() {
-        interactor?.loadMoreObjects { [weak self] in
-            self?.loadMoreStatus = false
+    private func loadObjects() {
+        if !loadMoreStatus {
+            loadMoreStatus = true
+            interactor?.loadObjects { [weak self] in
+                self?.loadMoreStatus = false
+            }
         }
     }
 }

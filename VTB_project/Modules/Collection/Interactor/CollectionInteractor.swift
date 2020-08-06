@@ -12,40 +12,35 @@ import UIKit // Надо убрать отсюда зависимость от U
 
 class CollectionInteractor: CollectionInteractorInput {
 
-//    MARK: - Properties
+    //    MARK: - Properties
 
     weak var presenter: CollectionInteractorOutput?
-    var storage = Storage()
+    private var coreDataStorage = CoreDataStore.shared
 
-//    MARK: - Life cycle
+    private var page = 0
+
+    //    MARK: - Life cycle
     
     init() {
-        (1...10).forEach { _ in
-            storage.add(imagesWithObjects: [
-                ObjectsOnImage(image: UIImage(named: "car")!.jpegData(compressionQuality: 1)!, objects: [SingleObject(nativeName: "машина", foreignName: "car", color: .black, isFavorite: .no), SingleObject(nativeName: "дерево", foreignName: "tree", color: .yellow, isFavorite: .no), SingleObject(nativeName: "медведь", foreignName: "bear", color: .green, isFavorite: .yes)], nativeLanguage: .ru, foreignLanguage: .en)])
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(newImageAdded), name: NSNotification.Name(GlobalConstants.newImageAddedNotificationName), object: nil)
     }
 
-//    MARK: - Data fetching
+    //    MARK: - Data fetching
     
-    func getObjects() {
-        presenter?.objectsDidFetch(objects: storage.objectsOnImages)
-    }
-
-    func loadMoreObjects(completion: @escaping () -> Void) {
-        // Add core data
+    func loadObjects(completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-             (1...10).forEach { _ in
-                self?.storage.add(imagesWithObjects: [
-                           ObjectsOnImage(image: UIImage(named: "car")!.jpegData(compressionQuality: 1)!, objects: [SingleObject(nativeName: "машина", foreignName: "car", color: .black, isFavorite: .no), SingleObject(nativeName: "дерево", foreignName: "tree", color: .yellow, isFavorite: .no), SingleObject(nativeName: "медведь", foreignName: "bear", color: .green, isFavorite: .yes)], nativeLanguage: .ru, foreignLanguage: .en)])
-                   }
-            DispatchQueue.main.async {
-                completion()
-                if let objects = self?.storage.objectsOnImages {
+            if let page = self?.page, let objects = self?.coreDataStorage.loadMoreImages(page: page) {
+                DispatchQueue.main.async {
+                    completion()
                     self?.presenter?.objectsDidFetch(objects: objects)
+                    self?.page += 1
                 }
             }
-
         }
+    }
+
+    @objc private func newImageAdded() {
+        page = 0
+        loadObjects {}
     }
 }

@@ -9,8 +9,6 @@
 import Foundation
 
 protocol DataStoreProtocol {
-    init(nativeLanguage: Language, foreignLanguage: Language)
-
     func save(imageWithObjects: ObjectsOnImage)
-    func loadMoreImages()->[ObjectsOnImage]?
+    func loadMoreImages(page: Int)->[ObjectsOnImage]?
 }

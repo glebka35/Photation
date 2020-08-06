@@ -12,79 +12,80 @@ import CoreData
 
 class CoreDataStore: NSObject, DataStoreProtocol {
 
+//    MARK: - Constants
+
+    private enum Constants {
+        static let pageSize = 20
+    }
+
+//    MARK: - Singleton
+
+    static let shared = CoreDataStore()
+
 //    MARK: - Properties
 
-    private let nativeLanguage: Language
-    private let foreignLanguage: Language
-
     private lazy var converter: CoreDataObjectConverterProtocol = {
-        return CoreDataObjectConverter(nativeLanguage: nativeLanguage, foreignLanguage: foreignLanguage, context: fetchedResultsController.managedObjectContext)
+        return CoreDataObjectConverter(context: managedContext)
     } ()
 
-    private lazy var fetchedResultsController: NSFetchedResultsController<ImageEntity> = {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { fatalError("AppDelegate is nil")}
-
-        let managedContext = appDelegate.persistentContainer.newBackgroundContext()
+    private lazy var fetchRequest: NSFetchRequest<ImageEntity> = {
+        let managedContext = persistentContainer.newBackgroundContext()
         let fetchRequest: NSFetchRequest<ImageEntity> = ImageEntity.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
 
-        fetchRequest.fetchBatchSize = 20
+        fetchRequest.fetchBatchSize = Constants.pageSize
         fetchRequest.sortDescriptors = [sortDescriptor]
 
-        let fetchedResultController = NSFetchedResultsController<ImageEntity>(fetchRequest: fetchRequest, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
-        fetchedResultController.delegate = self
-        return fetchedResultController
+        return fetchRequest
+    } ()
+
+    private lazy var managedContext: NSManagedObjectContext = {
+        persistentContainer.newBackgroundContext()
+    } ()
+
+    private lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "PhotationCoreData")
+        container.loadPersistentStores { (storeDescription, error) in
+            if let error = error as NSError? {
+                fatalError("Problem with NSPersistentContainer")
+            }
+        }
+        print(NSPersistentContainer.defaultDirectoryURL())
+        return container
     } ()
 
 //    MARK: - Life cycle
 
-    required init(nativeLanguage: Language,foreignLanguage: Language) {
-        self.nativeLanguage = nativeLanguage
-        self.foreignLanguage = foreignLanguage
-    }
+    private override init() { }
 
 //    MARK: - Saving
 
     func save(imageWithObjects: ObjectsOnImage) {
-        let manageObject = converter.convert(from: imageWithObjects)
+        let manageObject = converter.convert(imageWithObjects: imageWithObjects)
         do {
             try manageObject?.managedObjectContext?.save()
+            newImageAdded()
         } catch {
             print("Error while saving")
         }
     }
 
+    private func newImageAdded() {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: GlobalConstants.newImageAddedNotificationName), object: nil)
+    }
+
 //    MARK: - Fetching
 
-    func loadMoreImages() -> [ObjectsOnImage]? {
+    func loadMoreImages(page: Int)->[ObjectsOnImage]? {
+        fetchRequest.fetchOffset = page * Constants.pageSize
         do {
-            try fetchedResultsController.performFetch()
+            if let objects = try managedContext.fetch(fetchRequest) as? [ImageEntity] {
+                return converter.convert(managedObject: objects)
+            }
+            return nil
         } catch {
             print("Fetch failed")
-        }
-
-        guard let managedObjects = fetchedResultsController.fetchedObjects else { return nil }
-
-        return converter.convert(from: managedObjects)
-    }
-
-}
-
-extension CoreDataStore: NSFetchedResultsControllerDelegate {
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch type {
-        case .insert:
-            print("insert")
-        case .delete:
-            print("delete")
-        case .move:
-            print("move")
-        case .update:
-            print("update")
-        default:
-            break
+            return nil
         }
     }
-
-
 }

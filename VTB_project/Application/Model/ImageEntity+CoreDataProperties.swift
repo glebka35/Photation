@@ -2,7 +2,7 @@
 //  ImageEntity+CoreDataProperties.swift
 //  VTB_project
 //
-//  Created by Gleb Uvarkin on 01.08.2020.
+//  Created by Gleb Uvarkin on 06.08.2020.
 //  Copyright © 2020 Gleb Uvarkin. All rights reserved.
 //
 //
@@ -19,6 +19,8 @@ extension ImageEntity {
 
     @NSManaged public var date: Date?
     @NSManaged public var image: Data?
+    @NSManaged public var nativeLanguage: String?
+    @NSManaged public var foreignLanguage: String?
     @NSManaged public var object: NSSet?
 
 }

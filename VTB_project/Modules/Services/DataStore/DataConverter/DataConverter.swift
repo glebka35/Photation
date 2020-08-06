@@ -12,27 +12,23 @@ import CoreData
 //MARK: - CoreDataObjectConverterProtocol
 
 protocol CoreDataObjectConverterProtocol {
-    var nativeLanguage: Language { get }
-    var foreignLanguage: Language { get }
     var context: NSManagedObjectContext { get }
 
-    func convert(from managedObject: [ImageEntity])->[ObjectsOnImage]?
-    func convert(from imageWithObjects: ObjectsOnImage)->ImageEntity?
+    func convert(managedObject: [ImageEntity])->[ObjectsOnImage]?
+    func convert(imageWithObjects: ObjectsOnImage)->ImageEntity?
 }
 
 //MARK: - CoreDataObjectConverter
 
 struct CoreDataObjectConverter: CoreDataObjectConverterProtocol {
 
-//    MARK: -  Properties
+    //    MARK: -  Properties
 
-    let nativeLanguage: Language
-    let foreignLanguage: Language
     let context: NSManagedObjectContext
 
-//    MARK: - Convert from coreData
+    //    MARK: - Convert from coreData
 
-    func convert(from managedObject: [ImageEntity]) -> [ObjectsOnImage]? {
+    func convert(managedObject: [ImageEntity]) -> [ObjectsOnImage]? {
         var imageWithObjects: [ObjectsOnImage] = []
 
         managedObject.forEach() { image in
@@ -44,17 +40,25 @@ struct CoreDataObjectConverter: CoreDataObjectConverterProtocol {
                     }
                 }
             }
-            imageWithObjects.append(ObjectsOnImage(image: image.image, objects: singleObjects, nativeLanguage: nativeLanguage, foreignLanguage: foreignLanguage))
+            if  let nativeLanguageString = image.nativeLanguage,
+                let nativeLanguage = Language(rawValue: nativeLanguageString),
+                let foreignLanguageString = image.foreignLanguage,
+                let foreignLanguage = Language(rawValue: foreignLanguageString) {
+
+                imageWithObjects.append(ObjectsOnImage(image: image.image, objects: singleObjects, nativeLanguage: nativeLanguage, foreignLanguage: foreignLanguage))
+            }
         }
         return imageWithObjects
     }
 
-//    MARK: - Convert to coreData
+    //    MARK: - Convert to coreData
 
-    func convert(from imageWithObjects: ObjectsOnImage) -> ImageEntity? {
+    func convert(imageWithObjects: ObjectsOnImage) -> ImageEntity? {
         let managedObjectImage = ImageEntity(context: context)
         managedObjectImage.date = Date()
         managedObjectImage.image = imageWithObjects.image
+        managedObjectImage.nativeLanguage = imageWithObjects.nativeLanguage.rawValue
+        managedObjectImage.foreignLanguage = imageWithObjects.foreignLanguage.rawValue
 
         var managedObjects: [ObjectEntity] = []
 

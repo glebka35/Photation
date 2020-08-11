@@ -14,6 +14,8 @@ class DetailInteractor: DetailInteractorInput {
     
     var presenter: DetailInteractorOutput?
 
+    private var coreDataStorage = CoreDataStore.shared
+
 //    MARK: - Life cycle
 
     init() {
@@ -26,5 +28,8 @@ class DetailInteractor: DetailInteractorInput {
         presenter?.closeModule()
     }
 
+    func update(object: SingleObject) {
+        coreDataStorage.updateEntity(with: object)
+    }
 
 }

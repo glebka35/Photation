@@ -24,8 +24,9 @@ class CollectionInteractor: CollectionInteractorInput {
     //    MARK: - Life cycle
     
     init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.needReloadDataNotification), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.deletaDataNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.newImageAdded), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteData), name: NSNotification.Name(GlobalConstants.deletaDataNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.dataModified), object: nil)
     }
 
     //    MARK: - Data fetching
@@ -50,8 +51,14 @@ class CollectionInteractor: CollectionInteractorInput {
     }
 
     @objc private func reloadData() {
+        deleteData()
+        
         page = 0
         isStoreEmpty = false
         loadObjects()
+    }
+
+    @objc private func deleteData() {
+        presenter?.deleteData()
     }
 }

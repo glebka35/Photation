@@ -21,8 +21,9 @@ class FavoriteInteractor: FavoriteInteractorInput {
 //    MARK: - Life cycle
 
     init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.needReloadDataNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.newImageAdded), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.deletaDataNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.dataModified), object: nil)
     }
 
     func viewDidLoad() {
@@ -35,14 +36,18 @@ class FavoriteInteractor: FavoriteInteractorInput {
         if !loadMoreStatus && !isStoreEmpty {
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 self?.loadMoreStatus = true
-                if let page = self?.page, let objects = self?.coreDataStorage.loadFavoriteImages(page: page) {
+                if let page = self?.page, let (objects, images) = self?.coreDataStorage.loadFavoriteImages(page: page) {
                     DispatchQueue.main.async {
-                        self?.presenter?.objectsDidFetch(objects: objects)
-                        self?.page += 1
 
-                        if objects.count == 0 {
-                            self?.isStoreEmpty = true
+                        if let images = images, let objects = objects {
+                            self?.presenter?.objectsDidFetch(images: images, objects: objects)
+                            self?.page += 1
+
+                            if objects.count == 0 {
+                                self?.isStoreEmpty = true
+                            }
                         }
+                        
                     }
                 }
                 self?.loadMoreStatus = false
@@ -51,8 +56,14 @@ class FavoriteInteractor: FavoriteInteractorInput {
     }
 
     @objc private func reloadData() {
+        deleteData()
+
         page = 0
         isStoreEmpty = false
         loadObjects()
+    }
+
+    @objc private func deleteData() {
+        presenter?.deleteData()
     }
 }

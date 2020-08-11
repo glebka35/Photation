@@ -9,13 +9,15 @@
     </entity>
     <entity name="ObjectEntity" representedClassName="ObjectEntity" syncable="YES">
         <attribute name="color" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="foreignForm" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="nativeForm" optional="YES" attributeType="String"/>
         <relationship name="image" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ImageEntity" inverseName="object" inverseEntity="ImageEntity"/>
     </entity>
     <elements>
         <element name="ImageEntity" positionX="-36" positionY="54" width="128" height="118"/>
-        <element name="ObjectEntity" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="ObjectEntity" positionX="-63" positionY="-18" width="128" height="148"/>
     </elements>
 </model>

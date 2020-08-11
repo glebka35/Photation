@@ -31,6 +31,8 @@ protocol DetailViewOutput: AnyObject {
 // MARK: PRESENTER -> INTERACTOR
 protocol DetailInteractorInput {
     var presenter: DetailInteractorOutput? { get set }
+
+    func update(object: SingleObject)
 }
 
 // MARK: INTERACTOR -> PRESENTER

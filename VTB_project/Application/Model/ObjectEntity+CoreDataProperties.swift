@@ -2,7 +2,7 @@
 //  ObjectEntity+CoreDataProperties.swift
 //  VTB_project
 //
-//  Created by Gleb Uvarkin on 01.08.2020.
+//  Created by Gleb Uvarkin on 11.08.2020.
 //  Copyright © 2020 Gleb Uvarkin. All rights reserved.
 //
 //
@@ -19,8 +19,10 @@ extension ObjectEntity {
 
     @NSManaged public var color: String?
     @NSManaged public var foreignForm: String?
+    @NSManaged public var id: String?
     @NSManaged public var isFavorite: Bool
     @NSManaged public var nativeForm: String?
+    @NSManaged public var date: Date?
     @NSManaged public var image: ImageEntity?
 
 }

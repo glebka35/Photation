@@ -38,14 +38,15 @@ class CoreDataStore: NSObject, DataStoreProtocol {
         return fetchRequest
     } ()
 
-    private lazy var favoriteFetchRequest: NSFetchRequest<ImageEntity> = {
-        let favoriteFetchRequest: NSFetchRequest<ImageEntity> = ImageEntity.fetchRequest()
+    private lazy var favoriteFetchRequest: NSFetchRequest<ObjectEntity> = {
+        let favoriteFetchRequest: NSFetchRequest<ObjectEntity> = ObjectEntity.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
 
         favoriteFetchRequest.fetchBatchSize = Constants.pageSize
         favoriteFetchRequest.sortDescriptors = [sortDescriptor]
 
-        let predicate = NSPredicate(format: "object.isFavorite == true")
+        let predicate = NSPredicate(format: "isFavorite == true")
+        favoriteFetchRequest.predicate = predicate
 
         return favoriteFetchRequest
     } ()
@@ -86,7 +87,7 @@ class CoreDataStore: NSObject, DataStoreProtocol {
 
     private func newImageAdded() {
         DispatchQueue.main.async {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: GlobalConstants.needReloadDataNotification), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: GlobalConstants.newImageAdded), object: nil)
         }
     }
 
@@ -103,14 +104,14 @@ class CoreDataStore: NSObject, DataStoreProtocol {
         }
     }
 
-    func loadFavoriteImages(page: Int)->[ObjectsOnImage]? {
+    func loadFavoriteImages(page: Int)->(objects: [SingleObject]?, images: [ObjectsOnImage]?) {
         favoriteFetchRequest.fetchOffset = page * Constants.pageSize
         do {
             let objects = try managedContext.fetch(favoriteFetchRequest)
-            return converter.convert(managedObject: objects)
+            return converter.getObjectsAndImages(objects: objects)
         } catch {
             print("Fetch failed")
-            return nil
+            return (nil, nil)
         }
 
     }
@@ -136,6 +137,30 @@ class CoreDataStore: NSObject, DataStoreProtocol {
 
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: NSNotification.Name(GlobalConstants.deletaDataNotification), object: nil)
+            }
+        } catch {
+            fatalError("Error while deleting objects")
+        }
+
+    }
+
+//    MARK: - Update object
+
+    func updateEntity(with object: SingleObject) {
+        let updateFetchRequest: NSFetchRequest<ObjectEntity> = ObjectEntity.fetchRequest()
+        let datePredicate = NSPredicate(format: "id = %@", object.id)
+
+        updateFetchRequest.predicate = datePredicate
+
+        do {
+            let objects = try managedContext.fetch(updateFetchRequest)
+
+            objects.first?.isFavorite = object.isFavorite == .yes ? true : false
+
+            try managedContext.save()
+
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: NSNotification.Name(GlobalConstants.dataModified), object: nil)
             }
         } catch {
             fatalError("Error while deleting objects")

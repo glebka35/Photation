@@ -40,7 +40,8 @@ protocol FavoriteInteractorInput: AnyObject {
 //MARK:- INTERACTOR -> PRESENTER
 
 protocol FavoriteInteractorOutput: AnyObject {
-    func objectsDidFetch(objects: [ObjectsOnImage])
+    func objectsDidFetch(images: [ObjectsOnImage], objects: [SingleObject])
+    func deleteData()
 }
 
 //MARK:- PRESENTER -> ROUTER

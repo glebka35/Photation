@@ -25,10 +25,10 @@ class ImageHandler {
             let color = colors[index % colors.count]
 
             newImage = drawRectangleOnImage(with: newImage, and: rect, color: colors[index % colors.count])
-            singleObjects.append(SingleObject(nativeName: objects[index].objectClassName, foreignName: objects[index].objectClassName, color: color, isFavorite: .no))
+            singleObjects.append(SingleObject(nativeName: objects[index].objectClassName, foreignName: objects[index].objectClassName, color: color, isFavorite: .no, id: UUID().uuidString))
         }
 
-        let objectOnImage = ObjectsOnImage(image: newImage?.jpegData(compressionQuality: 1), objects: singleObjects, nativeLanguage: UserSettings.shared.nativeLanguage, foreignLanguage: UserSettings.shared.foreignLanguage)
+        let objectOnImage = ObjectsOnImage(image: newImage?.jpegData(compressionQuality: 1), objects: singleObjects, date: Date(), nativeLanguage: UserSettings.shared.nativeLanguage, foreignLanguage: UserSettings.shared.foreignLanguage)
         completion(objectOnImage)
     }
 

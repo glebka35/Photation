@@ -11,4 +11,6 @@ import Foundation
 protocol DataStoreProtocol {
     func save(imageWithObjects: ObjectsOnImage)
     func loadMoreImages(page: Int)->[ObjectsOnImage]?
+
+    func updateEntity(with object: SingleObject)
 }

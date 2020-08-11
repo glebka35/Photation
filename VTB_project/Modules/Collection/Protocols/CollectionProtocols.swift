@@ -42,6 +42,7 @@ protocol CollectionInteractorInput: AnyObject {
 
 protocol CollectionInteractorOutput: AnyObject {
     func objectsDidFetch(objects: [ObjectsOnImage])
+    func deleteData()
 }
 
 //MARK:- PRESENTER -> ROUTER

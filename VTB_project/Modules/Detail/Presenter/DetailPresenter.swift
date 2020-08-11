@@ -42,6 +42,8 @@ class DetailPresenter: DetailViewOutput {
         let newFavorite = allCases[nextIndex]
         objects.objects[index].isFavorite = newFavorite
 
+        interactor?.update(object: objects.objects[index])
+
         view?.updateContent(with: objects.objects)
     }
 

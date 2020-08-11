@@ -11,22 +11,25 @@ import Foundation
 class FavoritePresenter: NSObject, FavoriteViewOutput {
 
     //    MARK: - Properties
+    
     var interactor: FavoriteInteractorInput?
     weak var view: FavoriteViewInput?
     var router: FavoriteRouterInput?
 
-    private var displayingObjects: [ObjectsOnImage]?
+    private var displayingObjects: [ObjectsOnImage] = []
+    private var objectsAndImages: [ObjectsOnImage] = []
 
     //    MARK: - Life cycle
 
     func viewDidLoad() {
+        displayingObjects = []
+        objectsAndImages = []
         interactor?.viewDidLoad()
     }
 
     func cellSelected(at indexPath: IndexPath) {
-        if let object = displayingObjects?[indexPath.row] {
-            router?.showDetail(of: object)
-        }
+        let object = objectsAndImages[indexPath.row]
+        router?.showDetail(of: object)
     }
 
     func scrollViewDidScrollToBottom() {
@@ -35,23 +38,26 @@ class FavoritePresenter: NSObject, FavoriteViewOutput {
 }
 
 extension FavoritePresenter: FavoriteInteractorOutput {
-    func objectsDidFetch(objects: [ObjectsOnImage]) {
-        var objectsToDisplay = [ObjectsOnImage]()
-        var singleObjects = [SingleObject]()
-        var displayingObjects = [ObjectsOnImage]()
+    func objectsDidFetch(images: [ObjectsOnImage], objects: [SingleObject]) {
+        self.objectsAndImages.append(contentsOf: images)
 
-        objects.forEach { objectWithImage in
-            singleObjects.append(contentsOf: objectWithImage.objects)
-            objectWithImage.objects.forEach { _ in
-                displayingObjects.append(objectWithImage)
+        var objectsToDisplay: [ObjectsOnImage] = []
+
+
+        if let nativeLanguage = self.objectsAndImages.first?.nativeLanguage, let foreignLanguage = self.objectsAndImages.first?.foreignLanguage, let date = self.objectsAndImages.first?.date {
+            objects.forEach {
+                objectsToDisplay.append(ObjectsOnImage(image: Data(), objects: [$0], date: date, nativeLanguage: nativeLanguage, foreignLanguage: foreignLanguage))
             }
         }
-        if let nativeLanguage = objects.first?.nativeLanguage, let foreignLanguage = objects.first?.foreignLanguage {
-            singleObjects.forEach { objectsToDisplay.append(ObjectsOnImage(image: Data(), objects: [$0], nativeLanguage: nativeLanguage, foreignLanguage: foreignLanguage))}
-        }
 
-        self.displayingObjects = displayingObjects
-
+        displayingObjects.append(contentsOf: objectsToDisplay)
         view?.updateContent(with: objectsToDisplay)
+    }
+
+    func deleteData() {
+        self.objectsAndImages = []
+        self.displayingObjects = []
+
+        view?.updateContent(with: [])
     }
 }

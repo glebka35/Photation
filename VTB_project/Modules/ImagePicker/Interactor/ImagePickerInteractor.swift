@@ -21,7 +21,7 @@ class ImagePickerInteractor: ImagePickerInteractorInput {
     //    MARK: - Life cycle
 
     init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.needReloadDataNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.newImageAdded), object: nil)
     }
 
      //    MARK: - Data update

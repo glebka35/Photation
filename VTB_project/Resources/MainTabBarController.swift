@@ -17,7 +17,7 @@ class MainTabBarController: UITabBarController {
         
         collectionVC.tabBarItem = UITabBarItem(title: "Коллекция", image: UIImage(named: "collection"), tag: 0)
         
-        let favoriteVC = FavoriteView()
+        let favoriteVC = FavoriteAssembly().createFavoriteModule()
         favoriteVC.tabBarItem = UITabBarItem(title: "Избранное", image: UIImage(named: "favorite"), tag: 1)
         
         let imagePickerVC = ImagePickerAssembly().createImagePickerModule()

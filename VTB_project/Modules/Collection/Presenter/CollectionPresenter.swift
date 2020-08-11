@@ -19,13 +19,13 @@ class CollectionPresenter: CollectionViewOutput {
     var router: CollectionRouterInput?
 
     private var displayingObjects: [ObjectsOnImage]?
+    private var objects: [ObjectsOnImage]?
     private var currentStyle: PresentationStyle!
-    private var loadMoreStatus = false
 
     //    MARK: - UI life cycle
     func viewDidLoad(with style: PresentationStyle) {
         currentStyle = style
-        interactor?.loadObjects() {}
+        interactor?.loadObjects()
     }
 
     //    MARK: - UI update
@@ -37,7 +37,7 @@ class CollectionPresenter: CollectionViewOutput {
         let newStyle = allCases[nextIndex]
         currentStyle = newStyle
 
-        if let objects = displayingObjects {
+        if let objects = objects {
             objectsDidFetch(objects: objects)
         }
 
@@ -51,18 +51,7 @@ class CollectionPresenter: CollectionViewOutput {
     }
 
     func scrollViewDidScrollToBottom() {
-            loadObjects()
-    }
-
-    //    MARK: - Data fetching
-
-    private func loadObjects() {
-        if !loadMoreStatus {
-            loadMoreStatus = true
-            interactor?.loadObjects { [weak self] in
-                self?.loadMoreStatus = false
-            }
-        }
+            interactor?.loadObjects()
     }
 }
 
@@ -70,6 +59,7 @@ class CollectionPresenter: CollectionViewOutput {
 
 extension CollectionPresenter: CollectionInteractorOutput {
     func objectsDidFetch(objects: [ObjectsOnImage]) {
+        self.objects = objects
         var objectsToDisplay = [ObjectsOnImage]()
         
         switch(currentStyle) {

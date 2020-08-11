@@ -11,12 +11,20 @@ import UIKit
 
 class ImagePickerInteractor: ImagePickerInteractorInput {
 
-//    MARK: - Properties
+    //    MARK: - Properties
     
     weak var presenter: ImagePickerInteractorOutput?
 
     private let imageWorker: ObjectDetectorAndTranslator = ImageHandlerAndTranslationWorker()
     private var dataStore: DataStoreProtocol = CoreDataStore.shared
+
+    //    MARK: - Life cycle
+
+    init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.needReloadDataNotification), object: nil)
+    }
+
+     //    MARK: - Data update
 
     func handle(image: UIImage) {
         imageWorker.performHandling(image: image) { (objects) in
@@ -26,4 +34,8 @@ class ImagePickerInteractor: ImagePickerInteractorInput {
             }
         }
     }
+
+    @objc private func reloadData() {
+           presenter?.closeModule()
+       }
 }

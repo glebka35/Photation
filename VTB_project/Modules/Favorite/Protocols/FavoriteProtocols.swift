@@ -13,7 +13,7 @@ import Foundation
 protocol FavoriteViewInput: AnyObject {
     var presenter: FavoriteViewOutput? { get set }
 
-    func updateContent(with objects: [FavoriteObject])
+    func updateContent(with objects: [ObjectsOnImage])
 }
 
 //MARK: - VIEW -> PRESENTER
@@ -23,7 +23,7 @@ protocol FavoriteViewOutput: AnyObject {
     var view: FavoriteViewInput? { get set }
     var router: FavoriteRouterInput? { get set }
 
-    func viewDidLoad(with style: PresentationStyle)
+    func viewDidLoad()
     func cellSelected(at indexPath: IndexPath)
     func scrollViewDidScrollToBottom()
 }
@@ -33,7 +33,8 @@ protocol FavoriteViewOutput: AnyObject {
 protocol FavoriteInteractorInput: AnyObject {
     var presenter: FavoriteInteractorOutput? { get set }
 
-    func loadObjects(completion: @escaping ()->Void)
+    func viewDidLoad()
+    func loadObjects()
 }
 
 //MARK:- INTERACTOR -> PRESENTER
@@ -47,6 +48,7 @@ protocol FavoriteInteractorOutput: AnyObject {
 protocol FavoriteRouterInput: AnyObject {
     var view: FavoriteView? { get set }
 
+    func showDetail(of object: ObjectsOnImage)
     func closeModule()
 }
 

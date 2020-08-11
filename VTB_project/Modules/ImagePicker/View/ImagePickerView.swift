@@ -34,7 +34,6 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
     private func addAndConfigureNavigationBar() {
         navigationBar = MainNavigationBar(title: "Фото", rightTitle: UserSettings.shared.foreignLanguage.humanRepresentingNative, rightButtonImage: nil, isSearchBarNeeded: false)
         view.addSubview(navigationBar)
-        navigationBar.translatesAutoresizingMaskIntoConstraints = false
 
         let constraint = navigationBar.heightAnchor.constraint(equalToConstant: 0)
         NSLayoutConstraint.activate([

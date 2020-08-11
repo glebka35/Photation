@@ -135,7 +135,7 @@
 		2B5125E124D0506900021937 /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
 		2B51260B24D0645300021937 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		2B51260E24D0660900021937 /* ImageHandlerAndTranslationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHandlerAndTranslationWorker.swift; sourceTree = "<group>"; };
-		2B6BC11224AB0FE400ED4125 /* VTB_project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VTB_project.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B6BC11224AB0FE400ED4125 /* Photation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B6BC11524AB0FE400ED4125 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B6BC11E24AB0FE500ED4125 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B6BC12124AB0FE500ED4125 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -473,7 +473,7 @@
 		2B6BC11324AB0FE400ED4125 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2B6BC11224AB0FE400ED4125 /* VTB_project.app */,
+				2B6BC11224AB0FE400ED4125 /* Photation.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -873,7 +873,7 @@
 				2B80004624C6CEB6004D1A12 /* GUNetworkLayer */,
 			);
 			productName = VTB_project;
-			productReference = 2B6BC11224AB0FE400ED4125 /* VTB_project.app */;
+			productReference = 2B6BC11224AB0FE400ED4125 /* Photation.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1154,9 +1154,9 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "vtb-lanit.VTB-project";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Photation;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1173,9 +1173,9 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "vtb-lanit.VTB-project";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Photation;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

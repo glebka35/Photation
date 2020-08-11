@@ -9,9 +9,50 @@
 import Foundation
 
 class FavoriteInteractor: FavoriteInteractorInput {
-    var presenter: FavoriteInteractorOutput?
 
-    func loadObjects(completion: @escaping () -> Void) {
+//    MARK: - Properties
+    
+    weak var presenter: FavoriteInteractorOutput?
+    private var coreDataStorage = CoreDataStore.shared
+    private var page = 0
+    private var isStoreEmpty = false
+    private var loadMoreStatus = false
 
+//    MARK: - Life cycle
+
+    init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.needReloadDataNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.deletaDataNotification), object: nil)
+    }
+
+    func viewDidLoad() {
+        reloadData()
+    }
+
+//    MARK: - Data fetching
+
+    func loadObjects() {
+        if !loadMoreStatus && !isStoreEmpty {
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                self?.loadMoreStatus = true
+                if let page = self?.page, let objects = self?.coreDataStorage.loadFavoriteImages(page: page) {
+                    DispatchQueue.main.async {
+                        self?.presenter?.objectsDidFetch(objects: objects)
+                        self?.page += 1
+
+                        if objects.count == 0 {
+                            self?.isStoreEmpty = true
+                        }
+                    }
+                }
+                self?.loadMoreStatus = false
+            }
+        }
+    }
+
+    @objc private func reloadData() {
+        page = 0
+        isStoreEmpty = false
+        loadObjects()
     }
 }

@@ -46,12 +46,14 @@ class DetailPresenter: DetailViewOutput {
     }
 
     func backButtonPressed() {
-        router?.dismiss()
+        router?.closeModule()
     }
 }
 
 //MARK: - DetailInteractorOutput
 
 extension DetailPresenter: DetailInteractorOutput {
-    
+    func closeModule() {
+        router?.closeModule()
+    }
 }

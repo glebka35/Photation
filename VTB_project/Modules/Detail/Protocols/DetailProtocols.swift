@@ -35,7 +35,7 @@ protocol DetailInteractorInput {
 
 // MARK: INTERACTOR -> PRESENTER
 protocol DetailInteractorOutput {
-
+    func closeModule()
 }
 
 // MARK: PRESENTER -> ROUTER
@@ -43,5 +43,5 @@ protocol DetailInteractorOutput {
 protocol DetailRouterInput: AnyObject {
     var view: DetailView? { get set}
 
-    func dismiss()
+    func closeModule()
 }

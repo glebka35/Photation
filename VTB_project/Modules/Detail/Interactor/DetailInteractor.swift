@@ -14,5 +14,17 @@ class DetailInteractor: DetailInteractorInput {
     
     var presenter: DetailInteractorOutput?
 
+//    MARK: - Life cycle
+
+    init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteData), name: NSNotification.Name(GlobalConstants.deletaDataNotification), object: nil)
+    }
+
+//    MARK: - Data update
+
+    @objc private func deleteData() {
+        presenter?.closeModule()
+    }
+
 
 }

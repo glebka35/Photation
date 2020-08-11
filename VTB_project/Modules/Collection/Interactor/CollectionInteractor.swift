@@ -16,6 +16,8 @@ class CollectionInteractor: CollectionInteractorInput {
 
     weak var presenter: CollectionInteractorOutput?
     private var coreDataStorage = CoreDataStore.shared
+    private var loadMoreStatus = false
+    private var isStoreEmpty = false
 
     private var page = 0
 
@@ -23,24 +25,33 @@ class CollectionInteractor: CollectionInteractorInput {
     
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.needReloadDataNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.deletaDataNotification), object: nil)
     }
 
     //    MARK: - Data fetching
     
-    func loadObjects(completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            if let page = self?.page, let objects = self?.coreDataStorage.loadMoreImages(page: page) {
-                DispatchQueue.main.async {
-                    completion()
-                    self?.presenter?.objectsDidFetch(objects: objects)
-                    self?.page += 1
+    func loadObjects() {
+        if !loadMoreStatus && !isStoreEmpty {
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                self?.loadMoreStatus = true
+                if let page = self?.page, let objects = self?.coreDataStorage.loadMoreImages(page: page) {
+                    DispatchQueue.main.async {
+                        self?.presenter?.objectsDidFetch(objects: objects)
+                        self?.page += 1
+
+                        if objects.count == 0 {
+                            self?.isStoreEmpty = true
+                        }
+                    }
                 }
+                self?.loadMoreStatus = false
             }
         }
     }
 
     @objc private func reloadData() {
         page = 0
-        loadObjects {}
+        isStoreEmpty = false
+        loadObjects()
     }
 }

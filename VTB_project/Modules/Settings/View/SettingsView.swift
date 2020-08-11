@@ -53,7 +53,6 @@ class SettingsView: UIViewController, SettingsViewInput {
         navigationBar = MainNavigationBar(title: "Настройки", rightTitle: nil, rightButtonImage: nil, isSearchBarNeeded: false)
 
         view.addSubview(navigationBar)
-        navigationBar.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             navigationBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),

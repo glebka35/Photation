@@ -10,4 +10,5 @@ import Foundation
 
 enum GlobalConstants {
     static let needReloadDataNotification = "NeedReloadDataNotification"
+    static let deletaDataNotification = "DeletaDataNotification"
 }

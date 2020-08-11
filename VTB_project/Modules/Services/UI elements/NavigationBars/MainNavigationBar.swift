@@ -33,7 +33,7 @@ class MainNavigationBar: UIView {
 
 //    MARK: - Life cycle
 
-    init(title: String, rightTitle: String?, rightButtonImage: UIImage?, isSearchBarNeeded: Bool) {
+    init(title: String, rightTitle: String?, rightButtonImage: UIImage? = nil, isSearchBarNeeded: Bool) {
         super.init(frame: .zero)
 
         addAndConfigureTitle(with: title)
@@ -51,6 +51,8 @@ class MainNavigationBar: UIView {
         if isSearchBarNeeded {
             addAndConfigureSearchBar()
         }
+
+        translatesAutoresizingMaskIntoConstraints = false
     }
 
     

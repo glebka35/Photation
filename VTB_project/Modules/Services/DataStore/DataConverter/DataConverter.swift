@@ -14,7 +14,7 @@ import CoreData
 protocol CoreDataObjectConverterProtocol {
     var context: NSManagedObjectContext { get }
 
-    func convert(managedObject: [ImageEntity])->[ObjectsOnImage]?
+    func convert(managedObject: [ImageEntity])->[ObjectsOnImage]
     func convert(imageWithObjects: ObjectsOnImage)->ImageEntity?
 }
 
@@ -28,7 +28,7 @@ struct CoreDataObjectConverter: CoreDataObjectConverterProtocol {
 
     //    MARK: - Convert from coreData
 
-    func convert(managedObject: [ImageEntity]) -> [ObjectsOnImage]? {
+    func convert(managedObject: [ImageEntity]) -> [ObjectsOnImage] {
         var imageWithObjects: [ObjectsOnImage] = []
 
         managedObject.forEach() { image in
@@ -67,7 +67,7 @@ struct CoreDataObjectConverter: CoreDataObjectConverterProtocol {
             managedObject.foreignForm = $0.foreignName
             managedObject.nativeForm = $0.nativeName
             managedObject.color = $0.color.toHex
-            managedObject.isFavorite = $0.isFavorite == .yes ? true : false
+            managedObject.isFavorite = true//$0.isFavorite == .yes ? true : false
 
             managedObjects.append(managedObject)
         }

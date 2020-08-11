@@ -12,24 +12,23 @@ import CoreData
 
 class CoreDataStore: NSObject, DataStoreProtocol {
 
-//    MARK: - Constants
+    //    MARK: - Constants
 
     private enum Constants {
         static let pageSize = 20
     }
 
-//    MARK: - Singleton
+    //    MARK: - Singleton
 
     static let shared = CoreDataStore()
 
-//    MARK: - Properties
+    //    MARK: - Properties
 
     private lazy var converter: CoreDataObjectConverterProtocol = {
         return CoreDataObjectConverter(context: managedContext)
     } ()
 
     private lazy var fetchRequest: NSFetchRequest<ImageEntity> = {
-        let managedContext = persistentContainer.newBackgroundContext()
         let fetchRequest: NSFetchRequest<ImageEntity> = ImageEntity.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
 
@@ -38,6 +37,21 @@ class CoreDataStore: NSObject, DataStoreProtocol {
 
         return fetchRequest
     } ()
+
+    private lazy var favoriteFetchRequest: NSFetchRequest<ObjectEntity> = {
+        let favoriteFetchRequest: NSFetchRequest<ObjectEntity> = ObjectEntity.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+
+        favoriteFetchRequest.fetchBatchSize = Constants.pageSize
+        favoriteFetchRequest.sortDescriptors = [sortDescriptor]
+
+        let predicate = NSPredicate(format: "isFavorite == true")
+        favoriteFetchRequest.predicate = predicate
+
+        return favoriteFetchRequest
+    } ()
+
+
 
     private lazy var managedContext: NSManagedObjectContext = {
         persistentContainer.newBackgroundContext()
@@ -50,15 +64,16 @@ class CoreDataStore: NSObject, DataStoreProtocol {
                 fatalError("Problem with NSPersistentContainer")
             }
         }
-        print(NSPersistentContainer.defaultDirectoryURL())
+        //        Uncomment to get dataStore url
+        //        print(NSPersistentContainer.defaultDirectoryURL())
         return container
     } ()
 
-//    MARK: - Life cycle
+    //    MARK: - Life cycle
 
     private override init() { }
 
-//    MARK: - Saving
+    //    MARK: - Saving
 
     func save(imageWithObjects: ObjectsOnImage) {
         let manageObject = converter.convert(imageWithObjects: imageWithObjects)
@@ -71,10 +86,12 @@ class CoreDataStore: NSObject, DataStoreProtocol {
     }
 
     private func newImageAdded() {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: GlobalConstants.needReloadDataNotification), object: nil)
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: GlobalConstants.newImageAdded), object: nil)
+        }
     }
 
-//    MARK: - Fetching
+    //    MARK: - Fetching
 
     func loadMoreImages(page: Int)->[ObjectsOnImage]? {
         fetchRequest.fetchOffset = page * Constants.pageSize
@@ -87,7 +104,19 @@ class CoreDataStore: NSObject, DataStoreProtocol {
         }
     }
 
-//    MARK: - Deleting
+    func loadFavoriteImages(page: Int)->(objects: [SingleObject]?, images: [ObjectsOnImage]?) {
+        favoriteFetchRequest.fetchOffset = page * Constants.pageSize
+        do {
+            let objects = try managedContext.fetch(favoriteFetchRequest)
+            return converter.getObjectsAndImages(objects: objects)
+        } catch {
+            print("Fetch failed")
+            return (nil, nil)
+        }
+
+    }
+
+    //    MARK: - Deleting
 
     func deleteEntities(with nativeLanguage: Language, and foreignLanguage: Language) {
         let deleteFetchRequest: NSFetchRequest<ImageEntity> = ImageEntity.fetchRequest()
@@ -106,7 +135,33 @@ class CoreDataStore: NSObject, DataStoreProtocol {
 
             try managedContext.save()
 
-            NotificationCenter.default.post(name: NSNotification.Name(GlobalConstants.needReloadDataNotification), object: nil)
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: NSNotification.Name(GlobalConstants.deletaDataNotification), object: nil)
+            }
+        } catch {
+            fatalError("Error while deleting objects")
+        }
+
+    }
+
+//    MARK: - Update object
+
+    func updateEntity(with object: SingleObject) {
+        let updateFetchRequest: NSFetchRequest<ObjectEntity> = ObjectEntity.fetchRequest()
+        let datePredicate = NSPredicate(format: "id = %@", object.id)
+
+        updateFetchRequest.predicate = datePredicate
+
+        do {
+            let objects = try managedContext.fetch(updateFetchRequest)
+
+            objects.first?.isFavorite = object.isFavorite == .yes ? true : false
+
+            try managedContext.save()
+
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: NSNotification.Name(GlobalConstants.dataModified), object: nil)
+            }
         } catch {
             fatalError("Error while deleting objects")
         }

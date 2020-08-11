@@ -12,6 +12,7 @@ import UIKit
 struct ObjectsOnImage {
     var image: Data?
     var objects: [SingleObject]
+    var date: Date
     
     var nativeLanguage: Language
     var foreignLanguage: Language
@@ -23,4 +24,5 @@ struct SingleObject {
 
     var color: UIColor
     var isFavorite: IsWordFavorite
+    var id: String
 }

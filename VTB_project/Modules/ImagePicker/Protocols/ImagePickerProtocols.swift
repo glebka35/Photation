@@ -9,8 +9,10 @@
 import Foundation
 import UIKit
 
+//MARK: - PRESENTER->VIEW
+
+
 protocol ImagePickerViewInput: AnyObject {
-//    PRESENTER->VIEW
     var presenter: ImagePickerViewOutput? { get set }
 
     func showCameraImagePicker()
@@ -19,8 +21,10 @@ protocol ImagePickerViewInput: AnyObject {
     func unshowSpinner()
 }
 
+//MARK: - VIEW->PRESENTER
+
+
 protocol ImagePickerViewOutput: AnyObject {
-//    VIEW->PRESENTER
     var interactor: ImagePickerInteractorInput? { get set }
     var view: ImagePickerView? { get set }
     var router: ImagePickerRouterInput? { get set }
@@ -30,19 +34,25 @@ protocol ImagePickerViewOutput: AnyObject {
     func receiveImageFromUser(image: UIImage)
 }
 
+//MARK: - PRESENTER->INTERACTOR
+
+
 protocol ImagePickerInteractorInput: AnyObject {
-//    PRESENTER->INTERACTOR
     var presenter: ImagePickerInteractorOutput? { get set }
     func handle(image: UIImage)
 }
 
+//MARK: - INTERACTOR->PRESENTER
+
 protocol ImagePickerInteractorOutput: AnyObject {
-//    INTERACTOR->PRESENTER
     func imageDidRecieved(objects: ObjectsOnImage)
+
+    func closeModule()
 }
 
+//MARK: - PRESENTER -> ROUTER
+
 protocol ImagePickerRouterInput: AnyObject {
-//    PRESENTER -> ROUTER
     var view: ImagePickerView? { get set }
 
     func showDetail(of object: ObjectsOnImage)

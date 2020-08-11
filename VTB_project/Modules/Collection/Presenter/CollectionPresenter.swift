@@ -18,14 +18,14 @@ class CollectionPresenter: CollectionViewOutput {
     weak var view: CollectionViewInput?
     var router: CollectionRouterInput?
 
-    private var displayingObjects: [ObjectsOnImage]?
+    private var displayingObjects: [ObjectsOnImage] = []
+    private var objects: [ObjectsOnImage] = []
     private var currentStyle: PresentationStyle!
-    private var loadMoreStatus = false
 
     //    MARK: - UI life cycle
     func viewDidLoad(with style: PresentationStyle) {
         currentStyle = style
-        interactor?.loadObjects() {}
+        interactor?.loadObjects()
     }
 
     //    MARK: - UI update
@@ -37,32 +37,19 @@ class CollectionPresenter: CollectionViewOutput {
         let newStyle = allCases[nextIndex]
         currentStyle = newStyle
 
-        if let objects = displayingObjects {
-            objectsDidFetch(objects: objects)
-        }
+        let objectsToDisplay = convertData(objects: self.objects)
+        view?.updateContent(with: objectsToDisplay)
 
         view?.updatePresentation(with: newStyle)
     }
 
     func cellSelected(at indexPath: IndexPath) {
-        if let object = displayingObjects?[indexPath.row] {
-            router?.showDetail(of: object)
-        }
+        let object = displayingObjects[indexPath.row]
+        router?.showDetail(of: object)
     }
 
     func scrollViewDidScrollToBottom() {
-            loadObjects()
-    }
-
-    //    MARK: - Data fetching
-
-    private func loadObjects() {
-        if !loadMoreStatus {
-            loadMoreStatus = true
-            interactor?.loadObjects { [weak self] in
-                self?.loadMoreStatus = false
-            }
-        }
+            interactor?.loadObjects()
     }
 }
 
@@ -70,8 +57,23 @@ class CollectionPresenter: CollectionViewOutput {
 
 extension CollectionPresenter: CollectionInteractorOutput {
     func objectsDidFetch(objects: [ObjectsOnImage]) {
+        self.objects.append(contentsOf: objects)
+        let objectsToDisplay = convertData(objects: self.objects)
+        view?.updateContent(with: objectsToDisplay)
+    }
+
+    func deleteData() {
+        self.displayingObjects = []
+        self.objects = []
+
+        view?.updateContent(with: [])
+    }
+
+    //TODO: перенести в отдельный класс DataConverter
+
+    private func convertData(objects: [ObjectsOnImage])->[ObjectsOnImage] {
         var objectsToDisplay = [ObjectsOnImage]()
-        
+
         switch(currentStyle) {
         case .images:
             objectsToDisplay = objects
@@ -79,22 +81,23 @@ extension CollectionPresenter: CollectionInteractorOutput {
         case .table:
             var singleObjects = [SingleObject]()
             var displayingObjects = [ObjectsOnImage]()
-            objects.forEach { objectWithImage in
+            self.objects.forEach { objectWithImage in
                 singleObjects.append(contentsOf: objectWithImage.objects)
                 objectWithImage.objects.forEach { _ in
                     displayingObjects.append(objectWithImage)
                 }
             }
-            if let nativeLanguage = objects.first?.nativeLanguage, let foreignLanguage = objects.first?.foreignLanguage {
-                singleObjects.forEach { objectsToDisplay.append(ObjectsOnImage(image: Data(), objects: [$0], nativeLanguage: nativeLanguage, foreignLanguage: foreignLanguage))}
+            if let nativeLanguage = objects.first?.nativeLanguage, let foreignLanguage = objects.first?.foreignLanguage, let date = objects.first?.date {
+                singleObjects.forEach { objectsToDisplay.append(ObjectsOnImage(image: Data(), objects: [$0], date: date, nativeLanguage: nativeLanguage, foreignLanguage: foreignLanguage))}
             }
 
             self.displayingObjects = displayingObjects
         default:
             break
         }
-        
-        view?.updateContent(with: objectsToDisplay)
+
+        return objectsToDisplay
     }
+
 }
 

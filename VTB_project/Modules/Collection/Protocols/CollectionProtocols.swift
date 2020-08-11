@@ -35,13 +35,14 @@ protocol CollectionViewOutput: AnyObject {
 protocol CollectionInteractorInput: AnyObject {
     var presenter: CollectionInteractorOutput? { get set }
     
-    func loadObjects(completion: @escaping ()->Void)
+    func loadObjects()
 }
 
 //MARK:- INTERACTOR -> PRESENTER
 
 protocol CollectionInteractorOutput: AnyObject {
     func objectsDidFetch(objects: [ObjectsOnImage])
+    func deleteData()
 }
 
 //MARK:- PRESENTER -> ROUTER

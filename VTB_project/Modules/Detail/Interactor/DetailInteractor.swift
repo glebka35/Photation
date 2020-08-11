@@ -14,5 +14,22 @@ class DetailInteractor: DetailInteractorInput {
     
     var presenter: DetailInteractorOutput?
 
+    private var coreDataStorage = CoreDataStore.shared
+
+//    MARK: - Life cycle
+
+    init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteData), name: NSNotification.Name(GlobalConstants.deletaDataNotification), object: nil)
+    }
+
+//    MARK: - Data update
+
+    @objc private func deleteData() {
+        presenter?.closeModule()
+    }
+
+    func update(object: SingleObject) {
+        coreDataStorage.updateEntity(with: object)
+    }
 
 }

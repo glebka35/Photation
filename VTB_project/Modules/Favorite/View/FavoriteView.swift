@@ -1,5 +1,5 @@
 //
-//  CollectionViewController.swift
+//  FavoriteViewController.swift
 //  VTB_project
 //
 //  Created by Gleb Uvarkin on 03.07.2020.
@@ -8,33 +8,33 @@
 
 import UIKit
 
-class CollectionView: UIViewController, CollectionViewInput {
+class FavoriteView: UIViewController, FavoriteViewInput {
 
-//    MARK: - Properties
+    //    MARK: - Properties
 
-    var presenter: CollectionViewOutput?
-    
-    private var collectionSupervisor: CollectionViewSupervisorProtocol = CollectionViewSupervisor()
+    var presenter: FavoriteViewOutput?
+
     private var navigationBar: MainNavigationBar!
-    private var currentStyle: PresentationStyle = .images
+    private var collectionSupervisor: CollectionViewSupervisorProtocol = CollectionViewSupervisor()
 
-//    MARK: - Life cycle
+    //    MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        presenter?.viewDidLoad(with: currentStyle)
-
+        // Do any additional setup after loading the view.
         view.backgroundColor = .white
-        
+
         addAndConfigureNavigationBar()
         addAndConfigureCollectionView()
+
+        presenter?.viewDidLoad()
     }
 
-//    MARK: - UI configuration
-    
-    func addAndConfigureNavigationBar() {
-        navigationBar = MainNavigationBar(title: "Коллекция", rightTitle: UserSettings.shared.foreignLanguage.humanRepresentingNative, rightButtonImage: UIImage(named: currentStyle.buttonImage), isSearchBarNeeded: true)
+    //    MARK: - UI configuration
+
+    private func addAndConfigureNavigationBar() {
+        navigationBar = MainNavigationBar(title: "Избранное", rightTitle: UserSettings.shared.foreignLanguage.humanRepresentingNative, isSearchBarNeeded: true)
 
         view.addSubview(navigationBar)
 
@@ -44,15 +44,13 @@ class CollectionView: UIViewController, CollectionViewInput {
             navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             navigationBar.bottomAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 90)
         ])
-
-        navigationBar.delegate = self
     }
 
-    func addAndConfigureCollectionView() {
-        let collectionView = collectionSupervisor.getConfiguredCollection(with: currentStyle)
+    private func addAndConfigureCollectionView() {
+        let collectionView = collectionSupervisor.getConfiguredCollection(with: .table)
         collectionSupervisor.delegate = self
         view.addSubview(collectionView)
-        
+
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -61,35 +59,22 @@ class CollectionView: UIViewController, CollectionViewInput {
         ])
     }
 
-//    MARK: - UI update
-    
-    func updatePresentation(with style: PresentationStyle) {
-        navigationBar.rightButtonImage = UIImage(named: style.buttonImage)
-        collectionSupervisor.updatePresentationStyle(with: style)
-        currentStyle = style
-    }
+    //    MARK: - UI update
     
     func updateContent(with objects: [ObjectsOnImage]) {
         collectionSupervisor.updateContent(with: objects)
     }
+
 }
 
-//MARK: - NavigationBar delegate
-
-extension CollectionView: NavigationBarDelegate {
-    func action(sender: UIButton!) {
-        presenter?.changePresentation()
+extension FavoriteView: CollectionViewActionsDelegate {
+    func cellSelected(at indexPath: IndexPath) {
+        presenter?.cellSelected(at: indexPath)
     }
-}
 
-//MARK: - CollectionView actions delegate
-
-extension CollectionView: CollectionViewActionsDelegate {
     func scrollViewDidScrollToBottom() {
         presenter?.scrollViewDidScrollToBottom()
     }
 
-    func cellSelected(at indexPath: IndexPath) {
-        presenter?.cellSelected(at: indexPath)
-    }
+    
 }

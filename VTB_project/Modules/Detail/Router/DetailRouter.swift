@@ -11,7 +11,7 @@ import Foundation
 class DetailRouter: DetailRouterInput {
     var view: DetailView?
 
-    func dismiss() {
+    func closeModule() {
         view?.navigationController?.setNavigationBarHidden(true, animated: false)
         view?.navigationController?.popViewController(animated: true)
     }

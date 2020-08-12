@@ -85,6 +85,7 @@ final class CollectionViewSupervisor: NSObject, CollectionViewSupervisorProtocol
         
         collectionView.delegate = styleDelegates[style]
         collectionView.dataSource = self
+        collectionView.keyboardDismissMode = .onDrag
         
         presentationStyle = style
         return collectionView

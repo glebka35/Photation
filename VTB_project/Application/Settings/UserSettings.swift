@@ -12,7 +12,7 @@ class UserSettings {
 
     static let shared = UserSettings()
 
-    var nativeLanguage: Language = .es
+    var nativeLanguage: Language = .en
     var foreignLanguage: Language = .ru
 
     private init() {}

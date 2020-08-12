@@ -6,7 +6,7 @@
 //  Copyright © 2020 Gleb Uvarkin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 //MARK: - PRESENTER -> VIEW
 
@@ -18,7 +18,7 @@ protocol FavoriteViewInput: AnyObject {
 
 //MARK: - VIEW -> PRESENTER
 
-protocol FavoriteViewOutput: AnyObject {
+protocol FavoriteViewOutput: AnyObject, UISearchBarDelegate {
     var interactor: FavoriteInteractorInput? { get set }
     var view: FavoriteViewInput? { get set }
     var router: FavoriteRouterInput? { get set }

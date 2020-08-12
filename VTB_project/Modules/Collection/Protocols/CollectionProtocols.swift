@@ -6,7 +6,7 @@
 //  Copyright © 2020 Gleb Uvarkin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 //MARK: - PRESENTER -> VIEW
 
@@ -19,7 +19,7 @@ protocol CollectionViewInput: AnyObject {
 
 //MARK: - VIEW -> PRESENTER
 
-protocol CollectionViewOutput: AnyObject {
+protocol CollectionViewOutput: AnyObject, UISearchBarDelegate {
     var interactor: CollectionInteractorInput? { get set }
     var view: CollectionViewInput? { get set }
     var router: CollectionRouterInput? { get set }

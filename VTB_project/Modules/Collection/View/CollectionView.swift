@@ -29,12 +29,13 @@ class CollectionView: UIViewController, CollectionViewInput {
         
         addAndConfigureNavigationBar()
         addAndConfigureCollectionView()
+        addAndConfigureDismissKeyboardTapGesture()
     }
 
 //    MARK: - UI configuration
     
-    func addAndConfigureNavigationBar() {
-        navigationBar = MainNavigationBar(title: "Коллекция", rightTitle: UserSettings.shared.foreignLanguage.humanRepresentingNative, rightButtonImage: UIImage(named: currentStyle.buttonImage), isSearchBarNeeded: true)
+    private func addAndConfigureNavigationBar() {
+        navigationBar = MainNavigationBar(title: "Коллекция", rightTitle: SettingsStore.shared.getForeignLanguage().humanRepresentingNative, rightButtonImage: UIImage(named: currentStyle.buttonImage), isSearchBarNeeded: true)
 
         view.addSubview(navigationBar)
 
@@ -46,9 +47,10 @@ class CollectionView: UIViewController, CollectionViewInput {
         ])
 
         navigationBar.delegate = self
+        navigationBar.searchBarDelegate = presenter
     }
 
-    func addAndConfigureCollectionView() {
+    private func addAndConfigureCollectionView() {
         let collectionView = collectionSupervisor.getConfiguredCollection(with: currentStyle)
         collectionSupervisor.delegate = self
         view.addSubview(collectionView)
@@ -59,6 +61,13 @@ class CollectionView: UIViewController, CollectionViewInput {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor)
         ])
+    }
+
+    private func addAndConfigureDismissKeyboardTapGesture() {
+        let dismissTapGesture = UITapGestureRecognizer()
+        dismissTapGesture.addTarget(self.view as Any, action: #selector(UIView.endEditing(_:)))
+        dismissTapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(dismissTapGesture)
     }
 
 //    MARK: - UI update

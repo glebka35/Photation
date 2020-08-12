@@ -118,8 +118,4 @@ extension FavoritePresenter: FavoriteInteractorOutput {
 
         view?.updateContent(with: [])
     }
-
-    func languageChanged() {
-        deleteData()
-    }
 }

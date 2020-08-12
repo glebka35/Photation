@@ -14,7 +14,7 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
 
     var presenter: ImagePickerViewOutput?
 
-    private var navigationBar: MainNavigationBar!
+    private var navigationBar: MainNavigationBar?
     private let spinner = SpinnerViewController()
 
 //    MARK: - Life cycle
@@ -32,7 +32,7 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
 //    MARK: - UI configuration
 
     private func addAndConfigureNavigationBar() {
-        navigationBar = MainNavigationBar(title: "Фото", rightTitle: SettingsStore.shared.getForeignLanguage().humanRepresentingNative, rightButtonImage: nil, isSearchBarNeeded: false)
+        let navigationBar = MainNavigationBar(title: "Фото", rightTitle: SettingsStore.shared.getForeignLanguage().humanRepresentingNative, rightButtonImage: nil, isSearchBarNeeded: false)
         view.addSubview(navigationBar)
 
         let constraint = navigationBar.heightAnchor.constraint(equalToConstant: 0)
@@ -45,6 +45,7 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
 
         let height = CGFloat(60) ///calculated height
         constraint.constant = height
+        self.navigationBar = navigationBar
     }
 
     private func addAndConfigurePhotoSourceButtons() {
@@ -127,7 +128,7 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
         view.addSubview(spinner.view)
         var frame = view.frame
 
-        if let tabBar = tabBarController?.tabBar {
+        if let tabBar = tabBarController?.tabBar, let navigationBar = navigationBar{
             frame = CGRect(x: 0, y: navigationBar.frame.maxY, width: view.frame.width, height: tabBar.frame.minY - navigationBar.frame.maxY)
         }
 
@@ -139,6 +140,10 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
         spinner.willMove(toParent: nil)
         spinner.view.removeFromSuperview()
         spinner.removeFromParent()
+    }
+
+    func languageChanged() {
+        navigationBar?.updateRightTitle(with: SettingsStore.shared.getForeignLanguage().humanRepresentingNative)
     }
 }
 

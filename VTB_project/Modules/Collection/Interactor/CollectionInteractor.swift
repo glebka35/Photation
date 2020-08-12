@@ -65,5 +65,6 @@ class CollectionInteractor: CollectionInteractorInput {
 
     @objc private func languageChanged() {
         presenter?.changeLanguage()
+        reloadData()
     }
 }

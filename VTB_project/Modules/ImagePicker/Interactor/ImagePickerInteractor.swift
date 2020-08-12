@@ -21,7 +21,7 @@ class ImagePickerInteractor: ImagePickerInteractorInput {
     //    MARK: - Life cycle
 
     init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.newImageAdded), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
     }
 
      //    MARK: - Data update
@@ -35,7 +35,7 @@ class ImagePickerInteractor: ImagePickerInteractorInput {
         }
     }
 
-    @objc private func reloadData() {
-           presenter?.closeModule()
+    @objc private func languageChanged() {
+           presenter?.languageChanged()
        }
 }

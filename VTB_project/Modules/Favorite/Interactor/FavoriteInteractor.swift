@@ -69,6 +69,6 @@ class FavoriteInteractor: FavoriteInteractorInput {
     }
 
     @objc private func languageChanged() {
-        presenter?.languageChanged()
+        reloadData()
     }
 }

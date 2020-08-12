@@ -42,8 +42,8 @@ extension ImagePickerPresenter: ImagePickerInteractorOutput {
         router?.showDetail(of: objects)
     }
 
-    func closeModule() {
-        router?.closeModule()
+    func languageChanged() {
+        view?.languageChanged()
     }
 
 }

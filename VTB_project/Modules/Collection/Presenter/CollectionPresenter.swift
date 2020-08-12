@@ -67,7 +67,6 @@ extension CollectionPresenter: CollectionInteractorOutput {
 
     func changeLanguage() {
         view?.changeLanguage()
-        deleteData()
     }
 
     func deleteData() {

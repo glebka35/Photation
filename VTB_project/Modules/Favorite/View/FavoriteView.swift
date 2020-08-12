@@ -14,7 +14,7 @@ class FavoriteView: UIViewController, FavoriteViewInput {
 
     var presenter: FavoriteViewOutput?
 
-    private var navigationBar: MainNavigationBar!
+    private var navigationBar: MainNavigationBar?
     private var collectionSupervisor: CollectionViewSupervisorProtocol = CollectionViewSupervisor()
 
     //    MARK: - Life cycle
@@ -35,7 +35,7 @@ class FavoriteView: UIViewController, FavoriteViewInput {
     //    MARK: - UI configuration
 
     private func addAndConfigureNavigationBar() {
-        navigationBar = MainNavigationBar(title: "Избранное", isSearchBarNeeded: true)
+        let navigationBar = MainNavigationBar(title: "Избранное", isSearchBarNeeded: true)
 
         view.addSubview(navigationBar)
 
@@ -47,6 +47,8 @@ class FavoriteView: UIViewController, FavoriteViewInput {
         ])
 
         navigationBar.searchBarDelegate = presenter
+
+        self.navigationBar = navigationBar
     }
 
     private func addAndConfigureCollectionView() {
@@ -54,12 +56,14 @@ class FavoriteView: UIViewController, FavoriteViewInput {
         collectionSupervisor.delegate = self
         view.addSubview(collectionView)
 
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor)
-        ])
+        if let navigationBar = navigationBar {
+            NSLayoutConstraint.activate([
+                collectionView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
+                collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                collectionView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor)
+            ])
+        }
     }
 
     private func addAndConfigureDismissKeyboardTapGesture() {
@@ -86,6 +90,4 @@ extension FavoriteView: CollectionViewActionsDelegate {
     func scrollViewDidScrollToBottom() {
         presenter?.scrollViewDidScrollToBottom()
     }
-
-    
 }

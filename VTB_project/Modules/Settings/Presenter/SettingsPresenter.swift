@@ -35,7 +35,14 @@ class SettingsPresenter: SettingsViewOutput {
 
     func settingChoosed(at indexPath: IndexPath) {
         if data.count - 1 != indexPath.section {
-            router?.showDetail(with: data[indexPath.section][indexPath.row].title)
+            switch indexPath.row {
+            case 0:
+                router?.showDetail(with: .mainLanguage)
+            case 1:
+                router?.showDetail(with: .foreignLanguage)
+            default:
+                break
+            }
         } else {
             interactor?.deleteData()
         }

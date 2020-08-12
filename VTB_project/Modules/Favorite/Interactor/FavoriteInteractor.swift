@@ -24,6 +24,7 @@ class FavoriteInteractor: FavoriteInteractorInput {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.newImageAdded), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.deletaDataNotification), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.dataModified), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
     }
 
     func viewDidLoad() {
@@ -65,5 +66,9 @@ class FavoriteInteractor: FavoriteInteractorInput {
 
     @objc private func deleteData() {
         presenter?.deleteData()
+    }
+
+    @objc private func languageChanged() {
+        presenter?.languageChanged()
     }
 }

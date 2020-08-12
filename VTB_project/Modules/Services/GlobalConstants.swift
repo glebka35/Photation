@@ -12,5 +12,5 @@ enum GlobalConstants {
     static let newImageAdded = "NewImageAdded"
     static let dataModified = "DataModified"
     static let deletaDataNotification = "DeletaDataNotification"
-
+    static let languageChanged = "LanguageChanged"
 }

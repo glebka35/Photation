@@ -81,6 +81,10 @@ class CollectionView: UIViewController, CollectionViewInput {
     func updateContent(with objects: [ObjectsOnImage]) {
         collectionSupervisor.updateContent(with: objects)
     }
+
+    func changeLanguage() {
+        navigationBar.updateRightTitle(with: SettingsStore.shared.getForeignLanguage().humanRepresentingNative)
+    }
 }
 
 //MARK: - NavigationBar delegate

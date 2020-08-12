@@ -35,6 +35,7 @@ protocol DetailSettingsInteractorInput: AnyObject {
     var presenter: DetailSettingsInteractorOutput? { get set }
 
     func viewDidLoad()
+    func languageChosen(at indexPath: IndexPath, settings: SettingsList)
 
 }
 

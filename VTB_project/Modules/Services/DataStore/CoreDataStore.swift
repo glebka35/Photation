@@ -31,7 +31,9 @@ class CoreDataStore: NSObject, DataStoreProtocol {
     private lazy var fetchRequest: NSFetchRequest<ImageEntity> = {
         let fetchRequest: NSFetchRequest<ImageEntity> = ImageEntity.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+        let predicate = NSPredicate(format: "foreignLanguage = %@ AND nativeLanguage = %@", SettingsStore.shared.getForeignLanguage().rawValue, SettingsStore.shared.getNativeLanguage().rawValue)
 
+        fetchRequest.predicate = predicate
         fetchRequest.fetchBatchSize = Constants.pageSize
         fetchRequest.sortDescriptors = [sortDescriptor]
 
@@ -41,17 +43,14 @@ class CoreDataStore: NSObject, DataStoreProtocol {
     private lazy var favoriteFetchRequest: NSFetchRequest<ObjectEntity> = {
         let favoriteFetchRequest: NSFetchRequest<ObjectEntity> = ObjectEntity.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+        let predicate = NSPredicate(format: "image.foreignLanguage = %@ AND image.nativeLanguage = %@ AND isFavorite == true", SettingsStore.shared.getForeignLanguage().rawValue, SettingsStore.shared.getNativeLanguage().rawValue)
 
+        favoriteFetchRequest.predicate = predicate
         favoriteFetchRequest.fetchBatchSize = Constants.pageSize
         favoriteFetchRequest.sortDescriptors = [sortDescriptor]
 
-        let predicate = NSPredicate(format: "isFavorite == true")
-        favoriteFetchRequest.predicate = predicate
-
         return favoriteFetchRequest
     } ()
-
-
 
     private lazy var managedContext: NSManagedObjectContext = {
         persistentContainer.newBackgroundContext()
@@ -71,7 +70,10 @@ class CoreDataStore: NSObject, DataStoreProtocol {
 
     //    MARK: - Life cycle
 
-    private override init() { }
+    private override init() {
+        super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
+    }
 
     //    MARK: - Saving
 
@@ -166,5 +168,17 @@ class CoreDataStore: NSObject, DataStoreProtocol {
             fatalError("Error while deleting objects")
         }
 
+    }
+
+//    MARK: - Language changed
+
+    @objc private func languageChanged() {
+        let fetchPredicate = NSPredicate(format: "foreignLanguage = %@ AND nativeLanguage = %@", SettingsStore.shared.getForeignLanguage().rawValue, SettingsStore.shared.getNativeLanguage().rawValue)
+
+        fetchRequest.predicate = fetchPredicate
+
+        let favoritePredicate = NSPredicate(format: "image.foreignLanguage = %@ AND image.nativeLanguage = %@ AND isFavorite == true", SettingsStore.shared.getForeignLanguage().rawValue, SettingsStore.shared.getNativeLanguage().rawValue)
+
+        favoriteFetchRequest.predicate = favoritePredicate
     }
 }

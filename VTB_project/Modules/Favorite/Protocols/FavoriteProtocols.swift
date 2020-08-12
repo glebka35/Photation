@@ -42,6 +42,7 @@ protocol FavoriteInteractorInput: AnyObject {
 protocol FavoriteInteractorOutput: AnyObject {
     func objectsDidFetch(images: [ObjectsOnImage], objects: [SingleObject])
     func deleteData()
+    func languageChanged()
 }
 
 //MARK:- PRESENTER -> ROUTER

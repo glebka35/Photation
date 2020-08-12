@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "489425F5-5504-462D-8F3C-9EDCFC770019"
+            uuid = "FE580E58-23A4-4C5E-B069-3DA0E9A73F25"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VTB_project/Modules/Services/DataStore/SettingsStore.swift"
+            filePath = "VTB_project/Modules/Services/DataStore/CoreDataStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "getNativeLanguage()"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "loadMoreImages(page:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

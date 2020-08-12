@@ -38,7 +38,7 @@ class MainNavigationBar: UIView {
 
 //    MARK: - Life cycle
 
-    init(title: String, rightTitle: String?, rightButtonImage: UIImage? = nil, isSearchBarNeeded: Bool) {
+    init(title: String, rightTitle: String? = nil, rightButtonImage: UIImage? = nil, isSearchBarNeeded: Bool) {
         super.init(frame: .zero)
 
         addAndConfigureTitle(with: title)
@@ -135,6 +135,12 @@ class MainNavigationBar: UIView {
             hStack.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
             hStack.topAnchor.constraint(equalTo: topAnchor)
         ])
+    }
+
+//    MARK: - UI update
+
+    func updateRightTitle(with text: String) {
+        rightTitle?.text = text
     }
 
 //    MARK: - User interaction

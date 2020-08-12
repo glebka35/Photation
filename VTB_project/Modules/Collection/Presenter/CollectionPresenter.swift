@@ -61,7 +61,13 @@ extension CollectionPresenter: CollectionInteractorOutput {
     func objectsDidFetch(objects: [ObjectsOnImage]) {
         self.objects.append(contentsOf: objects)
         let objectsToDisplay = convertData(objects: self.objects)
+
         view?.updateContent(with: objectsToDisplay)
+    }
+
+    func changeLanguage() {
+        view?.changeLanguage()
+        deleteData()
     }
 
     func deleteData() {

@@ -25,10 +25,20 @@ class DetailSettingsPresenter: DetailSettingsViewOutput {
         }
     }
 
+    private var settings: SettingsList
+
 //    MARK: - Life cycle
 
-    required init(with title: String) {
-        self.title = title
+    required init(with settings: SettingsList) {
+        switch settings{
+        case .foreignLanguage:
+            self.title = "Иностранный язык"
+        case .mainLanguage:
+            self.title = "Основной язык"
+        default:
+            self.title = ""
+        }
+        self.settings = settings
     }
 
     func viewDidLoad() {
@@ -43,6 +53,8 @@ class DetailSettingsPresenter: DetailSettingsViewOutput {
             LanguageCellViewModel(main: $0.main, additional: $0.additional, isChosen: false)
         }
         data[indexPath.row].isChosen = true
+
+        interactor?.languageChosen(at: indexPath, settings: settings)
     }
 
     func backButtonPressed() {
@@ -56,8 +68,20 @@ extension DetailSettingsPresenter: DetailSettingsInteractorOutput {
     func display(languages: [Language]) {
         var languagesCellModel: [LanguageCellViewModel] = []
 
+        var currentChosenLanguage = Language.en
+
+        switch settings {
+        case .foreignLanguage:
+            currentChosenLanguage = SettingsStore.shared.getForeignLanguage()
+        case .mainLanguage:
+            currentChosenLanguage = SettingsStore.shared.getNativeLanguage()
+        default:
+            break
+        }
+
         languages.forEach() {
-            languagesCellModel.append(LanguageCellViewModel(main: $0.humanRepresentingNative, additional: $0.humanRepresentingEnglish, isChosen: false))
+            let isChosen = $0 == currentChosenLanguage
+            languagesCellModel.append(LanguageCellViewModel(main: $0.humanRepresentingNative, additional: $0.humanRepresentingEnglish, isChosen: isChosen))
         }
 
         data = languagesCellModel

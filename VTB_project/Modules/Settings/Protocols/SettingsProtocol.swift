@@ -48,6 +48,6 @@ protocol SettingsInteractorOutput: AnyObject {
 protocol SettingsRouterInput: AnyObject {
     var view: SettingsView? { get set }
 
-    func showDetail(with title: String)
+    func showDetail(with settings: SettingsList)
     func closeModeule()
 }

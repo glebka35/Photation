@@ -35,7 +35,7 @@ class FavoriteView: UIViewController, FavoriteViewInput {
     //    MARK: - UI configuration
 
     private func addAndConfigureNavigationBar() {
-        navigationBar = MainNavigationBar(title: "Избранное", rightTitle: SettingsStore.shared.getForeignLanguage().humanRepresentingNative, isSearchBarNeeded: true)
+        navigationBar = MainNavigationBar(title: "Избранное", isSearchBarNeeded: true)
 
         view.addSubview(navigationBar)
 

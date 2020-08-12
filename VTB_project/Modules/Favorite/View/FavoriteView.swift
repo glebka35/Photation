@@ -27,6 +27,7 @@ class FavoriteView: UIViewController, FavoriteViewInput {
 
         addAndConfigureNavigationBar()
         addAndConfigureCollectionView()
+        addAndConfigureDismissKeyboardTapGesture()
 
         presenter?.viewDidLoad()
     }
@@ -34,7 +35,7 @@ class FavoriteView: UIViewController, FavoriteViewInput {
     //    MARK: - UI configuration
 
     private func addAndConfigureNavigationBar() {
-        navigationBar = MainNavigationBar(title: "Избранное", rightTitle: UserSettings.shared.foreignLanguage.humanRepresentingNative, isSearchBarNeeded: true)
+        navigationBar = MainNavigationBar(title: "Избранное", rightTitle: SettingsStore.shared.getForeignLanguage().humanRepresentingNative, isSearchBarNeeded: true)
 
         view.addSubview(navigationBar)
 
@@ -44,6 +45,8 @@ class FavoriteView: UIViewController, FavoriteViewInput {
             navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             navigationBar.bottomAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 90)
         ])
+
+        navigationBar.searchBarDelegate = presenter
     }
 
     private func addAndConfigureCollectionView() {
@@ -59,13 +62,21 @@ class FavoriteView: UIViewController, FavoriteViewInput {
         ])
     }
 
+    private func addAndConfigureDismissKeyboardTapGesture() {
+        let dismissTapGesture = UITapGestureRecognizer()
+        dismissTapGesture.addTarget(self.view as Any, action: #selector(UIView.endEditing(_:)))
+        dismissTapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(dismissTapGesture)
+    }
+
     //    MARK: - UI update
     
     func updateContent(with objects: [ObjectsOnImage]) {
         collectionSupervisor.updateContent(with: objects)
     }
-
 }
+
+//MARK: - CollectionViewActionsDelegate
 
 extension FavoriteView: CollectionViewActionsDelegate {
     func cellSelected(at indexPath: IndexPath) {

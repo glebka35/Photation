@@ -28,7 +28,7 @@ class ImageHandler {
             singleObjects.append(SingleObject(nativeName: objects[index].objectClassName, foreignName: objects[index].objectClassName, color: color, isFavorite: .no, id: UUID().uuidString))
         }
 
-        let objectOnImage = ObjectsOnImage(image: newImage?.jpegData(compressionQuality: 1), objects: singleObjects, date: Date(), nativeLanguage: UserSettings.shared.nativeLanguage, foreignLanguage: UserSettings.shared.foreignLanguage)
+        let objectOnImage = ObjectsOnImage(image: newImage?.jpegData(compressionQuality: 1), objects: singleObjects, date: Date(), nativeLanguage: SettingsStore.shared.getNativeLanguage(), foreignLanguage: SettingsStore.shared.getForeignLanguage())
         completion(objectOnImage)
     }
 

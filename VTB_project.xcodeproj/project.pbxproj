@@ -69,6 +69,7 @@
 		2B80004724C6CEB6004D1A12 /* GUNetworkLayer in Frameworks */ = {isa = PBXBuildFile; productRef = 2B80004624C6CEB6004D1A12 /* GUNetworkLayer */; };
 		2B80004A24C6D5C9004D1A12 /* CloudMersiveClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B80004924C6D5C9004D1A12 /* CloudMersiveClient.swift */; };
 		2B80004C24C6D6C0004D1A12 /* CloudMersiveResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B80004B24C6D6C0004D1A12 /* CloudMersiveResponse.swift */; };
+		2B9B123924E4033300646455 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9B123824E4033300646455 /* SettingsStore.swift */; };
 		2B9EF09924B89F98001CCEA3 /* CollectionViewDelegatesFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9EF09824B89F98001CCEA3 /* CollectionViewDelegatesFlowLayout.swift */; };
 		2BAD878024B4A85700F0DAC0 /* CollectionViewSupervisor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE61E3524B4A7F9007F9C19 /* CollectionViewSupervisor.swift */; };
 		2BAD878224B4A8AB00F0DAC0 /* MainNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAD878124B4A8AB00F0DAC0 /* MainNavigationBar.swift */; };
@@ -157,6 +158,7 @@
 		2B80004324C37630004D1A12 /* ImagePickerProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerProtocols.swift; sourceTree = "<group>"; };
 		2B80004924C6D5C9004D1A12 /* CloudMersiveClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudMersiveClient.swift; sourceTree = "<group>"; };
 		2B80004B24C6D6C0004D1A12 /* CloudMersiveResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudMersiveResponse.swift; sourceTree = "<group>"; };
+		2B9B123824E4033300646455 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
 		2B9EF09824B89F98001CCEA3 /* CollectionViewDelegatesFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDelegatesFlowLayout.swift; sourceTree = "<group>"; };
 		2BAD878124B4A8AB00F0DAC0 /* MainNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationBar.swift; sourceTree = "<group>"; };
 		2BD8D35324C830DB0099C575 /* TranslationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationResponse.swift; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 			children = (
 				2B46C57624D5A74B00CA143E /* DataStore.swift */,
 				2B46C55024D578D900CA143E /* CoreDataStore.swift */,
+				2B9B123824E4033300646455 /* SettingsStore.swift */,
 				2B46C57C24D5AD9700CA143E /* DataConverter */,
 			);
 			path = DataStore;
@@ -969,6 +972,7 @@
 				2BE3AB5F24B602D400EFAFA0 /* PresentationStyle.swift in Sources */,
 				2B80004C24C6D6C0004D1A12 /* CloudMersiveResponse.swift in Sources */,
 				2B80004024C3760B004D1A12 /* ImagePickerPresenter.swift in Sources */,
+				2B9B123924E4033300646455 /* SettingsStore.swift in Sources */,
 				2B46C59D24DC013400CA143E /* GlobalConstants.swift in Sources */,
 				2B80003E24C375E2004D1A12 /* ImagePickerAssembly.swift in Sources */,
 				2BD8D3CF24CEB0760099C575 /* DetailView.swift in Sources */,

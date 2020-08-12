@@ -32,8 +32,8 @@ class ImageHandlerAndTranslationWorker: ObjectDetectorAndTranslator {
             cloudMersiveClient.getRecognition(of: data, name: "") { [weak self] (objects, success) in
                 if let objects = objects {
                     self?.imageHandler.handleResponse(objects: objects, on: image) { (objects) in
-                        let nativeLanguage = UserSettings.shared.nativeLanguage
-                        let foreignLanguage = UserSettings.shared.foreignLanguage
+                        let nativeLanguage = SettingsStore.shared.getNativeLanguage()
+                        let foreignLanguage = SettingsStore.shared.getForeignLanguage()
                         self?.getTranslation(of: objects, firstLanguage: nativeLanguage, secondLanguage: foreignLanguage, completion: completion)
                     }
                 }

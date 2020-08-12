@@ -6,11 +6,11 @@
 //  Copyright © 2020 Gleb Uvarkin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 //MARK: - CollectionViewOutput
 
-class CollectionPresenter: CollectionViewOutput {
+class CollectionPresenter: NSObject, CollectionViewOutput {
 
     //    MARK: - Properties
 
@@ -20,7 +20,9 @@ class CollectionPresenter: CollectionViewOutput {
 
     private var displayingObjects: [ObjectsOnImage] = []
     private var objects: [ObjectsOnImage] = []
+    private var filteredObjects: [ObjectsOnImage] = []
     private var currentStyle: PresentationStyle!
+    private var isSearchActive = false
 
     //    MARK: - UI life cycle
     func viewDidLoad(with style: PresentationStyle) {
@@ -44,12 +46,12 @@ class CollectionPresenter: CollectionViewOutput {
     }
 
     func cellSelected(at indexPath: IndexPath) {
-        let object = displayingObjects[indexPath.row]
+        let object = isSearchActive ? filteredObjects[indexPath.row] : displayingObjects[indexPath.row]
         router?.showDetail(of: object)
     }
 
     func scrollViewDidScrollToBottom() {
-            interactor?.loadObjects()
+        interactor?.loadObjects()
     }
 }
 
@@ -99,5 +101,57 @@ extension CollectionPresenter: CollectionInteractorOutput {
         return objectsToDisplay
     }
 
+}
+
+extension CollectionPresenter: UISearchBarDelegate {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        isSearchActive = true
+    }
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        isSearchActive = false
+        searchBar.resignFirstResponder()
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        isSearchActive = false
+        searchBar.resignFirstResponder()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        isSearchActive = false
+        searchBar.resignFirstResponder()
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            filteredObjects = displayingObjects
+        } else {
+            filteredObjects = displayingObjects.filter({ (imageWithObjects) -> Bool in
+                var returnValue = false
+
+                imageWithObjects.objects.forEach { (object) in
+                    if let tmp = object.foreignName {
+                        let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+                        if range != nil {
+                            returnValue = true
+                            return
+                        }
+                    }
+
+                    let tmp = object.nativeName
+                    let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+                    if range != nil {
+                        returnValue = true
+                        return
+                    }
+                }
+
+                return returnValue
+            })
+        }
+
+        view?.updateContent(with: filteredObjects)
+    }
 }
 

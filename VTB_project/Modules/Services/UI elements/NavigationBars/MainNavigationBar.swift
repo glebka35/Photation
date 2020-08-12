@@ -13,6 +13,11 @@ class MainNavigationBar: UIView {
 //    MARK: - Properties
     
     weak var delegate: NavigationBarDelegate?
+    weak var searchBarDelegate: UISearchBarDelegate? {
+        didSet {
+            searchBar?.delegate = searchBarDelegate
+        }
+    }
     
     public var titleString: String? {
         didSet { title?.text = titleString }
@@ -109,6 +114,7 @@ class MainNavigationBar: UIView {
             searchBar.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
 
+        searchBar.delegate = searchBarDelegate
         self.searchBar = searchBar
     }
 

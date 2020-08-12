@@ -19,4 +19,6 @@ class DetailSettingsInteractor: DetailSettingsInteractorInput {
         let languages = Language.allCases
         presenter?.display(languages: languages)
     }
+
+//    MARK: - Saving
 }

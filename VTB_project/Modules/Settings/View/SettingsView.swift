@@ -24,7 +24,6 @@ class SettingsView: UIViewController, SettingsViewInput {
 
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
-        title = "Настройки"
 
         addAndConfigureNavigationBar()
         addAndConfigureTableView()
@@ -50,7 +49,7 @@ class SettingsView: UIViewController, SettingsViewInput {
     }
 
     private func addAndConfigureNavigationBar() {
-        navigationBar = MainNavigationBar(title: "Настройки", rightTitle: nil, rightButtonImage: nil, isSearchBarNeeded: false)
+        navigationBar = MainNavigationBar(title: LocalizedString().settings, rightTitle: nil, rightButtonImage: nil, isSearchBarNeeded: false)
 
         view.addSubview(navigationBar)
 
@@ -66,6 +65,13 @@ class SettingsView: UIViewController, SettingsViewInput {
 
     func updateTable(with data: [[CellViewModel]]) {
         tableViewSupervisor?.update(with: data)
+    }
+
+    func languageChanged() {
+        let newTitle = LocalizedString().settings
+        title = newTitle
+
+        navigationBar.updateMainTitle(with: newTitle)
     }
 }
 

@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "489425F5-5504-462D-8F3C-9EDCFC770019"
+            uuid = "E50638E3-91FF-4B94-BDBF-EFF62BF0E918"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VTB_project/Modules/Services/DataStore/SettingsStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "getNativeLanguage()"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "saveNative(language:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

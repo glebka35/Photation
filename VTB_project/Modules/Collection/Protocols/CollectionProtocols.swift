@@ -15,6 +15,7 @@ protocol CollectionViewInput: AnyObject {
     
     func updatePresentation(with style: PresentationStyle)
     func updateContent(with objects: [ObjectsOnImage])
+    func changeLanguage()
 }
 
 //MARK: - VIEW -> PRESENTER
@@ -43,6 +44,7 @@ protocol CollectionInteractorInput: AnyObject {
 protocol CollectionInteractorOutput: AnyObject {
     func objectsDidFetch(objects: [ObjectsOnImage])
     func deleteData()
+    func changeLanguage()
 }
 
 //MARK:- PRESENTER -> ROUTER

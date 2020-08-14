@@ -20,6 +20,7 @@ class DetailInteractor: DetailInteractorInput {
 
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(deleteData), name: NSNotification.Name(GlobalConstants.deletaDataNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteData), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
     }
 
 //    MARK: - Data update

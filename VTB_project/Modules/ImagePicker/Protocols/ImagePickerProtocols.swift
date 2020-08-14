@@ -19,6 +19,7 @@ protocol ImagePickerViewInput: AnyObject {
     func showGaleryImagePicker()
     func showSpinner()
     func unshowSpinner()
+    func languageChanged()
 }
 
 //MARK: - VIEW->PRESENTER
@@ -47,7 +48,7 @@ protocol ImagePickerInteractorInput: AnyObject {
 protocol ImagePickerInteractorOutput: AnyObject {
     func imageDidRecieved(objects: ObjectsOnImage)
 
-    func closeModule()
+    func languageChanged()
 }
 
 //MARK: - PRESENTER -> ROUTER

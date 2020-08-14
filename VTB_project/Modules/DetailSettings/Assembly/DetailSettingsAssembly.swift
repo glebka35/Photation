@@ -9,8 +9,8 @@
 import Foundation
 
 class DetailSettingsAssembly {
-    func createDetailSettingsModule(with title: String)->DetailSettingsView {
-        let presenter: DetailSettingsViewOutput & DetailSettingsInteractorOutput = DetailSettingsPresenter(with: title)
+    func createDetailSettingsModule(with setting: SettingsList)->DetailSettingsView {
+        let presenter: DetailSettingsViewOutput & DetailSettingsInteractorOutput = DetailSettingsPresenter(with: setting)
         let detailSettingsView = DetailSettingsView()
         let router = DetailSettingsRouter()
         let interactor = DetailSettingsInteractor()

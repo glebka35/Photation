@@ -14,6 +14,7 @@ protocol SettingsViewInput: AnyObject {
     var presenter: SettingsViewOutput? { get set }
 
     func updateTable(with data: [[CellViewModel]])
+    func languageChanged()
 }
 
 
@@ -41,6 +42,7 @@ protocol SettingsInteractorInput: AnyObject {
 
 protocol SettingsInteractorOutput: AnyObject {
     func display(settings: [[SettingsList]])
+    func languageChanged()
 }
 
 //MARK:- PRESENTER -> ROUTER
@@ -48,6 +50,6 @@ protocol SettingsInteractorOutput: AnyObject {
 protocol SettingsRouterInput: AnyObject {
     var view: SettingsView? { get set }
 
-    func showDetail(with title: String)
+    func showDetail(with settings: SettingsList)
     func closeModeule()
 }

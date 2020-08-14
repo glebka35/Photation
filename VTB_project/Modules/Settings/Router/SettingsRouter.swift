@@ -11,8 +11,8 @@ import Foundation
 class SettingsRouter: SettingsRouterInput {
     weak var view: SettingsView?
 
-    func showDetail(with title: String) {
-        let detailView = DetailSettingsAssembly().createDetailSettingsModule(with: title)
+    func showDetail(with settings: SettingsList) {
+        let detailView = DetailSettingsAssembly().createDetailSettingsModule(with: settings)
         view?.navigationController?.pushViewController(detailView, animated: true)
     }
 

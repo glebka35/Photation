@@ -35,7 +35,14 @@ class SettingsPresenter: SettingsViewOutput {
 
     func settingChoosed(at indexPath: IndexPath) {
         if data.count - 1 != indexPath.section {
-            router?.showDetail(with: data[indexPath.section][indexPath.row].title)
+            switch indexPath.row {
+            case 0:
+                router?.showDetail(with: .mainLanguage)
+            case 1:
+                router?.showDetail(with: .foreignLanguage)
+            default:
+                break
+            }
         } else {
             interactor?.deleteData()
         }
@@ -51,12 +58,16 @@ extension SettingsPresenter: SettingsInteractorOutput {
 
         settings.forEach {
             $0.forEach {
-                section.append(CellViewModel(title: $0.rawValue, image: $0.image))
+                section.append(CellViewModel(title: LocalizedString().getSettingsString(settings: $0), image: $0.image))
             }
             data.append(contentsOf: [section])
             section = []
         }
 
         self.data = data
+    }
+
+    func languageChanged() {
+        view?.languageChanged()
     }
 }

@@ -28,9 +28,8 @@ class SettingsStore {
 //    MARK: - Fetching languages
 
     func getNativeLanguage()->Language {
-        let languageString = UserDefaults.standard.string(forKey: Constants.nativeLanguageKey)
 
-        if let savingLanguageString = languageString, let language = Language(rawValue: savingLanguageString) {
+        if let savingLanguageString = UserDefaults.standard.string(forKey: Constants.nativeLanguageKey), let language = Language(rawValue: savingLanguageString) {
             return language
         }
 
@@ -52,9 +51,11 @@ class SettingsStore {
 
     func saveNative(language: Language) {
         UserDefaults.standard.set(language.rawValue, forKey: Constants.nativeLanguageKey)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: GlobalConstants.languageChanged), object: nil)
     }
 
     func saveForeign(language: Language) {
         UserDefaults.standard.set(language.rawValue, forKey: Constants.foreignLanguageKey)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: GlobalConstants.languageChanged), object: nil)
     }
 }

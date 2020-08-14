@@ -35,7 +35,7 @@ class CollectionView: UIViewController, CollectionViewInput {
 //    MARK: - UI configuration
     
     private func addAndConfigureNavigationBar() {
-        navigationBar = MainNavigationBar(title: "Коллекция", rightTitle: SettingsStore.shared.getForeignLanguage().humanRepresentingNative, rightButtonImage: UIImage(named: currentStyle.buttonImage), isSearchBarNeeded: true)
+        navigationBar = MainNavigationBar(title: LocalizedString().collection, rightTitle: SettingsStore.shared.getForeignLanguage().humanRepresentingNative, rightButtonImage: UIImage(named: currentStyle.buttonImage), isSearchBarNeeded: true)
 
         view.addSubview(navigationBar)
 
@@ -80,6 +80,14 @@ class CollectionView: UIViewController, CollectionViewInput {
     
     func updateContent(with objects: [ObjectsOnImage]) {
         collectionSupervisor.updateContent(with: objects)
+    }
+
+    func changeLanguage() {
+        navigationBar.updateRightTitle(with: SettingsStore.shared.getForeignLanguage().humanRepresentingNative)
+        let title = LocalizedString().collection
+        navigationBar.updateMainTitle(with: title)
+
+        self.title = title
     }
 }
 

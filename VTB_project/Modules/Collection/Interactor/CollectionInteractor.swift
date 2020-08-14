@@ -27,6 +27,7 @@ class CollectionInteractor: CollectionInteractorInput {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.newImageAdded), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(deleteData), name: NSNotification.Name(GlobalConstants.deletaDataNotification), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.dataModified), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
     }
 
     //    MARK: - Data fetching
@@ -60,5 +61,10 @@ class CollectionInteractor: CollectionInteractorInput {
 
     @objc private func deleteData() {
         presenter?.deleteData()
+    }
+
+    @objc private func languageChanged() {
+        presenter?.changeLanguage()
+        reloadData()
     }
 }

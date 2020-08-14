@@ -28,9 +28,8 @@ class SettingsStore {
 //    MARK: - Fetching languages
 
     func getNativeLanguage()->Language {
-        let languageString = UserDefaults.standard.string(forKey: Constants.nativeLanguageKey)
 
-        if let savingLanguageString = languageString, let language = Language(rawValue: savingLanguageString) {
+        if let savingLanguageString = UserDefaults.standard.string(forKey: Constants.nativeLanguageKey), let language = Language(rawValue: savingLanguageString) {
             return language
         }
 

@@ -35,7 +35,7 @@ class FavoriteView: UIViewController, FavoriteViewInput {
     //    MARK: - UI configuration
 
     private func addAndConfigureNavigationBar() {
-        let navigationBar = MainNavigationBar(title: "Избранное", isSearchBarNeeded: true)
+        let navigationBar = MainNavigationBar(title: LocalizedString().favorite, isSearchBarNeeded: true)
 
         view.addSubview(navigationBar)
 
@@ -77,6 +77,10 @@ class FavoriteView: UIViewController, FavoriteViewInput {
     
     func updateContent(with objects: [ObjectsOnImage]) {
         collectionSupervisor.updateContent(with: objects)
+    }
+
+    func languageChanged() {
+        title = LocalizedString().favorite
     }
 }
 

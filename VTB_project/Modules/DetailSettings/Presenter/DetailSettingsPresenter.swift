@@ -30,14 +30,7 @@ class DetailSettingsPresenter: DetailSettingsViewOutput {
 //    MARK: - Life cycle
 
     required init(with settings: SettingsList) {
-        switch settings{
-        case .foreignLanguage:
-            self.title = "Иностранный язык"
-        case .mainLanguage:
-            self.title = "Основной язык"
-        default:
-            self.title = ""
-        }
+        self.title = LocalizedString().getSettingsString(settings: settings)
         self.settings = settings
     }
 
@@ -85,5 +78,9 @@ extension DetailSettingsPresenter: DetailSettingsInteractorOutput {
         }
 
         data = languagesCellModel
+    }
+
+    func languageChanged() {
+        view?.languageChanged(settings: settings)
     }
 }

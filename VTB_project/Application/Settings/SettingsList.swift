@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 
 
-enum SettingsList: String, CaseIterable {
-    case mainLanguage = "Основной язык"
-    case foreignLanguage = "Иностранный язык"
+enum SettingsList: CaseIterable {
+    case mainLanguage
+    case foreignLanguage
 
-    case deleteData = "Удалить данные"
+    case deleteData
 
     var image: UIImage? {
         switch self {

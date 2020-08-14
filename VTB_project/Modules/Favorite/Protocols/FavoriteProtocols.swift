@@ -14,6 +14,7 @@ protocol FavoriteViewInput: AnyObject {
     var presenter: FavoriteViewOutput? { get set }
 
     func updateContent(with objects: [ObjectsOnImage])
+    func languageChanged()
 }
 
 //MARK: - VIEW -> PRESENTER
@@ -42,6 +43,7 @@ protocol FavoriteInteractorInput: AnyObject {
 protocol FavoriteInteractorOutput: AnyObject {
     func objectsDidFetch(images: [ObjectsOnImage], objects: [SingleObject])
     func deleteData()
+    func languageChanged()
 }
 
 //MARK:- PRESENTER -> ROUTER

@@ -47,7 +47,7 @@ class DetailSettingsView: UIViewController, DetailSettingsViewInput {
     }
 
     private func addAndConfigureNavigationBar() {
-        let navigationBar = DefaultNavigationBar(title: title, backButtonTitle: "Назад", backButtonImage: UIImage(named: "leftAccessory"))
+        let navigationBar = DefaultNavigationBar(title: title, backButtonTitle: LocalizedString().backButton, backButtonImage: UIImage(named: "leftAccessory"))
         view.addSubview(navigationBar)
         navigationBar.delegate = self
 
@@ -71,6 +71,10 @@ class DetailSettingsView: UIViewController, DetailSettingsViewInput {
 
     func updateTable(with data: [LanguageCellViewModel]) {
         tableViewSupervisor?.update(with: data)
+    }
+
+    func languageChanged(settings: SettingsList) {
+        navigationBar?.updateTitle(with: LocalizedString().getSettingsString(settings: settings))
     }
 
 }

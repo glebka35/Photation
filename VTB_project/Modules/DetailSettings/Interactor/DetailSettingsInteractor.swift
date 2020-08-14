@@ -16,6 +16,11 @@ class DetailSettingsInteractor: DetailSettingsInteractorInput {
 
 //    MARK: - Life cycle
 
+    init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
+    }
+
+
     func viewDidLoad() {
         presenter?.display(languages: languages)
     }
@@ -31,5 +36,9 @@ class DetailSettingsInteractor: DetailSettingsInteractorInput {
         default:
             break
         }
+    }
+
+    @objc private func languageChanged() {
+        presenter?.languageChanged()
     }
 }

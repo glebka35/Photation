@@ -14,17 +14,19 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
 
         let collectionVC = CollectionAssembly().createCollectionModule()
+
+        let localizedString = LocalizedString()
         
-        collectionVC.tabBarItem = UITabBarItem(title: "Коллекция", image: UIImage(named: "collection"), tag: 0)
+        collectionVC.tabBarItem = UITabBarItem(title: localizedString.collection, image: UIImage(named: "collection"), tag: 0)
         
         let favoriteVC = FavoriteAssembly().createFavoriteModule()
-        favoriteVC.tabBarItem = UITabBarItem(title: "Избранное", image: UIImage(named: "favorite"), tag: 1)
+        favoriteVC.tabBarItem = UITabBarItem(title: localizedString.favorite, image: UIImage(named: "favorite"), tag: 1)
         
         let imagePickerVC = ImagePickerAssembly().createImagePickerModule()
-        imagePickerVC.tabBarItem = UITabBarItem(title: "Фото", image: UIImage(named: "camera"), tag: 2)
+        imagePickerVC.tabBarItem = UITabBarItem(title: localizedString.add, image: UIImage(named: "camera"), tag: 2)
         
         let settingsVC = SettingsAssembly().createSettingsModule()
-        settingsVC.tabBarItem = UITabBarItem(title: "Настройки", image: UIImage(named: "settings"), tag: 3)
+        settingsVC.tabBarItem = UITabBarItem(title: localizedString.settings, image: UIImage(named: "settings"), tag: 3)
         
         let tabBarList = [collectionVC, favoriteVC, imagePickerVC, settingsVC]
         

@@ -143,6 +143,10 @@ class MainNavigationBar: UIView {
         rightTitle?.text = text
     }
 
+    func updateMainTitle(with text: String) {
+        title?.text = text
+    }
+
 //    MARK: - User interaction
     
     @objc func rightButtonAction(sender: UIButton!) {

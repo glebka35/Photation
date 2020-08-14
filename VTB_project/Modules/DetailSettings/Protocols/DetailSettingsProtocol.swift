@@ -15,6 +15,8 @@ protocol DetailSettingsViewInput: AnyObject {
 
     func set(title: String)
     func updateTable(with data: [LanguageCellViewModel])
+    func languageChanged(settings: SettingsList)
+
 }
 
 //MARK: - VIEW -> PRESENTER
@@ -36,13 +38,13 @@ protocol DetailSettingsInteractorInput: AnyObject {
 
     func viewDidLoad()
     func languageChosen(at indexPath: IndexPath, settings: SettingsList)
-
 }
 
 //MARK:- INTERACTOR -> PRESENTER
 
 protocol DetailSettingsInteractorOutput: AnyObject {
     func display(languages: [Language])
+    func languageChanged()
 }
 
 //MARK:- PRESENTER -> ROUTER

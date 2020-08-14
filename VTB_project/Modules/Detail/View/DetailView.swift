@@ -23,7 +23,7 @@ class DetailView: UIViewController, DetailViewInput {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        title = "Изображение"
+        title = LocalizedString().image
 
         addAndConfigureNavigationBar()
         addAndConfigureImageView()
@@ -54,7 +54,7 @@ class DetailView: UIViewController, DetailViewInput {
     }
 
     private func addAndConfigureNavigationBar() {
-        let navigationBar = DefaultNavigationBar(title: title, backButtonTitle: "Назад", backButtonImage: UIImage(named: "leftAccessory"))
+        let navigationBar = DefaultNavigationBar(title: title, backButtonTitle: LocalizedString().backButton, backButtonImage: UIImage(named: "leftAccessory"))
         view.addSubview(navigationBar)
         navigationBar.delegate = self
 

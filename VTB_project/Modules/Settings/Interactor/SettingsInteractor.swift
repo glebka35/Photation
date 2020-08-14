@@ -13,15 +13,19 @@ class SettingsInteractor: SettingsInteractorInput {
     //    MARK: - Properties
 
     weak var presenter: SettingsInteractorOutput?
+    private let settings: [[SettingsList]] = [[SettingsList.mainLanguage, SettingsList.foreignLanguage], [SettingsList.deleteData]]
 
     //    MARK: - LifeCycle
 
+    init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
+    }
+
     func viewDidLoad() {
-        let settings: [[SettingsList]] = [[SettingsList.mainLanguage, SettingsList.foreignLanguage], [SettingsList.deleteData]]
         presenter?.display(settings: settings)
     }
 
-    //    MARK: - Data deletion
+    //    MARK: - Data update
 
     func deleteData() {
         let nativeLanguage = SettingsStore.shared.getNativeLanguage()
@@ -31,7 +35,10 @@ class SettingsInteractor: SettingsInteractorInput {
         DispatchQueue.global(qos: .userInitiated).async {
             coreDataManager.deleteEntities(with: nativeLanguage, and: foreignLanguage)
         }
+    }
 
-        
+    @objc private func languageChanged() {
+        presenter?.display(settings: settings)
+        presenter?.languageChanged()
     }
 }

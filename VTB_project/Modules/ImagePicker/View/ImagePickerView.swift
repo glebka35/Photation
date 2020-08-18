@@ -34,7 +34,7 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
 //    MARK: - UI configuration
 
     private func addAndConfigureNavigationBar() {
-        let navigationBar = MainNavigationBar(title: LocalizedString().add, rightTitle: SettingsStore.shared.getForeignLanguage().humanRepresentingNative, rightButtonImage: nil, isSearchBarNeeded: false)
+        let navigationBar = MainNavigationBar(title: LocalizedString().add, rightTitle: SettingsStore.shared.getForeignLanguage().humanRepresentingNative, rightButton: nil, isSearchBarNeeded: false)
         view.addSubview(navigationBar)
 
         let constraint = navigationBar.heightAnchor.constraint(equalToConstant: 0)

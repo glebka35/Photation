@@ -33,7 +33,7 @@ protocol CollectionViewSupervisorProtocol {
 
 final class CollectionViewSupervisor: NSObject, CollectionViewSupervisorProtocol {
 
-//    MARK: - Properties
+    //    MARK: - Properties
 
     weak var delegate: CollectionViewActionsDelegate? {
         didSet {
@@ -63,7 +63,7 @@ final class CollectionViewSupervisor: NSObject, CollectionViewSupervisorProtocol
         return objects.count
     }
 
-//    MARK: - Life cycle
+    //    MARK: - Life cycle
     
     override init() {
         let layout = UICollectionViewFlowLayout()
@@ -72,7 +72,7 @@ final class CollectionViewSupervisor: NSObject, CollectionViewSupervisorProtocol
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     }
 
-//    MARK: - CollectionView configuration
+    //    MARK: - CollectionView configuration
 
     func getConfiguredCollection(with style: PresentationStyle)->UICollectionView {
         collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
@@ -91,7 +91,7 @@ final class CollectionViewSupervisor: NSObject, CollectionViewSupervisorProtocol
         return collectionView
     }
 
-//    MARK: - UI update
+    //    MARK: - UI update
     
     func updatePresentationStyle(with style: PresentationStyle) {
         presentationStyle = style

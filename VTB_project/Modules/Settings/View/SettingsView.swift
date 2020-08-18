@@ -49,7 +49,7 @@ class SettingsView: UIViewController, SettingsViewInput {
     }
 
     private func addAndConfigureNavigationBar() {
-        navigationBar = MainNavigationBar(title: LocalizedString().settings, rightTitle: nil, rightButtonImage: nil, isSearchBarNeeded: false)
+        navigationBar = MainNavigationBar(title: LocalizedString().settings, rightTitle: nil, rightButton: nil, isSearchBarNeeded: false)
 
         view.addSubview(navigationBar)
 

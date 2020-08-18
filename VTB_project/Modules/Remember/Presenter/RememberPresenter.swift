@@ -8,11 +8,17 @@
 
 import Foundation
 
+//MARK: - RememberViewOutput
+
 class RememberPresenter: RememberViewOutput {
+
+//    MARK: - Constants
 
     enum Constants {
         static let variantsCount = 3
     }
+
+//    MARK: - Properties
 
     weak var view: RememberViewInput?
     var interactor: RememberInteractorInput?
@@ -21,9 +27,13 @@ class RememberPresenter: RememberViewOutput {
     private var objects: RememberObjects = []
     private var currentGameModel: RememberGameModel?
 
+//    MARK: - Life cycle
+
     func viewDidLoad() {
         interactor?.viewDidLoad()
     }
+
+//    MARK: - User interaction
 
     func wordChosen(at indexPath: IndexPath) {
         if let word = currentGameModel?.variants[indexPath.row] {
@@ -31,19 +41,30 @@ class RememberPresenter: RememberViewOutput {
         }
     }
 
+    func backButtonPressed() {
+        router?.closeModule()
+    }
+
+    func nextButtonPressed() {
+        interactor?.displayWord()
+    }
+
 }
+
+//MARK: - RememberInteractorOutput
 
 extension RememberPresenter: RememberInteractorOutput {
     func update(objects: RememberObjects) {
         self.objects = objects
     }
 
-    func showWord(at index: Int) {
-        let gameModel = createGameModel(with: index)
+    func showWord(at index: Int, with footerModel: FooterModel) {
+        let gameModel = createGameModel(with: index, and: footerModel)
+        view?.hideNextButton()
         view?.update(with: gameModel)
     }
 
-    private func createGameModel(with mainIndex: Int)->RememberGameModel {
+    private func createGameModel(with mainIndex: Int, and footerModel: FooterModel)->RememberGameModel {
         var objectsCopy = objects
 
         let mainObject = objectsCopy.remove(at: mainIndex)
@@ -53,12 +74,15 @@ extension RememberPresenter: RememberInteractorOutput {
 
         let limit = min(Constants.variantsCount, objectsCopy.count)
 
-        for index in 1...limit {
+        for index in 0..<limit {
             variants.append(objectsCopy[index].nativeName)
         }
 
         variants.shuffle()
-        return RememberGameModel(mainWord: mainObject.foreignName ?? "", variants: variants)
+
+        let currentGameModel = RememberGameModel(mainWord: mainObject.foreignName ?? "", variants: variants, footerModel: footerModel)
+        self.currentGameModel = currentGameModel
+        return currentGameModel
     }
 
     func correctWordChosen(at indexPath: IndexPath) {
@@ -70,6 +94,4 @@ extension RememberPresenter: RememberInteractorOutput {
         view?.emphasizeWrongWord(at: indexPath)
         view?.showNextButton()
     }
-
-
 }

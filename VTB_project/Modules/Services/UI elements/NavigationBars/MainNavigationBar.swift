@@ -38,7 +38,7 @@ class MainNavigationBar: UIView {
 
 //    MARK: - Life cycle
 
-    init(title: String, rightTitle: String? = nil, rightButtonImage: UIImage? = nil, isSearchBarNeeded: Bool) {
+    init(title: String, rightTitle: String? = nil, rightButton: UIButton? = nil, isSearchBarNeeded: Bool) {
         super.init(frame: .zero)
 
         addAndConfigureTitle(with: title)
@@ -47,8 +47,8 @@ class MainNavigationBar: UIView {
             addAndConfigureRightTitle(with: rightTitle)
         }
 
-        if let rightButtonImage = rightButtonImage {
-            addAndConfigureRightButton(with: rightButtonImage)
+        if let rightButton = rightButton {
+            addAndConfigureRightButton(with: rightButton)
         }
 
         embedInStackView()
@@ -92,14 +92,12 @@ class MainNavigationBar: UIView {
         self.rightTitle = rightTitle
     }
     
-    private func addAndConfigureRightButton(with image: UIImage) {
-        let rightButton = UIButton()
-        rightButton.setImage(image, for: .normal)
-        addSubview(rightButton)
+    private func addAndConfigureRightButton(with button: UIButton) {
+        addSubview(button)
         
-        rightButton.addTarget(self, action: #selector(rightButtonAction), for: .touchUpInside)
+        button.addTarget(self, action: #selector(rightButtonAction), for: .touchUpInside)
 
-        self.rightButton = rightButton
+        self.rightButton = button
     }
 
     private func addAndConfigureSearchBar() {
@@ -145,6 +143,10 @@ class MainNavigationBar: UIView {
 
     func updateMainTitle(with text: String) {
         title?.text = text
+    }
+
+    func showRightButton(bool: Bool) {
+        rightButton?.isHidden = !bool
     }
 
 //    MARK: - User interaction

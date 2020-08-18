@@ -20,4 +20,13 @@ class FavoriteRouter: FavoriteRouterInput {
         view?.dismiss(animated: true, completion: nil)
     }
 
+    func showRememberGame(with objects: [ObjectsOnImage]) {
+        var rememberObjects: RememberObjects = []
+        objects.forEach {
+            rememberObjects.append(contentsOf: $0.objects)
+        }
+        let rememberView = RememberAssembly().createRememberModule(with: rememberObjects)
+        view?.navigationController?.pushViewController(rememberView, animated: false)
+    }
+
 }

@@ -65,12 +65,17 @@ struct LocalizedString {
         }
     }
 
+    //    MARK: - Remember game
+
+    var remember: String {
+        return _remember[currentLanguage] ?? ""
+    }
+
     //    MARK: - Other
 
     var image: String {
         return _image[currentLanguage] ?? ""
     }
-
 
     //    MARK: - Tab bar items (private)
 
@@ -403,6 +408,38 @@ struct LocalizedString {
     private let _image: [Language:String] = [
         .en : "Image",
         .ru : "Изображение",
+        .es : "Imagen",
+        .fr : "Image",
+        .pt : "Imagem",
+        .it : "Immagine",
+        .de : "Bild",
+        .nl : "Billede",
+        .ja : "画像",
+        .ko : "영상",
+        .vi : "Hình ảnh",
+        .sv : "Bild",
+        .da : "Billede",
+        .fi : "Kuva",
+        .nb : "Bilde",
+        .tr : "görüntü",
+        .el : "Συλλογή",
+        .id : "Gambar",
+        .ms : "Imej",
+        .th : "ภาพ",
+        .hi : "छवि",
+        .hu : "Kép",
+        .pl : "Wizerunek",
+        .cs : "Obraz",
+        .sk : "Obraz",
+        .uk : "Зображення",
+        .ca : "Imatge",
+        .ro : "Imagine",
+        .hr : "Slika"
+    ]
+
+    private let _remember: [Language:String] = [
+        .en : "Remember",
+        .ru : "Запомнить",
         .es : "Imagen",
         .fr : "Image",
         .pt : "Imagem",

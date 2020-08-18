@@ -91,6 +91,12 @@ extension FavoritePresenter: UISearchBarDelegate {
 
         view?.updateContent(with: filteredObjects)
     }
+
+//    MARK: - Navigation
+
+    func openRememberGame() {
+        router?.showRememberGame(with: displayingObjects)
+    }
 }
 
 //MARK: - FavoriteInteractorOutput
@@ -109,12 +115,15 @@ extension FavoritePresenter: FavoriteInteractorOutput {
         }
 
         displayingObjects.append(contentsOf: objectsToDisplay)
+
+        view?.showRememberButton(bool: objectsToDisplay.count > 0)
         view?.updateContent(with: objectsToDisplay)
     }
 
     func deleteData() {
         self.objectsAndImages = []
         self.displayingObjects = []
+
 
         view?.updateContent(with: [])
     }

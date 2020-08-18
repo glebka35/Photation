@@ -12,6 +12,7 @@ class RememberRouter: RememberRouterInput {
     weak var view: RememberView?
 
     func closeModule() {
-        view?.dismiss(animated: true, completion: nil)
+        view?.navigationController?.setNavigationBarHidden(true, animated: false)
+        view?.navigationController?.popViewController(animated: false)
     }
 }

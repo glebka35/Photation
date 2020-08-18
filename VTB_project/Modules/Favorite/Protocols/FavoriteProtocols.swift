@@ -15,6 +15,7 @@ protocol FavoriteViewInput: AnyObject {
 
     func updateContent(with objects: [ObjectsOnImage])
     func languageChanged()
+    func showRememberButton(bool: Bool)
 }
 
 //MARK: - VIEW -> PRESENTER
@@ -27,6 +28,7 @@ protocol FavoriteViewOutput: AnyObject, UISearchBarDelegate {
     func viewDidLoad()
     func cellSelected(at indexPath: IndexPath)
     func scrollViewDidScrollToBottom()
+    func openRememberGame()
 }
 
 //MARK: - PRESENTER -> INTERACTOR
@@ -53,5 +55,6 @@ protocol FavoriteRouterInput: AnyObject {
 
     func showDetail(of object: ObjectsOnImage)
     func closeModule()
+    func showRememberGame(with objects: [ObjectsOnImage])
 }
 

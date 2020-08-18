@@ -48,6 +48,13 @@
 		2B51260F24D0660A00021937 /* ImageHandlerAndTranslationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51260E24D0660900021937 /* ImageHandlerAndTranslationWorker.swift */; };
 		2B55DBAC24E2DE35008A70F8 /* ObjectEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B55DBAA24E2DE35008A70F8 /* ObjectEntity+CoreDataClass.swift */; };
 		2B55DBAD24E2DE35008A70F8 /* ObjectEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B55DBAB24E2DE35008A70F8 /* ObjectEntity+CoreDataProperties.swift */; };
+		2B676D8424EBB98900AC4BB8 /* RememberCollectionViewSupervisor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676D8324EBB98900AC4BB8 /* RememberCollectionViewSupervisor.swift */; };
+		2B676D8624EBBA6800AC4BB8 /* RememberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676D8524EBBA6800AC4BB8 /* RememberCollectionViewCell.swift */; };
+		2B676D8824EBBADF00AC4BB8 /* MainWordHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676D8724EBBADF00AC4BB8 /* MainWordHeaderReusableView.swift */; };
+		2B676D8A24EBD6A100AC4BB8 /* CollectionViewActionsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676D8924EBD6A100AC4BB8 /* CollectionViewActionsDelegate.swift */; };
+		2B676D8D24EBDD8D00AC4BB8 /* RememberFooterReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676D8C24EBDD8D00AC4BB8 /* RememberFooterReusableView.swift */; };
+		2B676D8F24EC0B7200AC4BB8 /* FooterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676D8E24EC0B7200AC4BB8 /* FooterModel.swift */; };
+		2B676D9124EC2BC900AC4BB8 /* RememberHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676D9024EC2BC900AC4BB8 /* RememberHeaderView.swift */; };
 		2B6BC11624AB0FE400ED4125 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BC11524AB0FE400ED4125 /* AppDelegate.swift */; };
 		2B6BC11F24AB0FE500ED4125 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B6BC11E24AB0FE500ED4125 /* Assets.xcassets */; };
 		2B6BC12224AB0FE500ED4125 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B6BC12024AB0FE500ED4125 /* LaunchScreen.storyboard */; };
@@ -144,6 +151,13 @@
 		2B51260E24D0660900021937 /* ImageHandlerAndTranslationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHandlerAndTranslationWorker.swift; sourceTree = "<group>"; };
 		2B55DBAA24E2DE35008A70F8 /* ObjectEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2B55DBAB24E2DE35008A70F8 /* ObjectEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2B676D8324EBB98900AC4BB8 /* RememberCollectionViewSupervisor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RememberCollectionViewSupervisor.swift; sourceTree = "<group>"; };
+		2B676D8524EBBA6800AC4BB8 /* RememberCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RememberCollectionViewCell.swift; sourceTree = "<group>"; };
+		2B676D8724EBBADF00AC4BB8 /* MainWordHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWordHeaderReusableView.swift; sourceTree = "<group>"; };
+		2B676D8924EBD6A100AC4BB8 /* CollectionViewActionsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewActionsDelegate.swift; sourceTree = "<group>"; };
+		2B676D8C24EBDD8D00AC4BB8 /* RememberFooterReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RememberFooterReusableView.swift; sourceTree = "<group>"; };
+		2B676D8E24EC0B7200AC4BB8 /* FooterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterModel.swift; sourceTree = "<group>"; };
+		2B676D9024EC2BC900AC4BB8 /* RememberHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RememberHeaderView.swift; sourceTree = "<group>"; };
 		2B6BC11224AB0FE400ED4125 /* Photation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B6BC11524AB0FE400ED4125 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B6BC11E24AB0FE500ED4125 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -481,6 +495,17 @@
 			path = ImageHandlerAndTranslationWorker;
 			sourceTree = "<group>";
 		};
+		2B676D8B24EBDD6400AC4BB8 /* UICollectionViewElements */ = {
+			isa = PBXGroup;
+			children = (
+				2B676D8524EBBA6800AC4BB8 /* RememberCollectionViewCell.swift */,
+				2B676D8724EBBADF00AC4BB8 /* MainWordHeaderReusableView.swift */,
+				2B676D8C24EBDD8D00AC4BB8 /* RememberFooterReusableView.swift */,
+				2B676D8E24EC0B7200AC4BB8 /* FooterModel.swift */,
+			);
+			path = UICollectionViewElements;
+			sourceTree = "<group>";
+		};
 		2B6BC10924AB0FE400ED4125 = {
 			isa = PBXGroup;
 			children = (
@@ -776,6 +801,9 @@
 			isa = PBXGroup;
 			children = (
 				2B9B125024EA9B0900646455 /* RememberView.swift */,
+				2B676D8324EBB98900AC4BB8 /* RememberCollectionViewSupervisor.swift */,
+				2B676D8B24EBDD6400AC4BB8 /* UICollectionViewElements */,
+				2B676D9024EC2BC900AC4BB8 /* RememberHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -928,6 +956,7 @@
 			isa = PBXGroup;
 			children = (
 				2B9EF09824B89F98001CCEA3 /* CollectionViewDelegatesFlowLayout.swift */,
+				2B676D8924EBD6A100AC4BB8 /* CollectionViewActionsDelegate.swift */,
 			);
 			name = CollectionLayout;
 			path = "UI collection elements";
@@ -1022,6 +1051,7 @@
 			files = (
 				2BE3AB5D24B601A200EFAFA0 /* Storage.swift in Sources */,
 				2B51260F24D0660A00021937 /* ImageHandlerAndTranslationWorker.swift in Sources */,
+				2B676D8624EBBA6800AC4BB8 /* RememberCollectionViewCell.swift in Sources */,
 				2B46C52424D2AC2200CA143E /* SettingsAssembly.swift in Sources */,
 				2BD8D3E724CF14150099C575 /* DefaultNavigationBar.swift in Sources */,
 				2B9EF09924B89F98001CCEA3 /* CollectionViewDelegatesFlowLayout.swift in Sources */,
@@ -1034,6 +1064,7 @@
 				2B6BC13724AF45B500ED4125 /* CollectionView.swift in Sources */,
 				2BD8D3D724CEB1B40099C575 /* DetailRouter.swift in Sources */,
 				2B46C52824D2B91A00CA143E /* ViewModel.swift in Sources */,
+				2B676D9124EC2BC900AC4BB8 /* RememberHeaderView.swift in Sources */,
 				2B46C53624D2E38F00CA143E /* DetailSettingsView.swift in Sources */,
 				2B80004424C37630004D1A12 /* ImagePickerProtocols.swift in Sources */,
 				2B9B125124EA9B0900646455 /* RememberView.swift in Sources */,
@@ -1056,6 +1087,7 @@
 				2B46C53C24D2E46900CA143E /* DetailSettingsInteractor.swift in Sources */,
 				2B46C53A24D2E41B00CA143E /* DetailSettingsPresenter.swift in Sources */,
 				2B46C54224D2E84D00CA143E /* LanguageCellViewModel.swift in Sources */,
+				2B676D8A24EBD6A100AC4BB8 /* CollectionViewActionsDelegate.swift in Sources */,
 				2BD8D3D524CEB12F0099C575 /* DetailInteractor.swift in Sources */,
 				2B46C57B24D5ACF500CA143E /* UIColor+.swift in Sources */,
 				2B46C54424D2EA9500CA143E /* TableViewCell+.swift in Sources */,
@@ -1086,6 +1118,7 @@
 				2B46C55424D5798800CA143E /* PhotationCoreData.xcdatamodeld in Sources */,
 				2B9B124F24EA9AF600646455 /* RememberPresenter.swift in Sources */,
 				2B80002224BDA628004D1A12 /* TableStyleHeaderReusableView.swift in Sources */,
+				2B676D8824EBBADF00AC4BB8 /* MainWordHeaderReusableView.swift in Sources */,
 				2BD8D3E524CF13E60099C575 /* NavigationBarDelegate.swift in Sources */,
 				2B46C51C24D2AA0800CA143E /* SettingsProtocol.swift in Sources */,
 				2B5125E224D0506900021937 /* SpinnerViewController.swift in Sources */,
@@ -1093,10 +1126,13 @@
 				2BD8D3D324CEB0FF0099C575 /* DetailPresenter.swift in Sources */,
 				2B6BC13B24AF45DE00ED4125 /* ImagePickerView.swift in Sources */,
 				2B80002C24C039E2004D1A12 /* CollectionProtocols.swift in Sources */,
+				2B676D8F24EC0B7200AC4BB8 /* FooterModel.swift in Sources */,
+				2B676D8424EBB98900AC4BB8 /* RememberCollectionViewSupervisor.swift in Sources */,
 				2B46C54624D309B500CA143E /* SettingsList.swift in Sources */,
 				2B46C53424D2E33400CA143E /* DetailSettingsProtocol.swift in Sources */,
 				2B46C5A624DC360700CA143E /* FavoriteAssembly.swift in Sources */,
 				2B5125DF24D04C6700021937 /* Language.swift in Sources */,
+				2B676D8D24EBDD8D00AC4BB8 /* RememberFooterReusableView.swift in Sources */,
 				2BD8D3DA24CEB3CB0099C575 /* DetailCollectionSupervisor.swift in Sources */,
 				2BD8D36E24C8A1DE0099C575 /* CollectionRouter.swift in Sources */,
 				2B46C59A24DBE56E00CA143E /* ImageEntity+CoreDataClass.swift in Sources */,

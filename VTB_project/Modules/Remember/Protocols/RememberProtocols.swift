@@ -31,6 +31,8 @@ protocol RememberViewOutput: AnyObject {
 
     func viewDidLoad()
     func wordChosen(at indexPath: IndexPath)
+    func backButtonPressed()
+    func nextButtonPressed()
 }
 
 //MARK: - PRESENTER -> INTERACTOR
@@ -40,13 +42,14 @@ protocol RememberInteractorInput: AnyObject {
 
     func viewDidLoad()
     func wordChosen(with name: String, indexPath: IndexPath)
+    func displayWord()
 }
 
 //MARK: - INTERACTOR -> PRESENTER
 
 protocol RememberInteractorOutput: AnyObject {
     func update(objects: RememberObjects)
-    func showWord(at index: Int)
+    func showWord(at index: Int, with footerModel: FooterModel)
 
     func correctWordChosen(at indexPath: IndexPath)
     func wrongWordChosen(at indexPath: IndexPath)

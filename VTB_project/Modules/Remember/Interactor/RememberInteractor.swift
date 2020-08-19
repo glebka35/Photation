@@ -16,7 +16,7 @@ class RememberInteractor: RememberInteractorInput {
     private var currentIndex: Int? {
         wordIndicies.first
     }
-    private var footerModel = FooterModel(currentIndex: 1, amount: 0, guessed: 0)
+    private var footerModel = FooterModel(currentIndex: 0, amount: 0)
 
     init(with objects: RememberObjects) {
         self.objects = objects
@@ -30,22 +30,29 @@ class RememberInteractor: RememberInteractorInput {
     }
 
     func displayWord() {
-        if let currentIndex = currentIndex {
-            presenter?.showWord(at: currentIndex, with: footerModel)
+        if wordIndicies.isEmpty {
+            presenter?.close()
+        } else {
+            footerModel.currentIndex += 1
+            if let currentIndex = currentIndex {
+                presenter?.showWord(at: currentIndex, with: footerModel)
+            }
         }
     }
 
     func wordChosen(with name: String, indexPath: IndexPath) {
         if let currentIndex = currentIndex {
-            footerModel.currentIndex += 1
             if name == objects[currentIndex].nativeName {
                 presenter?.correctWordChosen(at: indexPath)
-                footerModel.guessed += 1
+                updateFooter()
+                wordIndicies.removeFirst()
             } else {
                 presenter?.wrongWordChosen(at: indexPath)
             }
         }
+    }
 
-        wordIndicies.removeFirst()
+    private func updateFooter() {
+        presenter?.update(footer: footerModel)
     }
 }

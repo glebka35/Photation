@@ -92,6 +92,14 @@ extension RememberPresenter: RememberInteractorOutput {
 
     func wrongWordChosen(at indexPath: IndexPath) {
         view?.emphasizeWrongWord(at: indexPath)
-        view?.showNextButton()
+    }
+
+    func update(footer: FooterModel) {
+        currentGameModel?.footerModel = footer
+        view?.update(footerWith: footer)
+    }
+
+    func close() {
+        router?.closeModule()
     }
 }

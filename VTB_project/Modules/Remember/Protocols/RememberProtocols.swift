@@ -14,6 +14,7 @@ protocol RememberViewInput: AnyObject {
     var presenter: RememberViewOutput? { get set }
 
     func update(with gameModel: RememberGameModel)
+    func update(footerWith model: FooterModel)
     func emphasizeCorrectWord(at indexPath: IndexPath)
     func emphasizeWrongWord(at indexPath: IndexPath)
 
@@ -53,6 +54,8 @@ protocol RememberInteractorOutput: AnyObject {
 
     func correctWordChosen(at indexPath: IndexPath)
     func wrongWordChosen(at indexPath: IndexPath)
+    func update(footer: FooterModel)
+    func close()
 }
 
 //MARK: - PRESENTER -> ROUTER

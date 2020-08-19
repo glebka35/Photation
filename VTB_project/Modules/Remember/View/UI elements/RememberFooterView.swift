@@ -12,13 +12,12 @@ protocol FooterActionDelegate: AnyObject {
     func performAction()
 }
 
-class RememberFooterReusableView: UICollectionReusableView {
+class RememberFooterView: UIView {
 
 //    MARK: - Properties
 
     private let progressLabel = UILabel()
-    private let scoreLabel = UILabel()
-    private let vStack: UIStackView = UIStackView()
+    private let vStack =  UIStackView()
     private let nextButton = UIButton()
 
     weak var delegate: FooterActionDelegate?
@@ -28,10 +27,7 @@ class RememberFooterReusableView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        configureProgressLabel()
-        configureScoreLabel()
-        embedInStack()
-
+        addAndConfigureProgressLabel()
         addAndConfigureNextButton()
     }
 
@@ -41,20 +37,20 @@ class RememberFooterReusableView: UICollectionReusableView {
 
 //    MARK: - UI configuration
 
-    private func configureProgressLabel() {
+    private func addAndConfigureProgressLabel() {
         progressLabel.numberOfLines = 1
         progressLabel.textColor = .black
         progressLabel.textAlignment = .center
         progressLabel.font = UIFont.systemFont(ofSize: 30, weight: .medium)
         progressLabel.translatesAutoresizingMaskIntoConstraints = false
-    }
 
-    private func configureScoreLabel() {
-        scoreLabel.numberOfLines = 1
-        scoreLabel.textColor = .black
-        scoreLabel.textAlignment = .center
-        scoreLabel.font = UIFont.systemFont(ofSize: 30, weight: .medium)
-        scoreLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(progressLabel)
+
+        NSLayoutConstraint.activate([
+            progressLabel.topAnchor.constraint(equalTo: topAnchor),
+            progressLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            progressLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
+        ])
     }
 
     private func addAndConfigureNextButton() {
@@ -73,35 +69,19 @@ class RememberFooterReusableView: UICollectionReusableView {
         addSubview(nextButton)
 
         NSLayoutConstraint.activate([
-            nextButton.topAnchor.constraint(equalTo: vStack.bottomAnchor, constant: 20),
+            nextButton.topAnchor.constraint(equalTo: progressLabel.bottomAnchor, constant: 20),
             nextButton.centerXAnchor.constraint(equalTo: centerXAnchor)
-        ])
-    }
-
-    private func embedInStack() {
-        vStack.addArrangedSubview(progressLabel)
-        vStack.addArrangedSubview(scoreLabel)
-
-        vStack.axis = .vertical
-        vStack.alignment = .center
-        vStack.distribution = .equalSpacing
-        vStack.translatesAutoresizingMaskIntoConstraints = false
-
-        addSubview(vStack)
-
-        NSLayoutConstraint.activate([
-            vStack.topAnchor.constraint(equalTo: topAnchor),
-            vStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            vStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
         ])
     }
 
 //    MARK: - UI update
 
-    func update(with model: FooterModel, isNextButtonHidden: Bool) {
+    func update(with model: FooterModel) {
         progressLabel.text = String(model.currentIndex) + " из " + String(model.amount)
-        scoreLabel.text = "Правильно: " + String(model.guessed)
-        nextButton.isHidden = isNextButtonHidden
+    }
+
+    func hideNextButton(bool: Bool) {
+        nextButton.isHidden = bool
     }
 
 //    MARK: - User interaction
@@ -109,5 +89,4 @@ class RememberFooterReusableView: UICollectionReusableView {
     @objc private func performAction() {
         delegate?.performAction()
     }
-
 }

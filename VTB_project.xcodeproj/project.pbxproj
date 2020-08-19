@@ -50,9 +50,8 @@
 		2B55DBAD24E2DE35008A70F8 /* ObjectEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B55DBAB24E2DE35008A70F8 /* ObjectEntity+CoreDataProperties.swift */; };
 		2B676D8424EBB98900AC4BB8 /* RememberCollectionViewSupervisor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676D8324EBB98900AC4BB8 /* RememberCollectionViewSupervisor.swift */; };
 		2B676D8624EBBA6800AC4BB8 /* RememberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676D8524EBBA6800AC4BB8 /* RememberCollectionViewCell.swift */; };
-		2B676D8824EBBADF00AC4BB8 /* MainWordHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676D8724EBBADF00AC4BB8 /* MainWordHeaderReusableView.swift */; };
 		2B676D8A24EBD6A100AC4BB8 /* CollectionViewActionsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676D8924EBD6A100AC4BB8 /* CollectionViewActionsDelegate.swift */; };
-		2B676D8D24EBDD8D00AC4BB8 /* RememberFooterReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676D8C24EBDD8D00AC4BB8 /* RememberFooterReusableView.swift */; };
+		2B676D8D24EBDD8D00AC4BB8 /* RememberFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676D8C24EBDD8D00AC4BB8 /* RememberFooterView.swift */; };
 		2B676D8F24EC0B7200AC4BB8 /* FooterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676D8E24EC0B7200AC4BB8 /* FooterModel.swift */; };
 		2B676D9124EC2BC900AC4BB8 /* RememberHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676D9024EC2BC900AC4BB8 /* RememberHeaderView.swift */; };
 		2B6BC11624AB0FE400ED4125 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BC11524AB0FE400ED4125 /* AppDelegate.swift */; };
@@ -153,9 +152,8 @@
 		2B55DBAB24E2DE35008A70F8 /* ObjectEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2B676D8324EBB98900AC4BB8 /* RememberCollectionViewSupervisor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RememberCollectionViewSupervisor.swift; sourceTree = "<group>"; };
 		2B676D8524EBBA6800AC4BB8 /* RememberCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RememberCollectionViewCell.swift; sourceTree = "<group>"; };
-		2B676D8724EBBADF00AC4BB8 /* MainWordHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWordHeaderReusableView.swift; sourceTree = "<group>"; };
 		2B676D8924EBD6A100AC4BB8 /* CollectionViewActionsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewActionsDelegate.swift; sourceTree = "<group>"; };
-		2B676D8C24EBDD8D00AC4BB8 /* RememberFooterReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RememberFooterReusableView.swift; sourceTree = "<group>"; };
+		2B676D8C24EBDD8D00AC4BB8 /* RememberFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RememberFooterView.swift; sourceTree = "<group>"; };
 		2B676D8E24EC0B7200AC4BB8 /* FooterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterModel.swift; sourceTree = "<group>"; };
 		2B676D9024EC2BC900AC4BB8 /* RememberHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RememberHeaderView.swift; sourceTree = "<group>"; };
 		2B6BC11224AB0FE400ED4125 /* Photation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -495,15 +493,14 @@
 			path = ImageHandlerAndTranslationWorker;
 			sourceTree = "<group>";
 		};
-		2B676D8B24EBDD6400AC4BB8 /* UICollectionViewElements */ = {
+		2B676D8B24EBDD6400AC4BB8 /* UI elements */ = {
 			isa = PBXGroup;
 			children = (
+				2B676D9024EC2BC900AC4BB8 /* RememberHeaderView.swift */,
 				2B676D8524EBBA6800AC4BB8 /* RememberCollectionViewCell.swift */,
-				2B676D8724EBBADF00AC4BB8 /* MainWordHeaderReusableView.swift */,
-				2B676D8C24EBDD8D00AC4BB8 /* RememberFooterReusableView.swift */,
-				2B676D8E24EC0B7200AC4BB8 /* FooterModel.swift */,
+				2B676D8C24EBDD8D00AC4BB8 /* RememberFooterView.swift */,
 			);
-			path = UICollectionViewElements;
+			path = "UI elements";
 			sourceTree = "<group>";
 		};
 		2B6BC10924AB0FE400ED4125 = {
@@ -802,8 +799,8 @@
 			children = (
 				2B9B125024EA9B0900646455 /* RememberView.swift */,
 				2B676D8324EBB98900AC4BB8 /* RememberCollectionViewSupervisor.swift */,
-				2B676D8B24EBDD6400AC4BB8 /* UICollectionViewElements */,
-				2B676D9024EC2BC900AC4BB8 /* RememberHeaderView.swift */,
+				2B676D8B24EBDD6400AC4BB8 /* UI elements */,
+				2B676D8E24EC0B7200AC4BB8 /* FooterModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1118,7 +1115,6 @@
 				2B46C55424D5798800CA143E /* PhotationCoreData.xcdatamodeld in Sources */,
 				2B9B124F24EA9AF600646455 /* RememberPresenter.swift in Sources */,
 				2B80002224BDA628004D1A12 /* TableStyleHeaderReusableView.swift in Sources */,
-				2B676D8824EBBADF00AC4BB8 /* MainWordHeaderReusableView.swift in Sources */,
 				2BD8D3E524CF13E60099C575 /* NavigationBarDelegate.swift in Sources */,
 				2B46C51C24D2AA0800CA143E /* SettingsProtocol.swift in Sources */,
 				2B5125E224D0506900021937 /* SpinnerViewController.swift in Sources */,
@@ -1132,7 +1128,7 @@
 				2B46C53424D2E33400CA143E /* DetailSettingsProtocol.swift in Sources */,
 				2B46C5A624DC360700CA143E /* FavoriteAssembly.swift in Sources */,
 				2B5125DF24D04C6700021937 /* Language.swift in Sources */,
-				2B676D8D24EBDD8D00AC4BB8 /* RememberFooterReusableView.swift in Sources */,
+				2B676D8D24EBDD8D00AC4BB8 /* RememberFooterView.swift in Sources */,
 				2BD8D3DA24CEB3CB0099C575 /* DetailCollectionSupervisor.swift in Sources */,
 				2BD8D36E24C8A1DE0099C575 /* CollectionRouter.swift in Sources */,
 				2B46C59A24DBE56E00CA143E /* ImageEntity+CoreDataClass.swift in Sources */,

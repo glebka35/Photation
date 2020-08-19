@@ -11,5 +11,4 @@ import Foundation
 struct FooterModel {
     var currentIndex: Int
     var amount: Int
-    var guessed: Int
 }

@@ -35,7 +35,10 @@ class CollectionView: UIViewController, CollectionViewInput {
 //    MARK: - UI configuration
     
     private func addAndConfigureNavigationBar() {
-        navigationBar = MainNavigationBar(title: LocalizedString().collection, rightTitle: SettingsStore.shared.getForeignLanguage().humanRepresentingNative, rightButtonImage: UIImage(named: currentStyle.buttonImage), isSearchBarNeeded: true)
+
+        let rightBarButton = UIButton()
+        rightBarButton.setImage(UIImage(named: currentStyle.buttonImage), for: .normal)
+        navigationBar = MainNavigationBar(title: LocalizedString().collection, rightTitle: SettingsStore.shared.getForeignLanguage().humanRepresentingNative, rightButton: rightBarButton, isSearchBarNeeded: true)
 
         view.addSubview(navigationBar)
 

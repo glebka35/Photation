@@ -15,13 +15,6 @@ protocol CollectionViewDelegate: AnyObject, UICollectionViewDelegateFlowLayout {
     var delegate: CollectionViewActionsDelegate? { get set }
 }
 
-//MARK: - CollectionView actions delegate
-
-protocol CollectionViewActionsDelegate: AnyObject {
-    func cellSelected(at indexPath: IndexPath)
-    func scrollViewDidScrollToBottom()
-}
-
 //MARK: - DefaultCollectionView delegate
 
 class DefaultCollectionViewDelegate: NSObject, CollectionViewDelegate {
@@ -47,6 +40,10 @@ class DefaultCollectionViewDelegate: NSObject, CollectionViewDelegate {
             delegate?.scrollViewDidScrollToBottom()
         }
     }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return CollectionSizes.cellPaddingSpace
+    }
 }
 
 //MARK: - TabledCollectionView delegate
@@ -65,10 +62,6 @@ final class TabledContentCollectionViewDelegate: DefaultCollectionViewDelegate {
         let availableWidth = collectionView.bounds.width - 2 * CollectionSizes.cellSideIndent
         return CGSize(width: availableWidth, height: 50)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return CollectionSizes.cellPaddingSpace
-    }
 }
 
 //MARK: - ImagesCollectionView delegate
@@ -81,10 +74,6 @@ final class ImagesContentCollectionViewDelegate: DefaultCollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return CollectionSizes.cellPaddingSpace
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return CollectionSizes.cellPaddingSpace
     }
     

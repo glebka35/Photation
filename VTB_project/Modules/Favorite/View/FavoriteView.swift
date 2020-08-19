@@ -10,6 +10,12 @@ import UIKit
 
 class FavoriteView: UIViewController, FavoriteViewInput {
 
+//    MARK: - Constants
+
+    enum Constants {
+        static let navigationBarButtonFontSize: CGFloat = 22
+    }
+
     //    MARK: - Properties
 
     var presenter: FavoriteViewOutput?
@@ -35,7 +41,12 @@ class FavoriteView: UIViewController, FavoriteViewInput {
     //    MARK: - UI configuration
 
     private func addAndConfigureNavigationBar() {
-        let navigationBar = MainNavigationBar(title: LocalizedString().favorite, isSearchBarNeeded: true)
+        let rightButton = UIButton()
+        rightButton.setTitle(LocalizedString().remember, for: .normal)
+        rightButton.setTitleColor(.blue, for: .normal)
+
+        rightButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.navigationBarButtonFontSize)
+        let navigationBar = MainNavigationBar(title: LocalizedString().favorite, rightButton: rightButton, isSearchBarNeeded: true)
 
         view.addSubview(navigationBar)
 
@@ -47,6 +58,7 @@ class FavoriteView: UIViewController, FavoriteViewInput {
         ])
 
         navigationBar.searchBarDelegate = presenter
+        navigationBar.delegate = self
 
         self.navigationBar = navigationBar
     }
@@ -82,6 +94,10 @@ class FavoriteView: UIViewController, FavoriteViewInput {
     func languageChanged() {
         title = LocalizedString().favorite
     }
+
+    func showRememberButton(bool: Bool) {
+        navigationBar?.showRightButton(bool: bool)
+    }
 }
 
 //MARK: - CollectionViewActionsDelegate
@@ -93,5 +109,13 @@ extension FavoriteView: CollectionViewActionsDelegate {
 
     func scrollViewDidScrollToBottom() {
         presenter?.scrollViewDidScrollToBottom()
+    }
+}
+
+//MARK: - NavigationBarDelegate
+
+extension FavoriteView: NavigationBarDelegate {
+    func action(sender: UIButton!) {
+        presenter?.openRememberGame()
     }
 }

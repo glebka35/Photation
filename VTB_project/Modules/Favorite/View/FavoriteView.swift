@@ -42,7 +42,7 @@ class FavoriteView: UIViewController, FavoriteViewInput {
 
     private func addAndConfigureNavigationBar() {
         let rightButton = UIButton()
-        rightButton.setTitle("Запомнить", for: .normal)
+        rightButton.setTitle(LocalizedString().remember, for: .normal)
         rightButton.setTitleColor(.blue, for: .normal)
 
         rightButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.navigationBarButtonFontSize)
@@ -118,6 +118,4 @@ extension FavoriteView: NavigationBarDelegate {
     func action(sender: UIButton!) {
         presenter?.openRememberGame()
     }
-
-
 }

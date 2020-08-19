@@ -54,7 +54,8 @@ class RememberFooterView: UIView {
     }
 
     private func addAndConfigureNextButton() {
-        nextButton.setTitle("Дальше", for: .normal)
+//        nextButton.setTitle("Дальше", for: .normal)
+        nextButton.setImage(UIImage(named: "next"), for: .normal)
         nextButton.addTarget(self, action: #selector(performAction), for: .touchUpInside)
         nextButton.setTitleColor(.blue, for: .normal)
         nextButton.layer.cornerRadius = 10
@@ -70,6 +71,8 @@ class RememberFooterView: UIView {
 
         NSLayoutConstraint.activate([
             nextButton.topAnchor.constraint(equalTo: progressLabel.bottomAnchor, constant: 20),
+            nextButton.heightAnchor.constraint(equalToConstant: 70),
+            nextButton.widthAnchor.constraint(equalToConstant: 70),
             nextButton.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
@@ -77,7 +80,7 @@ class RememberFooterView: UIView {
 //    MARK: - UI update
 
     func update(with model: FooterModel) {
-        progressLabel.text = String(model.currentIndex) + " из " + String(model.amount)
+        progressLabel.text = String(model.currentIndex) + " / " + String(model.amount)
     }
 
     func hideNextButton(bool: Bool) {

@@ -26,7 +26,6 @@ class DetailView: UIViewController, DetailViewInput {
         title = LocalizedString().image
 
         addAndConfigureNavigationBar()
-        addAndConfigureImageView()
         addAndConfigureNavigationBar()
 
         presenter?.viewDidLoad()
@@ -35,21 +34,21 @@ class DetailView: UIViewController, DetailViewInput {
 //    MARK: - UI configuration
 
     func configureCollection(with objects: ObjectsOnImage) {
-        collectionSupervisor = DetailCollectionSupervisor(with: objects.objects, nativeLanguage: objects.nativeLanguage, foreignLanguage: objects.foreignLanguage)
+        collectionSupervisor = DetailCollectionSupervisor(with: objects, nativeLanguage: objects.nativeLanguage, foreignLanguage: objects.foreignLanguage)
         collectionSupervisor?.delegate = self
 
         if let collectionView = collectionSupervisor?.getConfiguredCollection() {
             view.addSubview(collectionView)
 
-            NSLayoutConstraint.activate([
-                collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                collectionView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor),
-                collectionView.topAnchor.constraint(equalTo: objectsImageView.bottomAnchor, constant: 20)
-            ])
-        }
-        if let imageData = objects.image {
-            setImage(image: UIImage(data: imageData))
+            if let navigationBar = navigationBar {
+                NSLayoutConstraint.activate([
+                    collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                    collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                    collectionView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor),
+                    collectionView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 20)
+                ])
+            }
+
         }
     }
 
@@ -69,35 +68,11 @@ class DetailView: UIViewController, DetailViewInput {
         self.navigationBar = navigationBar
     }
 
-    private func setImage(image: UIImage?) {
-        objectsImageView.image = image
-    }
-
-    private func addAndConfigureImageView() {
-        view.addSubview(objectsImageView)
-
-        objectsImageView.layer.cornerRadius = 10
-        objectsImageView.clipsToBounds = true
-        objectsImageView.contentMode = .scaleAspectFill
-
-        objectsImageView.translatesAutoresizingMaskIntoConstraints = false
-
-        if let navigationBar = navigationBar {
-            NSLayoutConstraint.activate([
-                objectsImageView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-                objectsImageView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-                objectsImageView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 20),
-                objectsImageView.heightAnchor.constraint(equalToConstant: view.frame.width)
-            ])
-        }
-    }
-
 //    MARK: - UI update
 
-    func updateContent(with objects: [SingleObject]) {
+    func updateContent(with objects: ObjectsOnImage) {
         collectionSupervisor?.updateContent(with: objects)
     }
-
 }
 
 //MARK: - DetailCollectionSupervisor delegate

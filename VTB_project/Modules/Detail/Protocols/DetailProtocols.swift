@@ -14,7 +14,7 @@ protocol DetailViewInput: AnyObject {
     var presenter: DetailViewOutput? { get set }
 
     func configureCollection(with objects: ObjectsOnImage)
-    func updateContent(with objects: [SingleObject])
+    func updateContent(with objects: ObjectsOnImage)
 }
 
 // MARK: VIEW -> PRESENTER

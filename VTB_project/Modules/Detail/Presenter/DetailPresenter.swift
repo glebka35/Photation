@@ -44,7 +44,7 @@ class DetailPresenter: DetailViewOutput {
 
         interactor?.update(object: objects.objects[index])
 
-        view?.updateContent(with: objects.objects)
+        view?.updateContent(with: objects)
     }
 
     func backButtonPressed() {

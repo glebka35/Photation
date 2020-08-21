@@ -14,7 +14,7 @@ import UIKit
 protocol DetailCollectionSupervisorProtocol {
     var delegate: DetailCollectionSupervisorDelegate? { get set }
     func getConfiguredCollection()->UICollectionView
-    func updateContent(with objects: [SingleObject])
+    func updateContent(with objects: ObjectsOnImage)
 }
 
 //MARK: - DetailCollectionSupervisorDelegate protocol
@@ -34,18 +34,22 @@ class DetailCollectionSupervisor: NSObject, DetailCollectionSupervisorProtocol{
     weak var delegate: DetailCollectionSupervisorDelegate?
 
     private var detailObjects: [SingleObject]
+    private var image: UIImage?
     private var nativeLanguage: Language
     private var foreignLanguage: Language
 
     //    MARK: - Life cycle
 
-    required init(with objects: [SingleObject], nativeLanguage: Language, foreignLanguage: Language) {
+    required init(with objects: ObjectsOnImage, nativeLanguage: Language, foreignLanguage: Language) {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.sectionHeadersPinToVisibleBounds = true
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
-        self.detailObjects = objects
+        self.detailObjects = objects.objects
+        if let imageData = objects.image {
+            self.image = UIImage(data: imageData)
+        }
         self.nativeLanguage = nativeLanguage
         self.foreignLanguage = foreignLanguage
     }
@@ -70,8 +74,11 @@ class DetailCollectionSupervisor: NSObject, DetailCollectionSupervisorProtocol{
 
     //    MARK: - UI update
 
-    func updateContent(with objects: [SingleObject]) {
-        detailObjects = objects
+    func updateContent(with objects: ObjectsOnImage) {
+        detailObjects = objects.objects
+        if let dataImage = objects.image {
+            image = UIImage(data: dataImage)
+        }
         collectionView.reloadData()
     }
 }
@@ -107,7 +114,7 @@ extension DetailCollectionSupervisor: UICollectionViewDataSource {
                     else {
                         fatalError("Invalid header view")
                 }
-                headerView.update(image: UIImage(named: "next"))
+                headerView.update(image: image)
                 return headerView
             case 1:
                 guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "detailCollectionHeader", for: indexPath) as? CollectionHeaderReusableView

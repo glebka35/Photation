@@ -12,8 +12,21 @@ class ImageReusableView: UICollectionReusableView {
 
     let imageView = UIImageView()
 
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        addAndConfigureImageView()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     func update(image: UIImage?) {
         imageView.image = image
+        setNeedsLayout()
+        layoutIfNeeded()
+        layoutSubviews()
     }
 
     private func addAndConfigureImageView() {
@@ -25,12 +38,11 @@ class ImageReusableView: UICollectionReusableView {
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
-
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
             imageView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
-            imageView.heightAnchor.constraint(equalTo: widthAnchor)
+            imageView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
         ])
     }
 }

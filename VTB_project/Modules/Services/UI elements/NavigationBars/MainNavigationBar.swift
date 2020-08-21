@@ -102,9 +102,14 @@ class MainNavigationBar: UIView {
 
     private func addAndConfigureSearchBar() {
         let searchBar = UISearchBar()
-        searchBar.backgroundImage = UIImage()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         addSubview(searchBar)
+
+        if #available(iOS 11, *) {
+            searchBar.backgroundImage = UIImage()
+        } else {
+            searchBar.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        }
 
         NSLayoutConstraint.activate([
             searchBar.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -124,13 +129,22 @@ class MainNavigationBar: UIView {
         hStack.distribution = .equalSpacing
         hStack.alignment = .center
         hStack.axis = .horizontal
+        hStack.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(hStack)
 
-        hStack.translatesAutoresizingMaskIntoConstraints = false
+        if #available(iOS 11, *) {
+            NSLayoutConstraint.activate([
+                hStack.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+                hStack.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                hStack.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: layoutMargins.left),
+                hStack.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -layoutMargins.right),
+            ])
+        }
         NSLayoutConstraint.activate([
-            hStack.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            hStack.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
             hStack.topAnchor.constraint(equalTo: topAnchor)
         ])
     }
@@ -148,6 +162,7 @@ class MainNavigationBar: UIView {
     func showRightButton(bool: Bool) {
         rightButton?.isHidden = !bool
     }
+
 
 //    MARK: - User interaction
     

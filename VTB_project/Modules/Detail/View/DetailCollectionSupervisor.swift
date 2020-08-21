@@ -27,7 +27,7 @@ protocol DetailCollectionSupervisorDelegate: AnyObject {
 
 class DetailCollectionSupervisor: NSObject, DetailCollectionSupervisorProtocol{
 
-//    MARK: - Properties
+    //    MARK: - Properties
 
     private var collectionView: UICollectionView
     private var sectionInsets = UIEdgeInsets(top: CollectionSizes.topSpacing, left: CollectionSizes.cellSideIndent, bottom: 0, right: CollectionSizes.cellSideIndent)
@@ -37,7 +37,7 @@ class DetailCollectionSupervisor: NSObject, DetailCollectionSupervisorProtocol{
     private var nativeLanguage: Language
     private var foreignLanguage: Language
 
-//    MARK: - Life cycle
+    //    MARK: - Life cycle
 
     required init(with objects: [SingleObject], nativeLanguage: Language, foreignLanguage: Language) {
         let layout = UICollectionViewFlowLayout()
@@ -50,12 +50,14 @@ class DetailCollectionSupervisor: NSObject, DetailCollectionSupervisorProtocol{
         self.foreignLanguage = foreignLanguage
     }
 
-//    MARK: - CollectionView configuration
+    //    MARK: - CollectionView configuration
 
     func getConfiguredCollection()->UICollectionView {
         collectionView.register(DetailCollectionViewCell.self, forCellWithReuseIdentifier: "detailCell")
 
         collectionView.register(CollectionHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "detailCollectionHeader")
+
+        collectionView.register(ImageReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "imageCollectionHeader")
 
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
@@ -66,7 +68,7 @@ class DetailCollectionSupervisor: NSObject, DetailCollectionSupervisorProtocol{
         return collectionView
     }
 
-//    MARK: - UI update
+    //    MARK: - UI update
 
     func updateContent(with objects: [SingleObject]) {
         detailObjects = objects
@@ -77,8 +79,13 @@ class DetailCollectionSupervisor: NSObject, DetailCollectionSupervisorProtocol{
 //MARK: - UICollectionViewDataSource
 
 extension DetailCollectionSupervisor: UICollectionViewDataSource {
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        2
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return detailObjects.count
+        return section == 0 ? 0 : detailObjects.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -91,14 +98,27 @@ extension DetailCollectionSupervisor: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+
         switch(kind) {
         case UICollectionView.elementKindSectionHeader:
-            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "detailCollectionHeader", for: indexPath) as? CollectionHeaderReusableView
-                else {
-                    fatalError("Invalid header view")
+            switch indexPath.section {
+            case 0:
+                guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "imageCollectionHeader", for: indexPath) as? ImageReusableView
+                    else {
+                        fatalError("Invalid header view")
+                }
+                headerView.update(image: UIImage(named: "next"))
+                return headerView
+            case 1:
+                guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "detailCollectionHeader", for: indexPath) as? CollectionHeaderReusableView
+                    else {
+                        fatalError("Invalid header view")
+                }
+                headerView.updateWith(nativeLanguage: nativeLanguage.humanRepresentingNative, foreignLanguage: foreignLanguage.humanRepresentingNative)
+                return headerView
+            default:
+                fatalError("No header view")
             }
-            headerView.updateWith(nativeLanguage: nativeLanguage.humanRepresentingNative, foreignLanguage: foreignLanguage.humanRepresentingNative)
-            return headerView
         default:
             assert(false, "Invalid element type")
             break
@@ -119,8 +139,17 @@ extension DetailCollectionSupervisor: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let availableWidth = collectionView.bounds.width - 2 * CollectionSizes.cellSideIndent
-        return CGSize(width: availableWidth, height: 50)
+        switch section {
+        case 0:
+            let availableWidth = collectionView.bounds.width
+            return CGSize(width: availableWidth, height: availableWidth)
+        case 1:
+            let availableWidth = collectionView.bounds.width - 2 * CollectionSizes.cellSideIndent
+            return CGSize(width: availableWidth, height: 50)
+        default:
+            return CGSize(width: 0, height: 0)
+        }
+
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

@@ -28,7 +28,7 @@ class RememberCollectionViewSupervisor: NSObject {
 
     //    MARK: - Properties
 
-    private var collectionView: UICollectionView
+    private(set) var collectionView: UICollectionView
 
     weak var delegate: CollectionViewActionsDelegate?
     weak var footerDelegate: FooterActionDelegate?
@@ -133,10 +133,11 @@ extension RememberCollectionViewSupervisor: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: Constants.topSpacing, left: Constants.cellSideIndent, bottom: Constants.bottomSpacing, right: Constants.cellSideIndent)
+        return UIEdgeInsets(top: 0, left: Constants.cellSideIndent, bottom: 0, right: Constants.cellSideIndent)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    
         return Constants.cellPaddingSpace
     }
 }

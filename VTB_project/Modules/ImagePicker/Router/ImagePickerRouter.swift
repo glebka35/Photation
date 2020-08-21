@@ -6,7 +6,7 @@
 //  Copyright © 2020 Gleb Uvarkin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class ImagePickerRouter: ImagePickerRouterInput {
     weak var view: ImagePickerView?
@@ -19,4 +19,11 @@ class ImagePickerRouter: ImagePickerRouterInput {
         let detailView = DetailAssembly().createDetailModule(with: object)
         view?.navigationController?.pushViewController(detailView, animated: true)
     }
+
+    func showAlert() {
+        let alert = UIAlertController(title: LocalizedString().emptyObjectAlertTitle, message: LocalizedString().alertMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: LocalizedString().alertCancelTitle, style: .cancel))
+        view?.present(alert, animated: true)
+    }
+
 }

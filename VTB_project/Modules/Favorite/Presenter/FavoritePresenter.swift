@@ -116,7 +116,7 @@ extension FavoritePresenter: FavoriteInteractorOutput {
 
         displayingObjects.append(contentsOf: objectsToDisplay)
 
-        view?.showRememberButton(bool: objectsToDisplay.count > 0)
+        view?.showRememberButton(bool: objectsToDisplay.count > 1)
         view?.updateContent(with: objectsToDisplay)
     }
 

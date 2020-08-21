@@ -47,6 +47,7 @@ protocol ImagePickerInteractorInput: AnyObject {
 
 protocol ImagePickerInteractorOutput: AnyObject {
     func imageDidRecieved(objects: ObjectsOnImage)
+    func didReceivedEmptyObjects()
 
     func languageChanged()
 }
@@ -57,5 +58,6 @@ protocol ImagePickerRouterInput: AnyObject {
     var view: ImagePickerView? { get set }
 
     func showDetail(of object: ObjectsOnImage)
+    func showAlert()
     func closeModule()
 }

@@ -92,12 +92,11 @@ class DetailView: UIViewController, DetailViewInput {
         }
     }
 
-//    MARK: - UI uopdate
+//    MARK: - UI update
 
     func updateContent(with objects: [SingleObject]) {
         collectionSupervisor?.updateContent(with: objects)
     }
-
 
 }
 

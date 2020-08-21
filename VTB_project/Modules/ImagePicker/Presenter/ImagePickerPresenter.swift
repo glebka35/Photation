@@ -46,4 +46,9 @@ extension ImagePickerPresenter: ImagePickerInteractorOutput {
         view?.languageChanged()
     }
 
+    func didReceivedEmptyObjects() {
+        view?.unshowSpinner()
+        router?.showAlert()
+    }
+
 }

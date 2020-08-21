@@ -29,8 +29,13 @@ class ImagePickerInteractor: ImagePickerInteractorInput {
     func handle(image: UIImage) {
         imageWorker.performHandling(image: image) { (objects) in
             DispatchQueue.main.async { [weak self] in
-                self?.presenter?.imageDidRecieved(objects: objects)
-                self?.dataStore.save(imageWithObjects: objects)
+                if let objects = objects {
+                    self?.presenter?.imageDidRecieved(objects: objects)
+                    self?.dataStore.save(imageWithObjects: objects)
+                } else {
+                    self?.presenter?.didReceivedEmptyObjects()
+                }
+
             }
         }
     }

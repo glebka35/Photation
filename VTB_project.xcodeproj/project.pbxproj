@@ -54,6 +54,7 @@
 		2B676D8D24EBDD8D00AC4BB8 /* RememberFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676D8C24EBDD8D00AC4BB8 /* RememberFooterView.swift */; };
 		2B676D8F24EC0B7200AC4BB8 /* FooterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676D8E24EC0B7200AC4BB8 /* FooterModel.swift */; };
 		2B676D9124EC2BC900AC4BB8 /* RememberHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676D9024EC2BC900AC4BB8 /* RememberHeaderView.swift */; };
+		2B676DB924F02E7500AC4BB8 /* ImageReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676DB824F02E7400AC4BB8 /* ImageReusableView.swift */; };
 		2B6BC11624AB0FE400ED4125 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BC11524AB0FE400ED4125 /* AppDelegate.swift */; };
 		2B6BC11F24AB0FE500ED4125 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B6BC11E24AB0FE500ED4125 /* Assets.xcassets */; };
 		2B6BC12224AB0FE500ED4125 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B6BC12024AB0FE500ED4125 /* LaunchScreen.storyboard */; };
@@ -156,6 +157,7 @@
 		2B676D8C24EBDD8D00AC4BB8 /* RememberFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RememberFooterView.swift; sourceTree = "<group>"; };
 		2B676D8E24EC0B7200AC4BB8 /* FooterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterModel.swift; sourceTree = "<group>"; };
 		2B676D9024EC2BC900AC4BB8 /* RememberHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RememberHeaderView.swift; sourceTree = "<group>"; };
+		2B676DB824F02E7400AC4BB8 /* ImageReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageReusableView.swift; sourceTree = "<group>"; };
 		2B6BC11224AB0FE400ED4125 /* Photation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B6BC11524AB0FE400ED4125 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B6BC11E24AB0FE500ED4125 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -917,6 +919,7 @@
 			children = (
 				2BD8D3CE24CEB0760099C575 /* DetailView.swift */,
 				2BD8D3D924CEB3CB0099C575 /* DetailCollectionSupervisor.swift */,
+				2B676DB824F02E7400AC4BB8 /* ImageReusableView.swift */,
 				2BD8D3D824CEB3A60099C575 /* UI collection elements */,
 			);
 			path = View;
@@ -1052,6 +1055,7 @@
 				2B46C52424D2AC2200CA143E /* SettingsAssembly.swift in Sources */,
 				2BD8D3E724CF14150099C575 /* DefaultNavigationBar.swift in Sources */,
 				2B9EF09924B89F98001CCEA3 /* CollectionViewDelegatesFlowLayout.swift in Sources */,
+				2B676DB924F02E7500AC4BB8 /* ImageReusableView.swift in Sources */,
 				2BD8D3D124CEB0AC0099C575 /* DetailAssembly.swift in Sources */,
 				2B55DBAC24E2DE35008A70F8 /* ObjectEntity+CoreDataClass.swift in Sources */,
 				2B46C5A824DC361500CA143E /* FavoriteRouter.swift in Sources */,

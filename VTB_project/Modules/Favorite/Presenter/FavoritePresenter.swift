@@ -30,7 +30,7 @@ class FavoritePresenter: NSObject, FavoriteViewOutput {
     }
 
     func cellSelected(at indexPath: IndexPath) {
-        let object = objectsAndImages[indexPath.row]
+        let object = isSearchActive ? filteredObjects[indexPath.row] : objectsAndImages[indexPath.row]
         router?.showDetail(of: object)
     }
 
@@ -42,29 +42,25 @@ class FavoritePresenter: NSObject, FavoriteViewOutput {
 //MARK: - UISearchBarDelegate
 
 extension FavoritePresenter: UISearchBarDelegate {
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        isSearchActive = true
-    }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        isSearchActive = false
         searchBar.resignFirstResponder()
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        isSearchActive = false
         searchBar.resignFirstResponder()
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        isSearchActive = false
         searchBar.resignFirstResponder()
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
             filteredObjects = displayingObjects
+            isSearchActive = false
         } else {
+            isSearchActive = true
             filteredObjects = displayingObjects.filter({ (imageWithObjects) -> Bool in
                 var returnValue = false
 
@@ -107,17 +103,16 @@ extension FavoritePresenter: FavoriteInteractorOutput {
 
         var objectsToDisplay: [ObjectsOnImage] = []
 
-
         if let nativeLanguage = self.objectsAndImages.first?.nativeLanguage, let foreignLanguage = self.objectsAndImages.first?.foreignLanguage, let date = self.objectsAndImages.first?.date {
-            objects.forEach {
-                objectsToDisplay.append(ObjectsOnImage(image: Data(), objects: [$0], date: date, nativeLanguage: nativeLanguage, foreignLanguage: foreignLanguage))
+            for i in 0..<objects.count {
+                objectsToDisplay.append(ObjectsOnImage(image: images[i].image, objects: [objects[i]], date: date, nativeLanguage: nativeLanguage, foreignLanguage: foreignLanguage))
             }
         }
 
         displayingObjects.append(contentsOf: objectsToDisplay)
 
-        view?.showRememberButton(bool: objectsToDisplay.count > 1)
-        view?.updateContent(with: objectsToDisplay)
+        view?.showRememberButton(bool: displayingObjects.count > 1)
+        view?.updateContent(with: displayingObjects)
     }
 
     func deleteData() {

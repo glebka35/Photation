@@ -105,33 +105,30 @@ extension CollectionPresenter: CollectionInteractorOutput {
 
         return objectsToDisplay
     }
-
 }
 
+//MARK: - UISearchBarDelegate
+
 extension CollectionPresenter: UISearchBarDelegate {
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        isSearchActive = true
-    }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        isSearchActive = false
         searchBar.resignFirstResponder()
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        isSearchActive = false
         searchBar.resignFirstResponder()
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        isSearchActive = false
         searchBar.resignFirstResponder()
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
             filteredObjects = displayingObjects
+            isSearchActive = false
         } else {
+            isSearchActive = true
             filteredObjects = displayingObjects.filter({ (imageWithObjects) -> Bool in
                 var returnValue = false
 

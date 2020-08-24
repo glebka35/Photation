@@ -92,6 +92,11 @@ class CollectionView: UIViewController, CollectionViewInput {
 
         self.title = title
     }
+
+    func clearSearchBar() {
+        navigationBar.clearSearchBar()
+    }
+
 }
 
 //MARK: - NavigationBar delegate

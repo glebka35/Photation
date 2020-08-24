@@ -16,6 +16,7 @@ protocol CollectionViewInput: AnyObject {
     func updatePresentation(with style: PresentationStyle)
     func updateContent(with objects: [ObjectsOnImage])
     func changeLanguage()
+    func clearSearchBar()
 }
 
 //MARK: - VIEW -> PRESENTER

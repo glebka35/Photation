@@ -163,6 +163,10 @@ class MainNavigationBar: UIView {
         rightButton?.isHidden = !bool
     }
 
+    func clearSearchBar() {
+        searchBar?.text = ""
+    }
+
 
 //    MARK: - User interaction
     

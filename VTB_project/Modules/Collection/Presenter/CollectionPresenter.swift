@@ -43,6 +43,7 @@ class CollectionPresenter: NSObject, CollectionViewOutput {
         view?.updateContent(with: objectsToDisplay)
 
         view?.updatePresentation(with: newStyle)
+        view?.clearSearchBar()
     }
 
     func cellSelected(at indexPath: IndexPath) {

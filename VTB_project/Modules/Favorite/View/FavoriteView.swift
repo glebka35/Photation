@@ -98,6 +98,10 @@ class FavoriteView: UIViewController, FavoriteViewInput {
     func showRememberButton(bool: Bool) {
         navigationBar?.showRightButton(bool: bool)
     }
+
+    func clearSearchBar() {
+        navigationBar?.clearSearchBar()
+    }
 }
 
 //MARK: - CollectionViewActionsDelegate

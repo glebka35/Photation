@@ -16,6 +16,7 @@ protocol FavoriteViewInput: AnyObject {
     func updateContent(with objects: [ObjectsOnImage])
     func languageChanged()
     func showRememberButton(bool: Bool)
+    func clearSearchBar() 
 }
 
 //MARK: - VIEW -> PRESENTER

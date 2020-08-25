@@ -44,6 +44,7 @@ class CollectionPresenter: NSObject, CollectionViewOutput {
 
         view?.updatePresentation(with: newStyle)
         view?.clearSearchBar()
+        isSearchActive = false
     }
 
     func cellSelected(at indexPath: IndexPath) {

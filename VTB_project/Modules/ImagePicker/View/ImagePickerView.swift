@@ -37,16 +37,13 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
         let navigationBar = MainNavigationBar(title: LocalizedString().add, rightTitle: SettingsStore.shared.getForeignLanguage().humanRepresentingNative, rightButton: nil, isSearchBarNeeded: false)
         view.addSubview(navigationBar)
 
-        let constraint = navigationBar.heightAnchor.constraint(equalToConstant: 0)
         NSLayoutConstraint.activate([
-            navigationBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
-            navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            constraint
+            navigationBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 10),
+            navigationBar.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            navigationBar.heightAnchor.constraint(equalToConstant: 70)
         ])
 
-        let height = CGFloat(60) ///calculated height
-        constraint.constant = height
         self.navigationBar = navigationBar
     }
 

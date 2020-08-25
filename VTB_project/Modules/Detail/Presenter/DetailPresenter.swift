@@ -16,7 +16,7 @@ class DetailPresenter: DetailViewOutput {
 //    MARK: - Properties
 
     var interactor: DetailInteractorInput?
-    var view: DetailViewInput?
+    weak var view: DetailViewInput?
     var router: DetailRouterInput?
 
     private var objects: ObjectsOnImage

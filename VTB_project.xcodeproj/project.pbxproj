@@ -56,6 +56,7 @@
 		2B676D9124EC2BC900AC4BB8 /* RememberHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676D9024EC2BC900AC4BB8 /* RememberHeaderView.swift */; };
 		2B676DB924F02E7500AC4BB8 /* ImageReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676DB824F02E7400AC4BB8 /* ImageReusableView.swift */; };
 		2B676DBB24F3CA8100AC4BB8 /* Languages.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B676DBA24F3CA8100AC4BB8 /* Languages.plist */; };
+		2B676DBE24F3E55A00AC4BB8 /* LanguageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676DBD24F3E55A00AC4BB8 /* LanguageProvider.swift */; };
 		2B6BC11624AB0FE400ED4125 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BC11524AB0FE400ED4125 /* AppDelegate.swift */; };
 		2B6BC11F24AB0FE500ED4125 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B6BC11E24AB0FE500ED4125 /* Assets.xcassets */; };
 		2B6BC12224AB0FE500ED4125 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B6BC12024AB0FE500ED4125 /* LaunchScreen.storyboard */; };
@@ -160,6 +161,7 @@
 		2B676D9024EC2BC900AC4BB8 /* RememberHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RememberHeaderView.swift; sourceTree = "<group>"; };
 		2B676DB824F02E7400AC4BB8 /* ImageReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageReusableView.swift; sourceTree = "<group>"; };
 		2B676DBA24F3CA8100AC4BB8 /* Languages.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Languages.plist; sourceTree = "<group>"; };
+		2B676DBD24F3E55A00AC4BB8 /* LanguageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageProvider.swift; sourceTree = "<group>"; };
 		2B6BC11224AB0FE400ED4125 /* Photation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B6BC11524AB0FE400ED4125 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B6BC11E24AB0FE500ED4125 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -481,6 +483,7 @@
 			isa = PBXGroup;
 			children = (
 				2B5125DE24D04C6700021937 /* Language.swift */,
+				2B676DBD24F3E55A00AC4BB8 /* LanguageProvider.swift */,
 				2B46C54524D309B500CA143E /* SettingsList.swift */,
 				2B51260B24D0645300021937 /* UserSettings.swift */,
 				2B676DBA24F3CA8100AC4BB8 /* Languages.plist */,
@@ -1077,6 +1080,7 @@
 				2B46C57724D5A74B00CA143E /* DataStore.swift in Sources */,
 				2BAD878024B4A85700F0DAC0 /* CollectionViewSupervisor.swift in Sources */,
 				2B5125D724D016BB00021937 /* ImageHandler.swift in Sources */,
+				2B676DBE24F3E55A00AC4BB8 /* LanguageProvider.swift in Sources */,
 				2B80003224C040A9004D1A12 /* CollectionAssembly.swift in Sources */,
 				2B6BC13F24AF468E00ED4125 /* MainTabBarController.swift in Sources */,
 				2BE61E3324B4A43D007F9C19 /* ImageCollectionViewCell.swift in Sources */,

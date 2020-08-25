@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>humanRepresentingNative</key>
+	<key>humanRepresantationNative</key>
 	<dict>
 		<key>ru</key>
 		<string>Русский</string>
@@ -63,7 +63,7 @@
 		<key>hr</key>
 		<string>Hrvatski</string>
 	</dict>
-	<key>humanRepresentingEnglish</key>
+	<key>humanRepresentationEnglish</key>
 	<dict>
 		<key>ru</key>
 		<string>Russian</string>

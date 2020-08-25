@@ -12,7 +12,7 @@ class DetailInteractor: DetailInteractorInput {
 
 //    MARK: -  Properties
     
-    var presenter: DetailInteractorOutput?
+    weak var presenter: DetailInteractorOutput?
 
     private var coreDataStorage = CoreDataStore.shared
 

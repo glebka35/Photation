@@ -92,7 +92,9 @@ extension FavoritePresenter: UISearchBarDelegate {
 
     func openRememberGame() {
         router?.showRememberGame(with: displayingObjects)
+
         view?.clearSearchBar()
+        isSearchActive = false
     }
 }
 
@@ -114,7 +116,9 @@ extension FavoritePresenter: FavoriteInteractorOutput {
 
         view?.showRememberButton(bool: displayingObjects.count > 1)
         view?.updateContent(with: displayingObjects)
+
         view?.clearSearchBar()
+        isSearchActive = false
     }
 
     func deleteData() {

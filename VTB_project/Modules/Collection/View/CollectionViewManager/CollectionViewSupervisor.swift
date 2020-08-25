@@ -13,7 +13,7 @@ import UIKit
 
 enum CollectionSizes {
     static let numberOfCellInRow: CGFloat = 2
-    static let cellSideIndent: CGFloat = 8
+    static let cellSideIndent: CGFloat = 0
     static let cellPaddingSpace: CGFloat = 10
     static let topSpacing: CGFloat = 15
 }

@@ -12,7 +12,7 @@ import Foundation
 //
 //let data = Data(contentsOf: URL(string: urlString!)!)
 
-enum Language: String, CaseIterable {
+enum Language: String, CaseIterable, Decodable {
     case ru, en, es, fr, pt, it, de, nl, ja, ko, vi, sv, da, fi, nb, tr, el, id, ms, th, hi, hu, pl, cs, sk, uk, ca, ro, hr
 
     var humanRepresentingNative: String {

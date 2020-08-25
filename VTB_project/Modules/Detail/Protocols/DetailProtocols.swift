@@ -29,14 +29,14 @@ protocol DetailViewOutput: AnyObject {
 }
 
 // MARK: PRESENTER -> INTERACTOR
-protocol DetailInteractorInput {
+protocol DetailInteractorInput: AnyObject {
     var presenter: DetailInteractorOutput? { get set }
 
     func update(object: SingleObject)
 }
 
 // MARK: INTERACTOR -> PRESENTER
-protocol DetailInteractorOutput {
+protocol DetailInteractorOutput: AnyObject {
     func closeModule()
 }
 

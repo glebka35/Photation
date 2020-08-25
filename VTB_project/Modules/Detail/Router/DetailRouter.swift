@@ -9,7 +9,7 @@
 import Foundation
 
 class DetailRouter: DetailRouterInput {
-    var view: DetailView?
+    weak var view: DetailView?
 
     func closeModule() {
         view?.navigationController?.setNavigationBarHidden(true, animated: false)

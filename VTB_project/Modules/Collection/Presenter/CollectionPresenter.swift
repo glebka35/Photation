@@ -18,11 +18,24 @@ class CollectionPresenter: NSObject, CollectionViewOutput {
     weak var view: CollectionViewInput?
     var router: CollectionRouterInput?
 
-    private var displayingObjects: [ObjectsOnImage] = []
-    private var objects: [ObjectsOnImage] = []
+    private var objects: [ObjectsOnImage] = [] {
+        didSet {
+            updateData()
+        }
+    }
+    private var navigationBarModel: MainNavigationBarModel?
+    private var nativeLanguage:String = ""
+    private var foreignLanguage: String = ""
     private var filteredObjects: [ObjectsOnImage] = []
-    private var currentStyle: PresentationStyle!
+    private var currentStyle: PresentationStyle! {
+        didSet {
+            updateData()
+        }
+    }
+    private var currentViewModel: CollectionViewModel?
     private var isSearchActive = false
+    
+    private var dataConverter: CollectionViewDataConverterProtocol = CollectionViewDataConverter()
 
     //    MARK: - UI life cycle
     func viewDidLoad(with style: PresentationStyle) {
@@ -39,32 +52,83 @@ class CollectionPresenter: NSObject, CollectionViewOutput {
         let newStyle = allCases[nextIndex]
         currentStyle = newStyle
 
-        let objectsToDisplay = convertData(objects: self.objects)
-        view?.updateContent(with: objectsToDisplay)
-
-        view?.updatePresentation(with: newStyle)
         view?.clearSearchBar()
         isSearchActive = false
     }
 
     func cellSelected(at indexPath: IndexPath) {
-        let object = isSearchActive ? filteredObjects[indexPath.row] : displayingObjects[indexPath.row]
-        router?.showDetail(of: object)
+        var object: ObjectsOnImage?
+
+        switch currentStyle {
+        case .images:
+            if let viewObject = currentViewModel?.imageModel?.objects[indexPath.row] {
+                object = objects.first(where: { (image) -> Bool in
+                    image.date == viewObject.id
+                })
+            }
+        case .table:
+            if let viewObject = currentViewModel?.tableModel?.objects[indexPath.row] {
+                object = objects.first(where: { (image) -> Bool in
+                    image.date == viewObject.id
+                })
+            }
+        case .none:
+            return
+        }
+
+        if let object = object {
+            router?.showDetail(of: object)
+        }
     }
 
     func scrollViewDidScrollToBottom() {
         interactor?.loadObjects()
+    }
+
+    private func updateData() {
+        var objectsToDisplay: [ObjectsOnImage]!
+
+        if isSearchActive {
+            objectsToDisplay = filteredObjects
+        } else {
+            objectsToDisplay = objects
+        }
+        if let navBarModel = navigationBarModel {
+            var model: CollectionViewModel?
+            var imageModel: ImageStyleCollectionModel?
+            var tableModel: TableStyleCollectionModel?
+
+            switch currentStyle {
+            case .images:
+                let imageObjects = dataConverter.convertToImage(from: objectsToDisplay)
+                imageModel = ImageStyleCollectionModel(objects: imageObjects)
+
+            case .table:
+                let tableObjects = dataConverter.convertToTable(from: objectsToDisplay)
+                tableModel = TableStyleCollectionModel(nativeLanguage: nativeLanguage, foreignLanguage: foreignLanguage, objects: tableObjects)
+
+            default:
+                return
+            }
+
+            model = CollectionViewModel(navigationBarModel: navBarModel, imageModel: imageModel, tableModel: tableModel)
+            if let model = model {
+                view?.updateContent(with: model)
+                self.currentViewModel = model
+            }
+        }
     }
 }
 
 //MARK: - CollectionInteractorOutput
 
 extension CollectionPresenter: CollectionInteractorOutput {
-    func objectsDidFetch(objects: [ObjectsOnImage]) {
+    func objectsDidFetch(objects: [ObjectsOnImage], navigationBarModel: MainNavigationBarModel) {
+        self.navigationBarModel = navigationBarModel
+        nativeLanguage = objects.first?.nativeLanguage.humanRepresentingNative ?? ""
+        foreignLanguage = objects.first?.foreignLanguage.humanRepresentingNative ?? ""
         self.objects.append(contentsOf: objects)
-        let objectsToDisplay = convertData(objects: self.objects)
 
-        view?.updateContent(with: objectsToDisplay)
     }
 
     func changeLanguage() {
@@ -72,41 +136,9 @@ extension CollectionPresenter: CollectionInteractorOutput {
     }
 
     func deleteData() {
-        self.displayingObjects = []
         self.objects = []
-
-        view?.updateContent(with: [])
     }
 
-    //TODO: перенести в отдельный класс DataConverter
-
-    private func convertData(objects: [ObjectsOnImage])->[ObjectsOnImage] {
-        var objectsToDisplay = [ObjectsOnImage]()
-
-        switch(currentStyle) {
-        case .images:
-            objectsToDisplay = objects
-            displayingObjects = objectsToDisplay
-        case .table:
-            var singleObjects = [SingleObject]()
-            var displayingObjects = [ObjectsOnImage]()
-            self.objects.forEach { objectWithImage in
-                singleObjects.append(contentsOf: objectWithImage.objects)
-                objectWithImage.objects.forEach { _ in
-                    displayingObjects.append(objectWithImage)
-                }
-            }
-            if let nativeLanguage = objects.first?.nativeLanguage, let foreignLanguage = objects.first?.foreignLanguage, let date = objects.first?.date {
-                singleObjects.forEach { objectsToDisplay.append(ObjectsOnImage(image: Data(), objects: [$0], date: date, nativeLanguage: nativeLanguage, foreignLanguage: foreignLanguage))}
-            }
-
-            self.displayingObjects = displayingObjects
-        default:
-            break
-        }
-
-        return objectsToDisplay
-    }
 }
 
 //MARK: - UISearchBarDelegate
@@ -127,11 +159,11 @@ extension CollectionPresenter: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
-            filteredObjects = displayingObjects
+            filteredObjects = objects
             isSearchActive = false
         } else {
             isSearchActive = true
-            filteredObjects = displayingObjects.filter({ (imageWithObjects) -> Bool in
+            filteredObjects = objects.filter({ (imageWithObjects) -> Bool in
                 var returnValue = false
 
                 imageWithObjects.objects.forEach { (object) in
@@ -150,12 +182,9 @@ extension CollectionPresenter: UISearchBarDelegate {
                         return
                     }
                 }
-
                 return returnValue
             })
         }
-
-        view?.updateContent(with: filteredObjects)
+        updateData()
     }
 }
-

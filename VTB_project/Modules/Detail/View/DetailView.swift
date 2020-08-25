@@ -23,18 +23,16 @@ class DetailView: UIViewController, DetailViewInput {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        title = LocalizedString().image
 
         addAndConfigureNavigationBar()
-        addAndConfigureNavigationBar()
-
+        addAndConfigureCollection()
         presenter?.viewDidLoad()
     }
 
 //    MARK: - UI configuration
 
-    func configureCollection(with objects: ObjectsOnImage) {
-        collectionSupervisor = DetailCollectionSupervisor(with: objects, nativeLanguage: objects.nativeLanguage, foreignLanguage: objects.foreignLanguage)
+    func addAndConfigureCollection() {
+        collectionSupervisor = DetailCollectionSupervisor()
         collectionSupervisor?.delegate = self
 
         if let collectionView = collectionSupervisor?.getConfiguredCollection() {
@@ -42,18 +40,17 @@ class DetailView: UIViewController, DetailViewInput {
 
             if let navigationBar = navigationBar {
                 NSLayoutConstraint.activate([
-                    collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                    collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                    collectionView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+                    collectionView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
                     collectionView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor),
                     collectionView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 20)
                 ])
             }
-
         }
     }
 
     private func addAndConfigureNavigationBar() {
-        let navigationBar = DefaultNavigationBar(title: title, backButtonTitle: LocalizedString().backButton, backButtonImage: UIImage(named: "leftAccessory"))
+        let navigationBar = DefaultNavigationBar(title: "", backButtonTitle: "", backButtonImage: UIImage(named: "leftAccessory"))
         view.addSubview(navigationBar)
         navigationBar.delegate = self
 
@@ -70,8 +67,9 @@ class DetailView: UIViewController, DetailViewInput {
 
 //    MARK: - UI update
 
-    func updateContent(with objects: ObjectsOnImage) {
-        collectionSupervisor?.updateContent(with: objects)
+    func updateContent(with model: DetailViewModel) {
+        collectionSupervisor?.updateContent(with: model.detailCollectionModel)
+        navigationBar?.update(with: model.defaultNavigationBarModel)
     }
 }
 

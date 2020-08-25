@@ -23,6 +23,13 @@ class DetailInteractor: DetailInteractorInput {
         NotificationCenter.default.addObserver(self, selector: #selector(deleteData), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
     }
 
+    func viewDidLoad() {
+        let title = LocalizedString().image
+        let backButtonTitle = LocalizedString().backButton
+
+        presenter?.updateView(with: DefaultNavigationBarModel(title: title, backButtonTitle: backButtonTitle))
+    }
+
 //    MARK: - Data update
 
     @objc private func deleteData() {

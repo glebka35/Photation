@@ -54,7 +54,7 @@ class CollectionView: UIViewController, CollectionViewInput {
     }
 
     private func addAndConfigureCollectionView() {
-        let collectionView = collectionSupervisor.getConfiguredCollection(with: currentStyle)
+        let collectionView = collectionSupervisor.getConfiguredCollection()
         collectionSupervisor.delegate = self
         view.addSubview(collectionView)
         
@@ -74,15 +74,24 @@ class CollectionView: UIViewController, CollectionViewInput {
     }
 
 //    MARK: - UI update
-    
-    func updatePresentation(with style: PresentationStyle) {
-        navigationBar.rightButtonImage = UIImage(named: style.buttonImage)
-        collectionSupervisor.updatePresentationStyle(with: style)
-        currentStyle = style
+
+    func updateContent(with model: TableStyleCollectionModel) {
+        collectionSupervisor.updateContent(with: model)
+        navigationBar.rightButtonImage = UIImage(named: PresentationStyle.table.buttonImage)
     }
-    
-    func updateContent(with objects: [ObjectsOnImage]) {
-        collectionSupervisor.updateContent(with: objects)
+
+    func updateContent(with model: CollectionViewModel) {
+
+        if let imageModel = model.imageModel {
+            collectionSupervisor.updateContent(with: imageModel)
+            currentStyle = PresentationStyle.images
+        } else if let tableModel = model.tableModel {
+            collectionSupervisor.updateContent(with: tableModel)
+            currentStyle = PresentationStyle.table
+        }
+
+        navigationBar.update(with: model.navigationBarModel)
+        navigationBar.rightButtonImage = UIImage(named: currentStyle.buttonImage)
     }
 
     func changeLanguage() {

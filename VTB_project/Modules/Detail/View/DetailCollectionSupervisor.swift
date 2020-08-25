@@ -14,7 +14,7 @@ import UIKit
 protocol DetailCollectionSupervisorProtocol {
     var delegate: DetailCollectionSupervisorDelegate? { get set }
     func getConfiguredCollection()->UICollectionView
-    func updateContent(with objects: ObjectsOnImage)
+    func updateContent(with model: DetailCollectionModel)
 }
 
 //MARK: - DetailCollectionSupervisorDelegate protocol
@@ -33,25 +33,19 @@ class DetailCollectionSupervisor: NSObject, DetailCollectionSupervisorProtocol{
     private var sectionInsets = UIEdgeInsets(top: CollectionSizes.topSpacing, left: CollectionSizes.cellSideIndent, bottom: 0, right: CollectionSizes.cellSideIndent)
     weak var delegate: DetailCollectionSupervisorDelegate?
 
-    private var detailObjects: [SingleObject]
-    private var image: UIImage?
-    private var nativeLanguage: Language
-    private var foreignLanguage: Language
+    private var viewModel:  DetailCollectionModel? {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
 
     //    MARK: - Life cycle
 
-    required init(with objects: ObjectsOnImage, nativeLanguage: Language, foreignLanguage: Language) {
+    override init() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.sectionHeadersPinToVisibleBounds = true
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-
-        self.detailObjects = objects.objects
-        if let imageData = objects.image {
-            self.image = UIImage(data: imageData)
-        }
-        self.nativeLanguage = nativeLanguage
-        self.foreignLanguage = foreignLanguage
     }
 
     //    MARK: - CollectionView configuration
@@ -74,12 +68,8 @@ class DetailCollectionSupervisor: NSObject, DetailCollectionSupervisorProtocol{
 
     //    MARK: - UI update
 
-    func updateContent(with objects: ObjectsOnImage) {
-        detailObjects = objects.objects
-        if let dataImage = objects.image {
-            image = UIImage(data: dataImage)
-        }
-        collectionView.reloadData()
+    func updateContent(with model: DetailCollectionModel) {
+        viewModel = model
     }
 }
 
@@ -92,12 +82,14 @@ extension DetailCollectionSupervisor: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return section == 0 ? 0 : detailObjects.count
+        return section == 0 ? 0 : viewModel?.objects.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailCell", for: indexPath) as? DetailCollectionViewCell {
-            cell.updateStateWith(object: detailObjects[indexPath.row])
+            if let object = viewModel?.objects[indexPath.row] {
+                cell.updateStateWith(object: object)
+            }
             return cell
         } else {
             return UICollectionViewCell()
@@ -114,14 +106,19 @@ extension DetailCollectionSupervisor: UICollectionViewDataSource {
                     else {
                         fatalError("Invalid header view")
                 }
-                headerView.update(image: image)
+                if let image = viewModel?.image {
+                    headerView.update(image: image)
+                }
                 return headerView
             case 1:
                 guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "detailCollectionHeader", for: indexPath) as? CollectionHeaderReusableView
                     else {
                         fatalError("Invalid header view")
                 }
-                headerView.updateWith(nativeLanguage: nativeLanguage.humanRepresentingNative, foreignLanguage: foreignLanguage.humanRepresentingNative)
+                if let nativeLanguage = viewModel?.nativeLanguage, let foreignLanguage = viewModel?.foreignLanguage {
+                    headerView.updateWith(nativeLanguage: nativeLanguage, foreignLanguage: foreignLanguage)
+                }
+
                 return headerView
             default:
                 fatalError("No header view")

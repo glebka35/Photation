@@ -24,9 +24,10 @@ protocol CollectionViewSupervisorProtocol {
     var styleDelegates: [PresentationStyle: CollectionViewDelegate] { get }
     var delegate: CollectionViewActionsDelegate? { get set }
     
-    func getConfiguredCollection(with style: PresentationStyle)->UICollectionView
-    func updatePresentationStyle(with style: PresentationStyle)
-    func updateContent(with objects: [ObjectsOnImage])
+    func getConfiguredCollection()->UICollectionView
+
+    func updateContent(with imageModel: ImageStyleCollectionModel)
+    func updateContent(with tableModel: TableStyleCollectionModel)
 }
 
 //MARK: - CollectionView supervisor
@@ -53,14 +54,33 @@ final class CollectionViewSupervisor: NSObject, CollectionViewSupervisorProtocol
     } ()
 
     private var collectionView: UICollectionView
-    private var presentationStyle: PresentationStyle!
-    private var objects: [ObjectsOnImage] = [] {
+    private var presentationStyle: PresentationStyle! {
+        didSet {
+            collectionView.delegate = styleDelegates[presentationStyle]
+        }
+    }
+
+    private var imageModel: ImageStyleCollectionModel? {
         didSet {
             collectionView.reloadData()
         }
     }
+
+    private var tableModel: TableStyleCollectionModel? {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+
     private var numberOfRows: Int {
-        return objects.count
+        switch presentationStyle {
+        case .images:
+            return imageModel?.objects.count ?? 0
+        case .table:
+            return tableModel?.objects.count ?? 0
+        case .none:
+            return 0
+        }
     }
 
     //    MARK: - Life cycle
@@ -74,7 +94,7 @@ final class CollectionViewSupervisor: NSObject, CollectionViewSupervisorProtocol
 
     //    MARK: - CollectionView configuration
 
-    func getConfiguredCollection(with style: PresentationStyle)->UICollectionView {
+    func getConfiguredCollection()->UICollectionView {
         collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
         collectionView.register(ListCollectionViewCell.self, forCellWithReuseIdentifier: "listCell")
         
@@ -82,24 +102,23 @@ final class CollectionViewSupervisor: NSObject, CollectionViewSupervisorProtocol
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
-        
-        collectionView.delegate = styleDelegates[style]
+
         collectionView.dataSource = self
         collectionView.keyboardDismissMode = .onDrag
         
-        presentationStyle = style
         return collectionView
     }
 
     //    MARK: - UI update
-    
-    func updatePresentationStyle(with style: PresentationStyle) {
-        presentationStyle = style
-        collectionView.delegate = styleDelegates[style]
+
+    func updateContent(with imageModel: ImageStyleCollectionModel) {
+        presentationStyle = .images
+        self.imageModel = imageModel
     }
 
-    func updateContent(with objects: [ObjectsOnImage]) {
-        self.objects = objects
+    func updateContent(with tableModel: TableStyleCollectionModel) {
+        presentationStyle = .table
+        self.tableModel = tableModel
     }
 }
 
@@ -118,13 +137,14 @@ extension CollectionViewSupervisor: UICollectionViewDataSource {
         switch(presentationStyle) {
         case .images:
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as? ImageCollectionViewCell {
-                let imageWithObjects = objects[indexPath.row]
-                cell.updateStateWith(image: imageWithObjects)
+                if let imageWithObjects = imageModel?.objects[indexPath.row] {
+                    cell.updateStateWith(object: imageWithObjects)
+                }
                 return cell
             }
         case .table:
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "listCell", for: indexPath) as? ListCollectionViewCell {
-                if let object = objects[indexPath.row].objects.first {
+                if let object = tableModel?.objects[indexPath.row] {
                     cell.updateStateWith(object: object)
                 }
                 return cell

@@ -13,8 +13,7 @@ import UIKit
 protocol DetailViewInput: AnyObject {
     var presenter: DetailViewOutput? { get set }
 
-    func configureCollection(with objects: ObjectsOnImage)
-    func updateContent(with objects: ObjectsOnImage)
+    func updateContent(with model: DetailViewModel)
 }
 
 // MARK: VIEW -> PRESENTER
@@ -32,11 +31,13 @@ protocol DetailViewOutput: AnyObject {
 protocol DetailInteractorInput: AnyObject {
     var presenter: DetailInteractorOutput? { get set }
 
+    func viewDidLoad()
     func update(object: SingleObject)
 }
 
 // MARK: INTERACTOR -> PRESENTER
 protocol DetailInteractorOutput: AnyObject {
+    func updateView(with navigationModel: DefaultNavigationBarModel)
     func closeModule()
 }
 

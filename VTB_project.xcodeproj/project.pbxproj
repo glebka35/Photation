@@ -57,6 +57,12 @@
 		2B676DB924F02E7500AC4BB8 /* ImageReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676DB824F02E7400AC4BB8 /* ImageReusableView.swift */; };
 		2B676DBB24F3CA8100AC4BB8 /* Languages.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B676DBA24F3CA8100AC4BB8 /* Languages.plist */; };
 		2B676DBE24F3E55A00AC4BB8 /* LanguageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676DBD24F3E55A00AC4BB8 /* LanguageProvider.swift */; };
+		2B676DC424F547CD00AC4BB8 /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676DC324F547CD00AC4BB8 /* CollectionViewModel.swift */; };
+		2B676DC624F5543D00AC4BB8 /* MainNavigationBarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676DC524F5543D00AC4BB8 /* MainNavigationBarModel.swift */; };
+		2B676DC924F5568C00AC4BB8 /* CollectionDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676DC824F5568C00AC4BB8 /* CollectionDataConverter.swift */; };
+		2B676DCB24F55E7E00AC4BB8 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676DCA24F55E7E00AC4BB8 /* DetailViewModel.swift */; };
+		2B676DCE24F5607600AC4BB8 /* DefaultNavigationBarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676DCD24F5607600AC4BB8 /* DefaultNavigationBarModel.swift */; };
+		2B676DD024F5639000AC4BB8 /* DetailDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676DCF24F5639000AC4BB8 /* DetailDataConverter.swift */; };
 		2B6BC11624AB0FE400ED4125 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BC11524AB0FE400ED4125 /* AppDelegate.swift */; };
 		2B6BC11F24AB0FE500ED4125 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B6BC11E24AB0FE500ED4125 /* Assets.xcassets */; };
 		2B6BC12224AB0FE500ED4125 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B6BC12024AB0FE500ED4125 /* LaunchScreen.storyboard */; };
@@ -162,6 +168,12 @@
 		2B676DB824F02E7400AC4BB8 /* ImageReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageReusableView.swift; sourceTree = "<group>"; };
 		2B676DBA24F3CA8100AC4BB8 /* Languages.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Languages.plist; sourceTree = "<group>"; };
 		2B676DBD24F3E55A00AC4BB8 /* LanguageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageProvider.swift; sourceTree = "<group>"; };
+		2B676DC324F547CD00AC4BB8 /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
+		2B676DC524F5543D00AC4BB8 /* MainNavigationBarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationBarModel.swift; sourceTree = "<group>"; };
+		2B676DC824F5568C00AC4BB8 /* CollectionDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDataConverter.swift; sourceTree = "<group>"; };
+		2B676DCA24F55E7E00AC4BB8 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		2B676DCD24F5607600AC4BB8 /* DefaultNavigationBarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationBarModel.swift; sourceTree = "<group>"; };
+		2B676DCF24F5639000AC4BB8 /* DetailDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDataConverter.swift; sourceTree = "<group>"; };
 		2B6BC11224AB0FE400ED4125 /* Photation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B6BC11524AB0FE400ED4125 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B6BC11E24AB0FE500ED4125 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -518,6 +530,24 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
+		2B676DC724F5545400AC4BB8 /* MainNavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				2BAD878124B4A8AB00F0DAC0 /* MainNavigationBar.swift */,
+				2B676DC524F5543D00AC4BB8 /* MainNavigationBarModel.swift */,
+			);
+			path = MainNavigationBar;
+			sourceTree = "<group>";
+		};
+		2B676DCC24F5605F00AC4BB8 /* DefaultNavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				2BD8D3E624CF14150099C575 /* DefaultNavigationBar.swift */,
+				2B676DCD24F5607600AC4BB8 /* DefaultNavigationBarModel.swift */,
+			);
+			path = DefaultNavigationBar;
+			sourceTree = "<group>";
+		};
 		2B6BC10924AB0FE400ED4125 = {
 			isa = PBXGroup;
 			children = (
@@ -641,6 +671,7 @@
 			isa = PBXGroup;
 			children = (
 				2B6BC13624AF45B500ED4125 /* CollectionView.swift */,
+				2B676DC324F547CD00AC4BB8 /* CollectionViewModel.swift */,
 				2BE61E3424B4A7E7007F9C19 /* CollectionViewManager */,
 			);
 			path = View;
@@ -658,6 +689,7 @@
 			isa = PBXGroup;
 			children = (
 				2B80002D24C04065004D1A12 /* CollectionPresenter.swift */,
+				2B676DC824F5568C00AC4BB8 /* CollectionDataConverter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -908,6 +940,7 @@
 			isa = PBXGroup;
 			children = (
 				2BD8D3D224CEB0FF0099C575 /* DetailPresenter.swift */,
+				2B676DCF24F5639000AC4BB8 /* DetailDataConverter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -924,6 +957,7 @@
 			isa = PBXGroup;
 			children = (
 				2BD8D3CE24CEB0760099C575 /* DetailView.swift */,
+				2B676DCA24F55E7E00AC4BB8 /* DetailViewModel.swift */,
 				2BD8D3D924CEB3CB0099C575 /* DetailCollectionSupervisor.swift */,
 				2B676DB824F02E7400AC4BB8 /* ImageReusableView.swift */,
 				2BD8D3D824CEB3A60099C575 /* UI collection elements */,
@@ -951,9 +985,9 @@
 		2BD8D3E324CF138F0099C575 /* NavigationBars */ = {
 			isa = PBXGroup;
 			children = (
-				2BAD878124B4A8AB00F0DAC0 /* MainNavigationBar.swift */,
+				2B676DC724F5545400AC4BB8 /* MainNavigationBar */,
 				2BD8D3E424CF13E60099C575 /* NavigationBarDelegate.swift */,
-				2BD8D3E624CF14150099C575 /* DefaultNavigationBar.swift */,
+				2B676DCC24F5605F00AC4BB8 /* DefaultNavigationBar */,
 			);
 			path = NavigationBars;
 			sourceTree = "<group>";
@@ -1089,6 +1123,7 @@
 				2BD8D35424C830DB0099C575 /* TranslationResponse.swift in Sources */,
 				2B9B125724EAB0A600646455 /* RememberObjects.swift in Sources */,
 				2B51260C24D0645300021937 /* UserSettings.swift in Sources */,
+				2B676DD024F5639000AC4BB8 /* DetailDataConverter.swift in Sources */,
 				2B46C51E24D2AB6E00CA143E /* SettingsRouter.swift in Sources */,
 				2B46C5B124DC396200CA143E /* FavoriteObject.swift in Sources */,
 				2B80003024C0408A004D1A12 /* CollectionInteractor.swift in Sources */,
@@ -1096,6 +1131,7 @@
 				2B46C53C24D2E46900CA143E /* DetailSettingsInteractor.swift in Sources */,
 				2B46C53A24D2E41B00CA143E /* DetailSettingsPresenter.swift in Sources */,
 				2B46C54224D2E84D00CA143E /* LanguageCellViewModel.swift in Sources */,
+				2B676DCE24F5607600AC4BB8 /* DefaultNavigationBarModel.swift in Sources */,
 				2B676D8A24EBD6A100AC4BB8 /* CollectionViewActionsDelegate.swift in Sources */,
 				2BD8D3D524CEB12F0099C575 /* DetailInteractor.swift in Sources */,
 				2B46C57B24D5ACF500CA143E /* UIColor+.swift in Sources */,
@@ -1107,8 +1143,11 @@
 				2B46C59D24DC013400CA143E /* GlobalConstants.swift in Sources */,
 				2B80003E24C375E2004D1A12 /* ImagePickerAssembly.swift in Sources */,
 				2B9B124124E5308B00646455 /* LocalizedString.swift in Sources */,
+				2B676DC424F547CD00AC4BB8 /* CollectionViewModel.swift in Sources */,
+				2B676DC924F5568C00AC4BB8 /* CollectionDataConverter.swift in Sources */,
 				2BD8D3CF24CEB0760099C575 /* DetailView.swift in Sources */,
 				2B9B125524EA9B2A00646455 /* RememberAssembly.swift in Sources */,
+				2B676DC624F5543D00AC4BB8 /* MainNavigationBarModel.swift in Sources */,
 				2B55DBAD24E2DE35008A70F8 /* ObjectEntity+CoreDataProperties.swift in Sources */,
 				2B80002E24C04065004D1A12 /* CollectionPresenter.swift in Sources */,
 				2B80002424BDFB41004D1A12 /* ListCollectionViewCell.swift in Sources */,
@@ -1138,6 +1177,7 @@
 				2B676D8424EBB98900AC4BB8 /* RememberCollectionViewSupervisor.swift in Sources */,
 				2B46C54624D309B500CA143E /* SettingsList.swift in Sources */,
 				2B46C53424D2E33400CA143E /* DetailSettingsProtocol.swift in Sources */,
+				2B676DCB24F55E7E00AC4BB8 /* DetailViewModel.swift in Sources */,
 				2B46C5A624DC360700CA143E /* FavoriteAssembly.swift in Sources */,
 				2B5125DF24D04C6700021937 /* Language.swift in Sources */,
 				2B676D8D24EBDD8D00AC4BB8 /* RememberFooterView.swift in Sources */,

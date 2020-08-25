@@ -13,8 +13,7 @@ import UIKit
 protocol CollectionViewInput: AnyObject {
     var presenter: CollectionViewOutput? { get set }
     
-    func updatePresentation(with style: PresentationStyle)
-    func updateContent(with objects: [ObjectsOnImage])
+    func updateContent(with model: CollectionViewModel)
     func changeLanguage()
     func clearSearchBar()
 }
@@ -43,7 +42,7 @@ protocol CollectionInteractorInput: AnyObject {
 //MARK:- INTERACTOR -> PRESENTER
 
 protocol CollectionInteractorOutput: AnyObject {
-    func objectsDidFetch(objects: [ObjectsOnImage])
+    func objectsDidFetch(objects: [ObjectsOnImage], navigationBarModel: MainNavigationBarModel)
     func deleteData()
     func changeLanguage()
 }

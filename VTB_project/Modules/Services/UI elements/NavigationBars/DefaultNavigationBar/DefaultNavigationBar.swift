@@ -90,6 +90,11 @@ class DefaultNavigationBar: UIView {
         title?.text = text
     }
 
+    func update(with model: DefaultNavigationBarModel) {
+        title?.text = model.title
+        backButton?.setTitle(model.backButtonTitle, for: .normal)
+    }
+
     //    MARK: - User interaction
 
     @objc func buttonAction(sender: UIButton!) {

@@ -38,7 +38,8 @@ class CollectionInteractor: CollectionInteractorInput {
                 self?.loadMoreStatus = true
                 if let page = self?.page, let objects = self?.coreDataStorage.loadMoreImages(page: page) {
                     DispatchQueue.main.async {
-                        self?.presenter?.objectsDidFetch(objects: objects)
+                        self?.presenter?.objectsDidFetch(objects: objects, navigationBarModel: MainNavigationBarModel(title: LocalizedString().collection, additionalTitle:
+                            SettingsStore.shared.getForeignLanguage().humanRepresentingNative))
                         self?.page += 1
 
                         if objects.count == 0 {

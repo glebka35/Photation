@@ -65,8 +65,9 @@ class FavoriteView: UIViewController, FavoriteViewInput {
     }
 
     private func addAndConfigureCollectionView() {
-        let collectionView = collectionSupervisor.getConfiguredCollection(with: .table)
+        let collectionView = collectionSupervisor.getConfiguredCollection()
         collectionSupervisor.delegate = self
+        
         view.addSubview(collectionView)
 
         if let navigationBar = navigationBar {
@@ -89,7 +90,7 @@ class FavoriteView: UIViewController, FavoriteViewInput {
     //    MARK: - UI update
     
     func updateContent(with objects: [ObjectsOnImage]) {
-        collectionSupervisor.updateContent(with: objects)
+//        collectionSupervisor.updateContent(with: objects)
     }
 
     func languageChanged() {

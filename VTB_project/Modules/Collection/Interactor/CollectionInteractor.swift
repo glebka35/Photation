@@ -30,6 +30,11 @@ class CollectionInteractor: CollectionInteractorInput {
         NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
     }
 
+    func viewDidLoad() {
+        setNavigationBar()
+        loadObjects()
+    }
+
     //    MARK: - Data fetching
     
     func loadObjects() {
@@ -38,8 +43,7 @@ class CollectionInteractor: CollectionInteractorInput {
                 self?.loadMoreStatus = true
                 if let page = self?.page, let objects = self?.coreDataStorage.loadMoreImages(page: page) {
                     DispatchQueue.main.async {
-                        self?.presenter?.objectsDidFetch(objects: objects, navigationBarModel: MainNavigationBarModel(title: LocalizedString().collection, additionalTitle:
-                            SettingsStore.shared.getForeignLanguage().humanRepresentingNative))
+                        self?.presenter?.objectsDidFetch(objects: objects)
                         self?.page += 1
 
                         if objects.count == 0 {
@@ -65,7 +69,13 @@ class CollectionInteractor: CollectionInteractorInput {
     }
 
     @objc private func languageChanged() {
-        presenter?.changeLanguage()
+        setNavigationBar()
         reloadData()
+    }
+
+    private func setNavigationBar() {
+        let navModel = MainNavigationBarModel(title: LocalizedString().collection, additionalTitle:
+            SettingsStore.shared.getForeignLanguage().humanRepresentingNative)
+        presenter?.updateNavigation(with: navModel)
     }
 }

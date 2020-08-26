@@ -28,7 +28,8 @@ class FavoriteInteractor: FavoriteInteractorInput {
     }
 
     func viewDidLoad() {
-        reloadData()
+        setNavigationBar()
+        loadObjects()
     }
 
 //    MARK: - Data fetching
@@ -56,6 +57,12 @@ class FavoriteInteractor: FavoriteInteractorInput {
         }
     }
 
+    private func setNavigationBar() {
+        let model = MainNavigationBarModel(title: LocalizedString().favorite, additionalTitle: "", buttonTitle: LocalizedString().remember)
+        presenter?.updateNavigation(with: model)
+        
+    }
+
     @objc private func reloadData() {
         deleteData()
 
@@ -69,7 +76,7 @@ class FavoriteInteractor: FavoriteInteractorInput {
     }
 
     @objc private func languageChanged() {
+        setNavigationBar()
         reloadData()
-        presenter?.languageChanged()
     }
 }

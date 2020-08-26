@@ -14,7 +14,6 @@ protocol CollectionViewInput: AnyObject {
     var presenter: CollectionViewOutput? { get set }
     
     func updateContent(with model: CollectionViewModel)
-    func changeLanguage()
     func clearSearchBar()
 }
 
@@ -35,16 +34,17 @@ protocol CollectionViewOutput: AnyObject, UISearchBarDelegate {
 
 protocol CollectionInteractorInput: AnyObject {
     var presenter: CollectionInteractorOutput? { get set }
-    
+
+    func viewDidLoad()
     func loadObjects()
 }
 
 //MARK:- INTERACTOR -> PRESENTER
 
 protocol CollectionInteractorOutput: AnyObject {
-    func objectsDidFetch(objects: [ObjectsOnImage], navigationBarModel: MainNavigationBarModel)
+    func objectsDidFetch(objects: [ObjectsOnImage])
+    func updateNavigation(with navModel: MainNavigationBarModel)
     func deleteData()
-    func changeLanguage()
 }
 
 //MARK:- PRESENTER -> ROUTER

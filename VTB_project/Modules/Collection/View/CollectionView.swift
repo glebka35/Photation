@@ -23,13 +23,13 @@ class CollectionView: UIViewController, CollectionViewInput {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        presenter?.viewDidLoad(with: currentStyle)
-
         view.backgroundColor = .white
         
         addAndConfigureNavigationBar()
         addAndConfigureCollectionView()
         addAndConfigureDismissKeyboardTapGesture()
+
+        presenter?.viewDidLoad(with: currentStyle)
     }
 
 //    MARK: - UI configuration
@@ -75,11 +75,6 @@ class CollectionView: UIViewController, CollectionViewInput {
 
 //    MARK: - UI update
 
-    func updateContent(with model: TableStyleCollectionModel) {
-        collectionSupervisor.updateContent(with: model)
-        navigationBar.rightButtonImage = UIImage(named: PresentationStyle.table.buttonImage)
-    }
-
     func updateContent(with model: CollectionViewModel) {
 
         if let imageModel = model.imageModel {
@@ -94,18 +89,9 @@ class CollectionView: UIViewController, CollectionViewInput {
         navigationBar.rightButtonImage = UIImage(named: currentStyle.buttonImage)
     }
 
-    func changeLanguage() {
-        navigationBar.updateRightTitle(with: SettingsStore.shared.getForeignLanguage().humanRepresentingNative)
-        let title = LocalizedString().collection
-        navigationBar.updateMainTitle(with: title)
-
-        self.title = title
-    }
-
     func clearSearchBar() {
         navigationBar.clearSearchBar()
     }
-
 }
 
 //MARK: - NavigationBar delegate

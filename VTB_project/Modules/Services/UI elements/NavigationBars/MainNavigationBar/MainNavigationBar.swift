@@ -149,6 +149,7 @@ class MainNavigationBar: UIView {
     func update(with model: MainNavigationBarModel) {
         title?.text = model.title
         rightTitle?.text = model.additionalTitle
+        rightButton?.setTitle(model.buttonTitle, for: .normal)
     }
 
     func updateRightTitle(with text: String) {

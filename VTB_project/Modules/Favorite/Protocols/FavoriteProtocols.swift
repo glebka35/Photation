@@ -13,8 +13,7 @@ import UIKit
 protocol FavoriteViewInput: AnyObject {
     var presenter: FavoriteViewOutput? { get set }
 
-    func updateContent(with objects: [ObjectsOnImage])
-    func languageChanged()
+    func updateContent(with model: FavoriteViewModel)
     func showRememberButton(bool: Bool)
     func clearSearchBar() 
 }
@@ -45,8 +44,8 @@ protocol FavoriteInteractorInput: AnyObject {
 
 protocol FavoriteInteractorOutput: AnyObject {
     func objectsDidFetch(images: [ObjectsOnImage], objects: [SingleObject])
+    func updateNavigation(with navModel: MainNavigationBarModel)
     func deleteData()
-    func languageChanged()
 }
 
 //MARK:- PRESENTER -> ROUTER
@@ -56,6 +55,6 @@ protocol FavoriteRouterInput: AnyObject {
 
     func showDetail(of object: ObjectsOnImage)
     func closeModule()
-    func showRememberGame(with objects: [ObjectsOnImage])
+    func showRememberGame(with objects: [SingleObject])
 }
 

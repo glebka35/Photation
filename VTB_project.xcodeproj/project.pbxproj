@@ -63,6 +63,8 @@
 		2B676DCB24F55E7E00AC4BB8 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676DCA24F55E7E00AC4BB8 /* DetailViewModel.swift */; };
 		2B676DCE24F5607600AC4BB8 /* DefaultNavigationBarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676DCD24F5607600AC4BB8 /* DefaultNavigationBarModel.swift */; };
 		2B676DD024F5639000AC4BB8 /* DetailDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676DCF24F5639000AC4BB8 /* DetailDataConverter.swift */; };
+		2B676DD224F568C900AC4BB8 /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676DD124F568C900AC4BB8 /* FavoriteViewModel.swift */; };
+		2B676DD424F5797300AC4BB8 /* FavoriteDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B676DD324F5797300AC4BB8 /* FavoriteDataConverter.swift */; };
 		2B6BC11624AB0FE400ED4125 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BC11524AB0FE400ED4125 /* AppDelegate.swift */; };
 		2B6BC11F24AB0FE500ED4125 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B6BC11E24AB0FE500ED4125 /* Assets.xcassets */; };
 		2B6BC12224AB0FE500ED4125 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B6BC12024AB0FE500ED4125 /* LaunchScreen.storyboard */; };
@@ -174,6 +176,8 @@
 		2B676DCA24F55E7E00AC4BB8 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		2B676DCD24F5607600AC4BB8 /* DefaultNavigationBarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationBarModel.swift; sourceTree = "<group>"; };
 		2B676DCF24F5639000AC4BB8 /* DetailDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDataConverter.swift; sourceTree = "<group>"; };
+		2B676DD124F568C900AC4BB8 /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
+		2B676DD324F5797300AC4BB8 /* FavoriteDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteDataConverter.swift; sourceTree = "<group>"; };
 		2B6BC11224AB0FE400ED4125 /* Photation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B6BC11524AB0FE400ED4125 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B6BC11E24AB0FE500ED4125 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -439,6 +443,7 @@
 			isa = PBXGroup;
 			children = (
 				2B46C5A924DC364200CA143E /* FavoritePresenter.swift */,
+				2B676DD324F5797300AC4BB8 /* FavoriteDataConverter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -447,6 +452,7 @@
 			isa = PBXGroup;
 			children = (
 				2B6BC13824AF45C400ED4125 /* FavoriteView.swift */,
+				2B676DD124F568C900AC4BB8 /* FavoriteViewModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1126,6 +1132,7 @@
 				2B676DD024F5639000AC4BB8 /* DetailDataConverter.swift in Sources */,
 				2B46C51E24D2AB6E00CA143E /* SettingsRouter.swift in Sources */,
 				2B46C5B124DC396200CA143E /* FavoriteObject.swift in Sources */,
+				2B676DD424F5797300AC4BB8 /* FavoriteDataConverter.swift in Sources */,
 				2B80003024C0408A004D1A12 /* CollectionInteractor.swift in Sources */,
 				2B6BC13D24AF45EB00ED4125 /* SettingsView.swift in Sources */,
 				2B46C53C24D2E46900CA143E /* DetailSettingsInteractor.swift in Sources */,
@@ -1138,6 +1145,7 @@
 				2B46C54424D2EA9500CA143E /* TableViewCell+.swift in Sources */,
 				2BE3AB5F24B602D400EFAFA0 /* PresentationStyle.swift in Sources */,
 				2B80004C24C6D6C0004D1A12 /* CloudMersiveResponse.swift in Sources */,
+				2B676DD224F568C900AC4BB8 /* FavoriteViewModel.swift in Sources */,
 				2B80004024C3760B004D1A12 /* ImagePickerPresenter.swift in Sources */,
 				2B9B123924E4033300646455 /* SettingsStore.swift in Sources */,
 				2B46C59D24DC013400CA143E /* GlobalConstants.swift in Sources */,

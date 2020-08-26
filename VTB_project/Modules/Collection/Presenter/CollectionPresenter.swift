@@ -35,12 +35,12 @@ class CollectionPresenter: NSObject, CollectionViewOutput {
     private var currentViewModel: CollectionViewModel?
     private var isSearchActive = false
     
-    private var dataConverter: CollectionViewDataConverterProtocol = CollectionViewDataConverter()
+    private var dataConverter: ObjectToImageViewConverterProtocol & ObjectToTableViewConverterProtocol = CollectionViewDataConverter()
 
     //    MARK: - UI life cycle
     func viewDidLoad(with style: PresentationStyle) {
         currentStyle = style
-        interactor?.loadObjects()
+        interactor?.viewDidLoad()
     }
 
     //    MARK: - UI update
@@ -79,6 +79,7 @@ class CollectionPresenter: NSObject, CollectionViewOutput {
         if let object = object {
             router?.showDetail(of: object)
         }
+
     }
 
     func scrollViewDidScrollToBottom() {
@@ -93,7 +94,7 @@ class CollectionPresenter: NSObject, CollectionViewOutput {
         } else {
             objectsToDisplay = objects
         }
-        if let navBarModel = navigationBarModel {
+        if let navBarModel = currentViewModel?.navigationBarModel {
             var model: CollectionViewModel?
             var imageModel: ImageStyleCollectionModel?
             var tableModel: TableStyleCollectionModel?
@@ -123,20 +124,22 @@ class CollectionPresenter: NSObject, CollectionViewOutput {
 //MARK: - CollectionInteractorOutput
 
 extension CollectionPresenter: CollectionInteractorOutput {
-    func objectsDidFetch(objects: [ObjectsOnImage], navigationBarModel: MainNavigationBarModel) {
-        self.navigationBarModel = navigationBarModel
+    func objectsDidFetch(objects: [ObjectsOnImage]) {
         nativeLanguage = objects.first?.nativeLanguage.humanRepresentingNative ?? ""
         foreignLanguage = objects.first?.foreignLanguage.humanRepresentingNative ?? ""
         self.objects.append(contentsOf: objects)
-
-    }
-
-    func changeLanguage() {
-        view?.changeLanguage()
     }
 
     func deleteData() {
+        view?.clearSearchBar()
         self.objects = []
+    }
+
+    func updateNavigation(with navModel: MainNavigationBarModel) {
+        view?.clearSearchBar()
+        let model = CollectionViewModel(navigationBarModel: navModel, imageModel: currentViewModel?.imageModel, tableModel: currentViewModel?.tableModel)
+        view?.updateContent(with: model)
+        self.currentViewModel = model
     }
 
 }

@@ -42,11 +42,11 @@ class FavoriteView: UIViewController, FavoriteViewInput {
 
     private func addAndConfigureNavigationBar() {
         let rightButton = UIButton()
-        rightButton.setTitle(LocalizedString().remember, for: .normal)
+        rightButton.setTitle("", for: .normal)
         rightButton.setTitleColor(.blue, for: .normal)
-
         rightButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.navigationBarButtonFontSize)
-        let navigationBar = MainNavigationBar(title: LocalizedString().favorite, rightButton: rightButton, isSearchBarNeeded: true)
+
+        let navigationBar = MainNavigationBar(title: "", rightButton: rightButton, isSearchBarNeeded: true)
 
         view.addSubview(navigationBar)
 
@@ -89,12 +89,11 @@ class FavoriteView: UIViewController, FavoriteViewInput {
 
     //    MARK: - UI update
     
-    func updateContent(with objects: [ObjectsOnImage]) {
-//        collectionSupervisor.updateContent(with: objects)
-    }
-
-    func languageChanged() {
-        title = LocalizedString().favorite
+    func updateContent(with model: FavoriteViewModel) {
+        if let tableModel = model.tableModel {
+            collectionSupervisor.updateContent(with: tableModel)
+        }
+        navigationBar?.update(with: model.navigationBarModel)
     }
 
     func showRememberButton(bool: Bool) {

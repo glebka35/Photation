@@ -8,12 +8,15 @@
 
 import UIKit
 
-protocol CollectionViewDataConverterProtocol {
+protocol ObjectToImageViewConverterProtocol {
     func convertToImage(from data: [ObjectsOnImage]) -> [ImageStyleObject]
+}
+
+protocol ObjectToTableViewConverterProtocol {
     func convertToTable(from data: [ObjectsOnImage]) -> [TableStyleObject]
 }
 
-final class CollectionViewDataConverter: CollectionViewDataConverterProtocol {
+final class CollectionViewDataConverter: ObjectToImageViewConverterProtocol, ObjectToTableViewConverterProtocol {
 
     func convertToImage(from data: [ObjectsOnImage]) -> [ImageStyleObject] {
         var objects: [ImageStyleObject] = []

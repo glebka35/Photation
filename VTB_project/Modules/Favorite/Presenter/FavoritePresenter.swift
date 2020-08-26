@@ -16,9 +16,23 @@ class FavoritePresenter: NSObject, FavoriteViewOutput {
     weak var view: FavoriteViewInput?
     var router: FavoriteRouterInput?
 
-    private var displayingObjects: [ObjectsOnImage] = []
+    private var displayingObjects: [SingleObject] = [] {
+        didSet {
+            updateData()
+        }
+    }
     private var objectsAndImages: [ObjectsOnImage] = []
-    private var filteredObjects: [ObjectsOnImage] = []
+    private var filteredObjects: [SingleObject] = [] {
+        didSet {
+            updateData()
+        }
+    }
+
+    private var currentViewModel: FavoriteViewModel?
+    private var navigationBarModel: MainNavigationBarModel?
+    private var nativeLanguage: String = ""
+    private var foreignLanguage: String = ""
+    private var dataConverter: SingleObjectsToTableViewConverterProtocol = SingleObjectsToTableViewConverter()
     private var isSearchActive = false
 
     //    MARK: - Life cycle
@@ -30,12 +44,41 @@ class FavoritePresenter: NSObject, FavoriteViewOutput {
     }
 
     func cellSelected(at indexPath: IndexPath) {
-        let object = isSearchActive ? filteredObjects[indexPath.row] : objectsAndImages[indexPath.row]
-        router?.showDetail(of: object)
+        let object = currentViewModel?.tableModel?.objects[indexPath.row]
+        let displayingObject = objectsAndImages.first { (image) -> Bool in
+            image.date == object?.id
+        }
+        if let objectToDetail = displayingObject {
+            router?.showDetail(of: objectToDetail)
+        }
     }
 
     func scrollViewDidScrollToBottom() {
         interactor?.loadObjects()
+    }
+
+    //    MARK: - UI update
+
+    private func updateData() {
+        let objectsToDisplay: [SingleObject]!
+
+        if isSearchActive {
+            objectsToDisplay = filteredObjects
+        } else {
+            objectsToDisplay = displayingObjects
+        }
+        if let navBarModel = navigationBarModel {
+            let tableObjects = dataConverter.convertToTable(from: objectsToDisplay, and: objectsAndImages)
+            let tableModel = TableStyleCollectionModel(nativeLanguage: nativeLanguage, foreignLanguage: foreignLanguage, objects: tableObjects)
+            let model = FavoriteViewModel(navigationBarModel: navBarModel, tableModel: tableModel)
+
+            view?.updateContent(with: model)
+            self.currentViewModel = model
+
+            view?.showRememberButton(bool: tableModel.objects.count > 1)
+        }
+
+        isSearchActive = false
     }
 }
 
@@ -61,34 +104,27 @@ extension FavoritePresenter: UISearchBarDelegate {
             isSearchActive = false
         } else {
             isSearchActive = true
-            filteredObjects = displayingObjects.filter({ (imageWithObjects) -> Bool in
-                var returnValue = false
+            filteredObjects = displayingObjects.filter({ (object) -> Bool in
 
-                imageWithObjects.objects.forEach { (object) in
-                    if let tmp = object.foreignName {
-                        let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
-                        if range != nil {
-                            returnValue = true
-                            return
-                        }
-                    }
-
-                    let tmp = object.nativeName
+                if let tmp = object.foreignName {
                     let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
                     if range != nil {
-                        returnValue = true
-                        return
+                        return true
                     }
                 }
 
-                return returnValue
+                let tmp = object.nativeName
+                let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+                if range != nil {
+                    return true
+                }
+
+                return false
             })
         }
-
-        view?.updateContent(with: filteredObjects)
     }
 
-//    MARK: - Navigation
+    //    MARK: - Navigation
 
     func openRememberGame() {
         router?.showRememberGame(with: displayingObjects)
@@ -102,34 +138,23 @@ extension FavoritePresenter: UISearchBarDelegate {
 
 extension FavoritePresenter: FavoriteInteractorOutput {
     func objectsDidFetch(images: [ObjectsOnImage], objects: [SingleObject]) {
+        nativeLanguage = images.first?.nativeLanguage.humanRepresentingNative ?? ""
+        foreignLanguage = images.first?.foreignLanguage.humanRepresentingNative ?? ""
         self.objectsAndImages.append(contentsOf: images)
-
-        var objectsToDisplay: [ObjectsOnImage] = []
-
-        if let nativeLanguage = self.objectsAndImages.first?.nativeLanguage, let foreignLanguage = self.objectsAndImages.first?.foreignLanguage, let date = self.objectsAndImages.first?.date {
-            for i in 0..<objects.count {
-                objectsToDisplay.append(ObjectsOnImage(image: images[i].image, objects: [objects[i]], date: date, nativeLanguage: nativeLanguage, foreignLanguage: foreignLanguage))
-            }
-        }
-
-        displayingObjects.append(contentsOf: objectsToDisplay)
-
-        view?.showRememberButton(bool: displayingObjects.count > 1)
-        view?.updateContent(with: displayingObjects)
-
-        view?.clearSearchBar()
-        isSearchActive = false
+        self.displayingObjects.append(contentsOf: objects)
     }
 
     func deleteData() {
+        view?.clearSearchBar()
         self.objectsAndImages = []
         self.displayingObjects = []
-
-
-        view?.updateContent(with: [])
     }
 
-    func languageChanged() {
-        view?.languageChanged()
+    func updateNavigation(with navModel: MainNavigationBarModel) {
+        view?.clearSearchBar()
+        let model = FavoriteViewModel(navigationBarModel: navModel, tableModel: currentViewModel?.tableModel)
+        view?.updateContent(with: model)
+        self.currentViewModel = model
+        self.navigationBarModel = navModel
     }
 }

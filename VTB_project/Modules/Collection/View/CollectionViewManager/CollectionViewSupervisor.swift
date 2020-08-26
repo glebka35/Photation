@@ -162,7 +162,10 @@ extension CollectionViewSupervisor: UICollectionViewDataSource {
                 else {
                     fatalError("Invalid header view")
             }
-            headerView.updateWith(nativeLanguage: SettingsStore.shared.getNativeLanguage().humanRepresentingNative, foreignLanguage: SettingsStore.shared.getForeignLanguage().humanRepresentingNative)
+            if let nativeLanguage = tableModel?.nativeLanguage, let foreignLanguage = tableModel?.foreignLanguage {
+                headerView.updateWith(nativeLanguage: nativeLanguage, foreignLanguage: foreignLanguage)
+            }
+
             return headerView
         default:
             assert(false, "Invalid element type")

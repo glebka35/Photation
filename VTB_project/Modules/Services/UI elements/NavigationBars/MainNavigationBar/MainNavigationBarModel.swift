@@ -11,4 +11,11 @@ import Foundation
 struct MainNavigationBarModel {
     let title: String
     let additionalTitle: String
+    let buttonTitle: String
+
+    init(title: String, additionalTitle: String, buttonTitle: String = "") {
+        self.title = title
+        self.additionalTitle = additionalTitle
+        self.buttonTitle = buttonTitle
+    }
 }

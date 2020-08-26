@@ -17,9 +17,8 @@ final class SingleObjectsToTableViewConverter: SingleObjectsToTableViewConverter
         var tableObjects: [TableStyleObject] = []
 
         for index in 0..<data.count {
-            if let foreignName = data[index].foreignName {
-                tableObjects.append(TableStyleObject(nativeName: data[index].nativeName, foreignName: foreignName, id: images[index].date))
-            }
+            let foreignName = data[index].foreignName
+            tableObjects.append(TableStyleObject(nativeName: data[index].nativeName, foreignName: foreignName, id: images[index].date))
         }
 
         return tableObjects

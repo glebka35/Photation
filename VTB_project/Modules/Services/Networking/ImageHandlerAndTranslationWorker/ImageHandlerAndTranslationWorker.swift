@@ -43,7 +43,7 @@ class ImageHandlerAndTranslationWorker: ObjectDetectorAndTranslator {
         }
     }
 
-    private func getTranslation(of objects: ObjectsOnImage, firstLanguage: Language, secondLanguage: Language, completion: @escaping (_ objects: ObjectsOnImage)->Void) {
+    private func getTranslation(of objects: ObjectsOnImage, firstLanguage: Language, secondLanguage: Language, completion: @escaping (_ objects: ObjectsOnImage?)->Void) {
         translator.translate(objects: objects, nativeLang: firstLanguage, foreignLang: secondLanguage) { (objects) in
             completion(objects)
         }

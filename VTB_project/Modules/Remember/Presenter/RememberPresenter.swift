@@ -80,7 +80,7 @@ extension RememberPresenter: RememberInteractorOutput {
 
         variants.shuffle()
 
-        let currentGameModel = RememberGameModel(mainWord: mainObject.foreignName ?? "", variants: variants, footerModel: footerModel)
+        let currentGameModel = RememberGameModel(mainWord: mainObject.foreignName, variants: variants, footerModel: footerModel)
         self.currentGameModel = currentGameModel
         return currentGameModel
     }

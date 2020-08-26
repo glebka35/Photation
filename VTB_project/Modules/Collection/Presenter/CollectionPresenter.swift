@@ -170,17 +170,16 @@ extension CollectionPresenter: UISearchBarDelegate {
                 var returnValue = false
 
                 imageWithObjects.objects.forEach { (object) in
-                    if let tmp = object.foreignName {
-                        let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
-                        if range != nil {
-                            returnValue = true
-                            return
-                        }
+
+                    let rangeForeign = object.foreignName.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+                    if rangeForeign != nil {
+                        returnValue = true
+                        return
                     }
 
                     let tmp = object.nativeName
-                    let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
-                    if range != nil {
+                    let rangeNative = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+                    if rangeNative != nil {
                         returnValue = true
                         return
                     }

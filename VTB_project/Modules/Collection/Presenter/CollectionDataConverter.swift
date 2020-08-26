@@ -35,7 +35,7 @@ final class CollectionViewDataConverter: ObjectToImageViewConverterProtocol, Obj
 
         data.forEach { image in
             image.objects.forEach {
-                objects.append(TableStyleObject(nativeName: $0.nativeName, foreignName: $0.foreignName ?? "", id: image.date))
+                objects.append(TableStyleObject(nativeName: $0.nativeName, foreignName: $0.foreignName, id: image.date))
             }
         }
 

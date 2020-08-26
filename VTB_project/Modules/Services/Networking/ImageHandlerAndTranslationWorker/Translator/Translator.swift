@@ -19,7 +19,7 @@ class Translator {
 
 //    MARK: - Translation objects
 
-    func translate(objects: ObjectsOnImage, nativeLang: Language, foreignLang: Language, completion: @escaping (_ objects: ObjectsOnImage)->Void) {
+    func translate(objects: ObjectsOnImage, nativeLang: Language, foreignLang: Language, completion: @escaping (_ objects: ObjectsOnImage?)->Void) {
 
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
 
@@ -46,13 +46,11 @@ class Translator {
                 
                 var words: [String] = []
                 objects.objects.forEach() {
-                    if let foreignName = $0.foreignName {
-                        words.append(foreignName)
-                    }
+                    words.append($0.foreignName)
                 }
                 self?.translate(words: words, from: .en, to: foreignLang) { dict in
                     for index in 0..<objects.objects.count {
-                        newObjects.objects[index].foreignName = dict[objects.objects[index].nativeName]
+                        newObjects.objects[index].foreignName = dict[objects.objects[index].nativeName] ?? ""
                     }
                     dispatchGroup.leave()
                 }
@@ -60,7 +58,17 @@ class Translator {
             
             dispatchGroup.wait()
 
-            completion(newObjects)
+            let filteredObjects = newObjects.objects.filter { (object) -> Bool in
+                object.nativeName != "" && object.foreignName != ""
+            }
+
+            if filteredObjects.count == 0 {
+                completion(nil)
+            } else {
+                newObjects = ObjectsOnImage(image: newObjects.image, objects: filteredObjects, date: newObjects.date, nativeLanguage: newObjects.nativeLanguage, foreignLanguage: newObjects.foreignLanguage)
+
+                completion(newObjects)
+            }
         }
     }
 

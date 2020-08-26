@@ -24,6 +24,10 @@ class ImagePickerInteractor: ImagePickerInteractorInput {
         NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
     }
 
+    func viewDidLoad() {
+        updateModel()
+    }
+
      //    MARK: - Data update
 
     func handle(image: UIImage) {
@@ -41,6 +45,11 @@ class ImagePickerInteractor: ImagePickerInteractorInput {
     }
 
     @objc private func languageChanged() {
-           presenter?.languageChanged()
+           updateModel()
        }
+
+    private func updateModel() {
+        let model = ImagePickerViewModel(navigationBarModel: MainNavigationBarModel(title: LocalizedString().add, additionalTitle: SettingsStore.shared.getForeignLanguage().humanRepresentingNative), cameraButtonTitle: LocalizedString().cameraButton, galeryButtonTitle: LocalizedString().galeryButton)
+        presenter?.update(with: model)
+    }
 }

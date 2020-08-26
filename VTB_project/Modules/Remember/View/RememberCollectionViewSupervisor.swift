@@ -33,12 +33,7 @@ class RememberCollectionViewSupervisor: NSObject {
     weak var delegate: CollectionViewActionsDelegate?
     weak var footerDelegate: FooterActionDelegate?
 
-    private var variants: [String] = [] {
-        didSet {
-            correctIndecies = []
-            wrongIndecies = []
-        }
-    }
+    private var variants: [String] = []
 
     private var correctIndecies: [IndexPath] = [] {
         didSet {
@@ -87,6 +82,11 @@ class RememberCollectionViewSupervisor: NSObject {
 
     func emphasizeWrongWord(at indexPath: IndexPath) {
         wrongIndecies.append(indexPath)
+    }
+
+    func resetEmphasizedWords() {
+        correctIndecies = []
+        wrongIndecies = []
     }
 }
 

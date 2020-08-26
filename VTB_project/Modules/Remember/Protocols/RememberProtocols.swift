@@ -13,8 +13,7 @@ import Foundation
 protocol RememberViewInput: AnyObject {
     var presenter: RememberViewOutput? { get set }
 
-    func update(with gameModel: RememberGameModel)
-    func update(footerWith model: FooterModel)
+    func update(with model: RememberViewModel)
     func emphasizeCorrectWord(at indexPath: IndexPath)
     func emphasizeWrongWord(at indexPath: IndexPath)
 
@@ -50,7 +49,7 @@ protocol RememberInteractorInput: AnyObject {
 
 protocol RememberInteractorOutput: AnyObject {
     func update(objects: RememberObjects)
-    func showWord(at index: Int, with footerModel: FooterModel)
+    func showWord(at index: Int, with footerModel: FooterModel, and navBarModel: DefaultNavigationBarModel)
 
     func correctWordChosen(at indexPath: IndexPath)
     func wrongWordChosen(at indexPath: IndexPath)

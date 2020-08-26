@@ -101,14 +101,11 @@ class RememberView: UIViewController, RememberViewInput {
 
     //    MARK: - UI update
 
-    func update(with gameModel: RememberGameModel) {
-        collectionSupervisor.update(with: gameModel.variants)
-        header.update(with: gameModel.mainWord)
-        footer.update(with: gameModel.footerModel)
-    }
-
-    func update(footerWith model: FooterModel) {
-        footer.update(with: model)
+    func update(with model: RememberViewModel) {
+        navigationBar?.update(with: model.navigationBarModel)
+        collectionSupervisor.update(with: model.gameModel.variants)
+        header.update(with: model.gameModel.mainWord)
+        footer.update(with: model.footerModel)
     }
 
     func emphasizeCorrectWord(at indexPath: IndexPath) {
@@ -135,6 +132,7 @@ extension RememberView: FooterActionDelegate {
     func performAction() {
         presenter?.nextButtonPressed()
         isUserInteractionEnable = true
+        collectionSupervisor.resetEmphasizedWords()
     }
 }
 

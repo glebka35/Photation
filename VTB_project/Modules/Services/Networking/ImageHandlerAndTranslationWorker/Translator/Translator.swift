@@ -14,8 +14,8 @@ class Translator {
 
     private let translationClient = TranslationClient()
 
-    private var firstLangdictionary: SynchronizedStringDictionary = SynchronizedStringDictionary()
-    private var secondLangdictionary: SynchronizedStringDictionary = SynchronizedStringDictionary()
+    private var firstLangdictionary: SynchronizedStringDictionary = SynchronizedStringDictionary<String>()
+    private var secondLangdictionary: SynchronizedStringDictionary = SynchronizedStringDictionary<String>()
 
 //    MARK: - Translation objects
 
@@ -74,10 +74,10 @@ class Translator {
 
 //    MARK: - Translation words
 
-    private func translate(words: [String], from inLanguage: Language, to outLanguage: Language, completion: @escaping (_ dictionary: SynchronizedStringDictionary)->Void) {
+    private func translate(words: [String], from inLanguage: Language, to outLanguage: Language, completion: @escaping (_ dictionary: SynchronizedStringDictionary<String>)->Void) {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             let dispatchGroup = DispatchGroup()
-            let dictionary = SynchronizedStringDictionary()
+            let dictionary = SynchronizedStringDictionary<String>()
 
             words.forEach { (word) in
                 dispatchGroup.enter()

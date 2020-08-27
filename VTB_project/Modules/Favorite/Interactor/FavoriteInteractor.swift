@@ -10,46 +10,52 @@ import Foundation
 
 class FavoriteInteractor: FavoriteInteractorInput {
 
-//    MARK: - Properties
+    //    MARK: - Properties
     
     weak var presenter: FavoriteInteractorOutput?
-    private var coreDataStorage = CoreDataStore.shared
+    private let coreDataStorage: CoreDataStore = CoreDataStore.shared
+    private let predicates = [
+            "image." + ConstantsKeys.nativeLanguage : SettingsStore.shared.getNativeLanguage().rawValue,
+            "image." + ConstantsKeys.foreignLanguage : SettingsStore.shared.getForeignLanguage().rawValue
+    ]
     private var page = 0
     private var isStoreEmpty = false
     private var loadMoreStatus = false
 
-//    MARK: - Life cycle
+    private var viewLoaded = false
+
+    //    MARK: - Life cycle
 
     init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.newImageAdded), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.deletaDataNotification), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.dataModified), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
     }
 
     func viewDidLoad() {
+        viewLoaded = true
         setNavigationBar()
         loadObjects()
     }
 
-//    MARK: - Data fetching
+
+    //    MARK: - Data fetching
 
     func loadObjects() {
         if !loadMoreStatus && !isStoreEmpty {
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 self?.loadMoreStatus = true
-                if let page = self?.page, let (objects, images) = self?.coreDataStorage.loadFavoriteImages(page: page) {
+                if let self = self {
+                    let (objects, images) = self.coreDataStorage.loadFavoriteImages(page: self.page, with: self.predicates)
                     DispatchQueue.main.async {
-
                         if let images = images, let objects = objects {
-                            self?.presenter?.objectsDidFetch(images: images, objects: objects)
-                            self?.page += 1
+                            self.presenter?.objectsDidFetch(images: images, objects: objects)
+                            self.page += 1
 
                             if objects.count == 0 {
-                                self?.isStoreEmpty = true
+                                self.isStoreEmpty = true
                             }
                         }
-                        
                     }
                 }
                 self?.loadMoreStatus = false
@@ -64,19 +70,23 @@ class FavoriteInteractor: FavoriteInteractorInput {
     }
 
     @objc private func reloadData() {
-        deleteData()
+        if viewLoaded {
+            deleteData()
 
-        page = 0
-        isStoreEmpty = false
-        loadObjects()
+            page = 0
+            isStoreEmpty = false
+            loadObjects()
+        }
     }
 
-    @objc private func deleteData() {
+    private func deleteData() {
         presenter?.deleteData()
     }
 
     @objc private func languageChanged() {
-        setNavigationBar()
-        reloadData()
+        if viewLoaded {
+            setNavigationBar()
+            reloadData()
+        }
     }
 }

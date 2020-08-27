@@ -66,6 +66,8 @@ class SettingsView: UIViewController, SettingsViewInput {
     func updateTable(with data: SettingsViewModel) {
         navigationBar.update(with: data.navigationBarModel)
         tableViewSupervisor?.update(with: data.cellModels)
+
+        title = data.navigationBarModel.title
     }
 }
 

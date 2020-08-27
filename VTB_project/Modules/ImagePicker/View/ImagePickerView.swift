@@ -150,6 +150,8 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
         navigationBar?.update(with: model.navigationBarModel)
         cameraButton?.setTitle(model.cameraButtonTitle, for: .normal)
         galeryButton?.setTitle(model.galeryButtonTitle, for: .normal)
+
+        title = model.navigationBarModel.title
     }
 }
 

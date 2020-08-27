@@ -14,20 +14,8 @@ class DefaultNavigationBar: UIView {
 
     weak var delegate: NavigationBarDelegate?
 
-    public var titleString: String? {
-        didSet { title?.text = titleString }
-    }
-
-    public var backButtonTitle: String? {
-        didSet { backButton?.setTitle(backButtonTitle, for: .normal) }
-    }
-
-    public var backButtonImage: UIImage? {
-        didSet { backButton?.setImage(backButtonImage, for: .normal) }
-    }
-
-    private var title: UILabel?
-    private var backButton: UIButton?
+    private let titleLabel = UILabel()
+    private let backButton = UIButton()
 
     //    MARK: - Life cycle
 
@@ -46,53 +34,61 @@ class DefaultNavigationBar: UIView {
     //    MARK: - UI configuration
 
     private func addAndConfigureTitle(with text: String?) {
-        let title = UILabel()
-        addSubview(title)
 
-        title.numberOfLines = 1
-        title.textAlignment = .center
-        title.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        title.text = text
-        title.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(titleLabel)
+
+        titleLabel.numberOfLines = 1
+        titleLabel.textAlignment = .center
+        titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        titleLabel.text = text
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        titleLabel.minimumScaleFactor = 0.1
+        titleLabel.adjustsFontSizeToFitWidth = true
+        titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+
+        let constraint = titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+        constraint.priority = .init(rawValue: 300)
 
         NSLayoutConstraint.activate([
-            title.centerXAnchor.constraint(equalTo: centerXAnchor),
-            title.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
+            constraint,
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            titleLabel.trailingAnchor.constraint(greaterThanOrEqualTo: trailingAnchor, constant: -layoutMargins.right)
         ])
-
-        self.title = title
     }
 
     private func addAndConfigureBackButton(with title: String?, and image: UIImage?) {
-        let backButton = UIButton()
+
         addSubview(backButton)
         backButton.setTitle(title, for: .normal)
         backButton.setTitleColor(#colorLiteral(red: 0.003280593548, green: 0.4784809947, blue: 0.9998757243, alpha: 1), for: .normal)
         backButton.setImage(image, for: .normal)
         backButton.translatesAutoresizingMaskIntoConstraints = false
 
-        backButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: -5)
-        backButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+        backButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: -5)
+        backButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
+
+        let horizontalConstraint = backButton.trailingAnchor.constraint(lessThanOrEqualTo: titleLabel.leadingAnchor, constant: -5)
+        horizontalConstraint.priority = .init(rawValue: 700)
 
         NSLayoutConstraint.activate([
-            backButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            backButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
+            backButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: layoutMargins.left),
+            backButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            horizontalConstraint
         ])
 
         backButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-
-        self.backButton = backButton
     }
 
     //    MARK: - UI update
 
     func updateTitle(with text: String) {
-        title?.text = text
+        titleLabel.text = text
     }
 
     func update(with model: DefaultNavigationBarModel) {
-        title?.text = model.title
-        backButton?.setTitle(model.backButtonTitle, for: .normal)
+        titleLabel.text = model.title
+        backButton.setTitle(model.backButtonTitle, for: .normal)
     }
 
     //    MARK: - User interaction

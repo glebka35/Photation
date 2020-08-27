@@ -9,12 +9,13 @@
 import UIKit
 
 
-class SettingsTableViewCell: UITableViewCell {
+class TableViewCell: UITableViewCell {
 
 //    MARK: - Properties
 
-    var topSeparator = UIView()
-    var bottomSeparator = UIView()
+    let topSeparator = UIView()
+    let bottomSeparator = UIView()
+    let rightLabel = UILabel()
 
 //    MARK: - Life cycle
 
@@ -28,6 +29,7 @@ class SettingsTableViewCell: UITableViewCell {
 
         addTopSeparator()
         addBottomSeparator()
+        addRightLabel()
     }
 
     required init?(coder: NSCoder) {
@@ -62,6 +64,22 @@ class SettingsTableViewCell: UITableViewCell {
             bottomSeparator.trailingAnchor.constraint(equalTo: trailingAnchor),
             bottomSeparator.heightAnchor.constraint(equalToConstant: 1)
         ])
+    }
+
+    private func addRightLabel() {
+        rightLabel.numberOfLines = 1
+        rightLabel.translatesAutoresizingMaskIntoConstraints = false
+        rightLabel.textColor = .blue
+        rightLabel.font = UIFont.systemFont(ofSize: 10)
+
+        addSubview(rightLabel)
+
+        NSLayoutConstraint.activate([
+            rightLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            rightLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
+        ])
+
+        rightLabel.isHidden = true
     }
 
     //    MARK: - UI update

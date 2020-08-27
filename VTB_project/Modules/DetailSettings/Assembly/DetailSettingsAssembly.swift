@@ -10,10 +10,11 @@ import Foundation
 
 class DetailSettingsAssembly {
     func createDetailSettingsModule(with setting: SettingsList)->DetailSettingsView {
-        let presenter: DetailSettingsViewOutput & DetailSettingsInteractorOutput = DetailSettingsPresenter(with: setting)
+        let presenter: DetailSettingsViewOutput & DetailSettingsInteractorOutput = DetailSettingsPresenter()
+        let interactor = DetailSettingsInteractor(with: setting)
         let detailSettingsView = DetailSettingsView()
         let router = DetailSettingsRouter()
-        let interactor = DetailSettingsInteractor()
+
 
         router.view = detailSettingsView
 

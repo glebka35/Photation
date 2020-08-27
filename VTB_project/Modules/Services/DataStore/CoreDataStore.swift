@@ -31,9 +31,7 @@ class CoreDataStore: NSObject, DataStoreProtocol {
     private lazy var fetchRequest: NSFetchRequest<ImageEntity> = {
         let fetchRequest: NSFetchRequest<ImageEntity> = ImageEntity.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
-        let predicate = NSPredicate(format: "foreignLanguage = %@ AND nativeLanguage = %@", SettingsStore.shared.getForeignLanguage().rawValue, SettingsStore.shared.getNativeLanguage().rawValue)
 
-        fetchRequest.predicate = predicate
         fetchRequest.fetchBatchSize = Constants.pageSize
         fetchRequest.sortDescriptors = [sortDescriptor]
 
@@ -43,9 +41,7 @@ class CoreDataStore: NSObject, DataStoreProtocol {
     private lazy var favoriteFetchRequest: NSFetchRequest<ObjectEntity> = {
         let favoriteFetchRequest: NSFetchRequest<ObjectEntity> = ObjectEntity.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
-        let predicate = NSPredicate(format: "image.foreignLanguage = %@ AND image.nativeLanguage = %@ AND isFavorite == true", SettingsStore.shared.getForeignLanguage().rawValue, SettingsStore.shared.getNativeLanguage().rawValue)
 
-        favoriteFetchRequest.predicate = predicate
         favoriteFetchRequest.fetchBatchSize = Constants.pageSize
         favoriteFetchRequest.sortDescriptors = [sortDescriptor]
 
@@ -64,16 +60,13 @@ class CoreDataStore: NSObject, DataStoreProtocol {
             }
         }
         //        Uncomment to get dataStore url
-        //        print(NSPersistentContainer.defaultDirectoryURL())
+//        print(NSPersistentContainer.defaultDirectoryURL())
         return container
     } ()
 
     //    MARK: - Life cycle
 
-    private override init() {
-        super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
-    }
+    private override init() { }
 
     //    MARK: - Saving
 
@@ -95,8 +88,11 @@ class CoreDataStore: NSObject, DataStoreProtocol {
 
     //    MARK: - Fetching
 
-    func loadMoreImages(page: Int)->[ObjectsOnImage]? {
+    func loadMoreImages(page: Int, with predicates: [String:String])->[ObjectsOnImage]? {
+        fetchRequest.predicate = configurePredicate(with: predicates)
         fetchRequest.fetchOffset = page * Constants.pageSize
+        fetchRequest.fetchBatchSize = Constants.pageSize
+
         do {
             let objects = try managedContext.fetch(fetchRequest)
             return converter.convert(managedObject: objects)
@@ -106,8 +102,11 @@ class CoreDataStore: NSObject, DataStoreProtocol {
         }
     }
 
-    func loadFavoriteImages(page: Int)->(objects: [SingleObject]?, images: [ObjectsOnImage]?) {
+    func loadFavoriteImages(page: Int, with predicates: [String:String])->(objects: [SingleObject]?, images: [ObjectsOnImage]?) {
+        favoriteFetchRequest.predicate = configurePredicate(with: predicates)
         favoriteFetchRequest.fetchOffset = page * Constants.pageSize
+        favoriteFetchRequest.fetchBatchSize = Constants.pageSize
+
         do {
             let objects = try managedContext.fetch(favoriteFetchRequest)
             return converter.getObjectsAndImages(objects: objects)
@@ -115,19 +114,36 @@ class CoreDataStore: NSObject, DataStoreProtocol {
             print("Fetch failed")
             return (nil, nil)
         }
+    }
 
+    func imagesCountFor(predicates: [String:String]) -> Int {
+        fetchRequest.predicate = configurePredicate(with: predicates)
+        fetchRequest.fetchOffset = 0
+        fetchRequest.fetchBatchSize = 0
+
+        do {
+            let count = try managedContext.count(for: fetchRequest)
+            return count
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+    }
+
+
+    //    MARK: - Fetch request configuration
+
+    private func configurePredicate(with dict: [String:String])->NSCompoundPredicate {
+        let nsPredicates = dict.map { (key, value) -> NSPredicate in
+            NSPredicate(format: "\(key) == %@", value)
+        }
+        return NSCompoundPredicate(andPredicateWithSubpredicates: nsPredicates)
     }
 
     //    MARK: - Deleting
 
-    func deleteEntities(with nativeLanguage: Language, and foreignLanguage: Language) {
+    func deleteEntities(with predicates: [String:String]) {
         let deleteFetchRequest: NSFetchRequest<ImageEntity> = ImageEntity.fetchRequest()
-        let nativePredicate = NSPredicate(format: "nativeLanguage = %@", nativeLanguage.rawValue)
-        let foreignPredicate = NSPredicate(format: "foreignLanguage = %@", foreignLanguage.rawValue)
-
-        let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [nativePredicate, foreignPredicate])
-
-        deleteFetchRequest.predicate = andPredicate
+        deleteFetchRequest.predicate = configurePredicate(with: predicates)
 
         do {
             let objects = try managedContext.fetch(deleteFetchRequest)
@@ -143,10 +159,9 @@ class CoreDataStore: NSObject, DataStoreProtocol {
         } catch {
             fatalError("Error while deleting objects")
         }
-
     }
 
-//    MARK: - Update object
+    //    MARK: - Update object
 
     func updateEntity(with object: SingleObject) {
         let updateFetchRequest: NSFetchRequest<ObjectEntity> = ObjectEntity.fetchRequest()
@@ -168,17 +183,5 @@ class CoreDataStore: NSObject, DataStoreProtocol {
             fatalError("Error while deleting objects")
         }
 
-    }
-
-//    MARK: - Language changed
-
-    @objc private func languageChanged() {
-        let fetchPredicate = NSPredicate(format: "foreignLanguage = %@ AND nativeLanguage = %@", SettingsStore.shared.getForeignLanguage().rawValue, SettingsStore.shared.getNativeLanguage().rawValue)
-
-        fetchRequest.predicate = fetchPredicate
-
-        let favoritePredicate = NSPredicate(format: "image.foreignLanguage = %@ AND image.nativeLanguage = %@ AND isFavorite == true", SettingsStore.shared.getForeignLanguage().rawValue, SettingsStore.shared.getNativeLanguage().rawValue)
-
-        favoriteFetchRequest.predicate = favoritePredicate
     }
 }

@@ -8,11 +8,11 @@
 
 import Foundation
 
-public class SynchronizedStringDictionary {
+public class SynchronizedStringDictionary<T> {
 
 //    MARK: - Properties
 
-    private var dict: [String: String] = [:]
+    private var dict: [String: T] = [:]
     private let accessQueue = DispatchQueue(label: "SynchronizedDictionaryAccess", attributes: .concurrent)
 
     public var count: Int {
@@ -27,7 +27,7 @@ public class SynchronizedStringDictionary {
 
 //    MARK: - Actions
 
-    public func add(newElement: String, for key: String) {
+    public func add(newElement: T, for key: String) {
         self.accessQueue.async(flags:.barrier) {
             self.dict[key] = newElement
         }
@@ -39,14 +39,14 @@ public class SynchronizedStringDictionary {
         }
     }
 
-    public subscript(key: String) -> String? {
+    public subscript(key: String) -> T? {
         set {
             self.accessQueue.async(flags:.barrier) {
                 self.dict[key] = newValue
             }
         }
         get {
-            var element: String?
+            var element: T?
             self.accessQueue.sync {
                 element = self.dict[key]
             }

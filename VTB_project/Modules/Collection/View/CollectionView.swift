@@ -87,6 +87,8 @@ class CollectionView: UIViewController, CollectionViewInput {
 
         navigationBar.update(with: model.navigationBarModel)
         navigationBar.rightButtonImage = UIImage(named: currentStyle.buttonImage)
+
+        title = model.navigationBarModel.title
     }
 
     func clearSearchBar() {

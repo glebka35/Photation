@@ -31,7 +31,7 @@ class SettingsTableViewSupervisor: NSObject {
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
-        tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(TableViewCell.self, forCellReuseIdentifier: "cell")
         return tableView
     }
 
@@ -74,7 +74,7 @@ extension SettingsTableViewSupervisor: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? SettingsTableViewCell else { return SettingsTableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TableViewCell else { return TableViewCell() }
 
         let isDestructive = indexPath.section == cellModels.count - 1
         let isFirst = indexPath.row == 0

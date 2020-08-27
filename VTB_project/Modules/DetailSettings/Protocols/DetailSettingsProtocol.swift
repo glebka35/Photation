@@ -13,10 +13,8 @@ import Foundation
 protocol DetailSettingsViewInput: AnyObject {
     var presenter: DetailSettingsViewOutput? { get set }
 
-    func set(title: String)
-    func updateTable(with data: [LanguageCellViewModel])
-    func languageChanged(settings: SettingsList)
 
+    func update(with model: DetailSettingsViewModel)
 }
 
 //MARK: - VIEW -> PRESENTER
@@ -37,14 +35,13 @@ protocol DetailSettingsInteractorInput: AnyObject {
     var presenter: DetailSettingsInteractorOutput? { get set }
 
     func viewDidLoad()
-    func languageChosen(at indexPath: IndexPath, settings: SettingsList)
+    func languageChosen(at indexPath: IndexPath)
 }
 
 //MARK:- INTERACTOR -> PRESENTER
 
 protocol DetailSettingsInteractorOutput: AnyObject {
-    func display(languages: [Language])
-    func languageChanged()
+    func update(with cells: [LanguageCellViewModel], and navBar: DefaultNavigationBarModel)
 }
 
 //MARK:- PRESENTER -> ROUTER

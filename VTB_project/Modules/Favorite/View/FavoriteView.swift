@@ -94,6 +94,8 @@ class FavoriteView: UIViewController, FavoriteViewInput {
             collectionSupervisor.updateContent(with: tableModel)
         }
         navigationBar?.update(with: model.navigationBarModel)
+
+        title = model.navigationBarModel.title
     }
 
     func showRememberButton(bool: Bool) {

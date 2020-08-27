@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B199D4524F7BDDC00B22F68 /* DetailSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B199D4424F7BDDC00B22F68 /* DetailSettingsViewModel.swift */; };
 		2B46C51C24D2AA0800CA143E /* SettingsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C51B24D2AA0800CA143E /* SettingsProtocol.swift */; };
 		2B46C51E24D2AB6E00CA143E /* SettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C51D24D2AB6E00CA143E /* SettingsRouter.swift */; };
 		2B46C52024D2AB8E00CA143E /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C51F24D2AB8E00CA143E /* SettingsPresenter.swift */; };
@@ -14,7 +15,7 @@
 		2B46C52424D2AC2200CA143E /* SettingsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C52324D2AC2200CA143E /* SettingsAssembly.swift */; };
 		2B46C52624D2B8B500CA143E /* SettingsTableViewSupervisor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C52524D2B8B500CA143E /* SettingsTableViewSupervisor.swift */; };
 		2B46C52824D2B91A00CA143E /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C52724D2B91A00CA143E /* SettingsViewModel.swift */; };
-		2B46C52A24D2CAF400CA143E /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C52924D2CAF400CA143E /* SettingsTableViewCell.swift */; };
+		2B46C52A24D2CAF400CA143E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C52924D2CAF400CA143E /* TableViewCell.swift */; };
 		2B46C53424D2E33400CA143E /* DetailSettingsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C53324D2E33400CA143E /* DetailSettingsProtocol.swift */; };
 		2B46C53624D2E38F00CA143E /* DetailSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C53524D2E38F00CA143E /* DetailSettingsView.swift */; };
 		2B46C53824D2E3C100CA143E /* DetailSettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C53724D2E3C100CA143E /* DetailSettingsRouter.swift */; };
@@ -22,12 +23,11 @@
 		2B46C53C24D2E46900CA143E /* DetailSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C53B24D2E46900CA143E /* DetailSettingsInteractor.swift */; };
 		2B46C53E24D2E6E800CA143E /* DetailTableSupervisor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C53D24D2E6E800CA143E /* DetailTableSupervisor.swift */; };
 		2B46C54024D2E7A500CA143E /* DetailSettingsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C53F24D2E7A500CA143E /* DetailSettingsAssembly.swift */; };
-		2B46C54224D2E84D00CA143E /* LanguageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C54124D2E84D00CA143E /* LanguageCellViewModel.swift */; };
 		2B46C54424D2EA9500CA143E /* TableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C54324D2EA9500CA143E /* TableViewCell+.swift */; };
 		2B46C54624D309B500CA143E /* SettingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C54524D309B500CA143E /* SettingsList.swift */; };
 		2B46C55124D578D900CA143E /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C55024D578D900CA143E /* CoreDataStore.swift */; };
 		2B46C55424D5798800CA143E /* PhotationCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C55224D5798800CA143E /* PhotationCoreData.xcdatamodeld */; };
-		2B46C57724D5A74B00CA143E /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C57624D5A74B00CA143E /* DataStore.swift */; };
+		2B46C57724D5A74B00CA143E /* DataStoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C57624D5A74B00CA143E /* DataStoreProtocol.swift */; };
 		2B46C57924D5AA7A00CA143E /* DataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C57824D5AA7A00CA143E /* DataConverter.swift */; };
 		2B46C57B24D5ACF500CA143E /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C57A24D5ACF500CA143E /* UIColor+.swift */; };
 		2B46C59A24DBE56E00CA143E /* ImageEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C59824DBE56E00CA143E /* ImageEntity+CoreDataClass.swift */; };
@@ -121,6 +121,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B199D4424F7BDDC00B22F68 /* DetailSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingsViewModel.swift; sourceTree = "<group>"; };
 		2B46C51B24D2AA0800CA143E /* SettingsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsProtocol.swift; sourceTree = "<group>"; };
 		2B46C51D24D2AB6E00CA143E /* SettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRouter.swift; sourceTree = "<group>"; };
 		2B46C51F24D2AB8E00CA143E /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
@@ -128,7 +129,7 @@
 		2B46C52324D2AC2200CA143E /* SettingsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAssembly.swift; sourceTree = "<group>"; };
 		2B46C52524D2B8B500CA143E /* SettingsTableViewSupervisor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewSupervisor.swift; sourceTree = "<group>"; };
 		2B46C52724D2B91A00CA143E /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
-		2B46C52924D2CAF400CA143E /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		2B46C52924D2CAF400CA143E /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		2B46C53324D2E33400CA143E /* DetailSettingsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingsProtocol.swift; sourceTree = "<group>"; };
 		2B46C53524D2E38F00CA143E /* DetailSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingsView.swift; sourceTree = "<group>"; };
 		2B46C53724D2E3C100CA143E /* DetailSettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingsRouter.swift; sourceTree = "<group>"; };
@@ -136,12 +137,11 @@
 		2B46C53B24D2E46900CA143E /* DetailSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingsInteractor.swift; sourceTree = "<group>"; };
 		2B46C53D24D2E6E800CA143E /* DetailTableSupervisor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableSupervisor.swift; sourceTree = "<group>"; };
 		2B46C53F24D2E7A500CA143E /* DetailSettingsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingsAssembly.swift; sourceTree = "<group>"; };
-		2B46C54124D2E84D00CA143E /* LanguageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageCellViewModel.swift; sourceTree = "<group>"; };
 		2B46C54324D2EA9500CA143E /* TableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableViewCell+.swift"; sourceTree = "<group>"; };
 		2B46C54524D309B500CA143E /* SettingsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsList.swift; sourceTree = "<group>"; };
 		2B46C55024D578D900CA143E /* CoreDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
 		2B46C55324D5798800CA143E /* PhotationCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PhotationCoreData.xcdatamodel; sourceTree = "<group>"; };
-		2B46C57624D5A74B00CA143E /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		2B46C57624D5A74B00CA143E /* DataStoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStoreProtocol.swift; sourceTree = "<group>"; };
 		2B46C57824D5AA7A00CA143E /* DataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConverter.swift; sourceTree = "<group>"; };
 		2B46C57A24D5ACF500CA143E /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		2B46C59824DBE56E00CA143E /* ImageEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -292,7 +292,7 @@
 				2B6BC13C24AF45EB00ED4125 /* SettingsView.swift */,
 				2B46C52524D2B8B500CA143E /* SettingsTableViewSupervisor.swift */,
 				2B46C52724D2B91A00CA143E /* SettingsViewModel.swift */,
-				2B46C52924D2CAF400CA143E /* SettingsTableViewCell.swift */,
+				2B46C52924D2CAF400CA143E /* TableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -354,8 +354,8 @@
 			isa = PBXGroup;
 			children = (
 				2B46C53524D2E38F00CA143E /* DetailSettingsView.swift */,
+				2B199D4424F7BDDC00B22F68 /* DetailSettingsViewModel.swift */,
 				2B46C53D24D2E6E800CA143E /* DetailTableSupervisor.swift */,
-				2B46C54124D2E84D00CA143E /* LanguageCellViewModel.swift */,
 				2B46C54324D2EA9500CA143E /* TableViewCell+.swift */,
 			);
 			path = View;
@@ -389,7 +389,7 @@
 		2B46C54F24D578C000CA143E /* DataStore */ = {
 			isa = PBXGroup;
 			children = (
-				2B46C57624D5A74B00CA143E /* DataStore.swift */,
+				2B46C57624D5A74B00CA143E /* DataStoreProtocol.swift */,
 				2B46C55024D578D900CA143E /* CoreDataStore.swift */,
 				2B9B123824E4033300646455 /* SettingsStore.swift */,
 				2B46C57C24D5AD9700CA143E /* DataConverter */,
@@ -994,8 +994,8 @@
 		2BD8D3E324CF138F0099C575 /* NavigationBars */ = {
 			isa = PBXGroup;
 			children = (
-				2B676DC724F5545400AC4BB8 /* MainNavigationBar */,
 				2BD8D3E424CF13E60099C575 /* NavigationBarDelegate.swift */,
+				2B676DC724F5545400AC4BB8 /* MainNavigationBar */,
 				2B676DCC24F5605F00AC4BB8 /* DefaultNavigationBar */,
 			);
 			path = NavigationBars;
@@ -1120,13 +1120,14 @@
 				2B80004424C37630004D1A12 /* ImagePickerProtocols.swift in Sources */,
 				2B9B125124EA9B0900646455 /* RememberView.swift in Sources */,
 				2B46C53E24D2E6E800CA143E /* DetailTableSupervisor.swift in Sources */,
-				2B46C57724D5A74B00CA143E /* DataStore.swift in Sources */,
+				2B46C57724D5A74B00CA143E /* DataStoreProtocol.swift in Sources */,
 				2BAD878024B4A85700F0DAC0 /* CollectionViewSupervisor.swift in Sources */,
 				2B5125D724D016BB00021937 /* ImageHandler.swift in Sources */,
 				2B676DBE24F3E55A00AC4BB8 /* LanguageProvider.swift in Sources */,
 				2B80003224C040A9004D1A12 /* CollectionAssembly.swift in Sources */,
 				2B6BC13F24AF468E00ED4125 /* MainTabBarController.swift in Sources */,
 				2BE61E3324B4A43D007F9C19 /* ImageCollectionViewCell.swift in Sources */,
+				2B199D4524F7BDDC00B22F68 /* DetailSettingsViewModel.swift in Sources */,
 				2B46C53824D2E3C100CA143E /* DetailSettingsRouter.swift in Sources */,
 				2B46C5AA24DC364200CA143E /* FavoritePresenter.swift in Sources */,
 				2BD8D35424C830DB0099C575 /* TranslationResponse.swift in Sources */,
@@ -1141,7 +1142,6 @@
 				2B6BC13D24AF45EB00ED4125 /* SettingsView.swift in Sources */,
 				2B46C53C24D2E46900CA143E /* DetailSettingsInteractor.swift in Sources */,
 				2B46C53A24D2E41B00CA143E /* DetailSettingsPresenter.swift in Sources */,
-				2B46C54224D2E84D00CA143E /* LanguageCellViewModel.swift in Sources */,
 				2B676DCE24F5607600AC4BB8 /* DefaultNavigationBarModel.swift in Sources */,
 				2B676D8A24EBD6A100AC4BB8 /* CollectionViewActionsDelegate.swift in Sources */,
 				2BD8D3D524CEB12F0099C575 /* DetailInteractor.swift in Sources */,
@@ -1200,7 +1200,7 @@
 				2B46C54024D2E7A500CA143E /* DetailSettingsAssembly.swift in Sources */,
 				2B46C52224D2ABF600CA143E /* SettingsInteractor.swift in Sources */,
 				2BDA769A24F6CA4600D82E9D /* RememberViewModel.swift in Sources */,
-				2B46C52A24D2CAF400CA143E /* SettingsTableViewCell.swift in Sources */,
+				2B46C52A24D2CAF400CA143E /* TableViewCell.swift in Sources */,
 				2B80004A24C6D5C9004D1A12 /* CloudMersiveClient.swift in Sources */,
 				2BD8D3CD24CEAE530099C575 /* DetailProtocols.swift in Sources */,
 				2B46C52624D2B8B500CA143E /* SettingsTableViewSupervisor.swift in Sources */,

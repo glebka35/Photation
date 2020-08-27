@@ -13,7 +13,7 @@ struct MainNavigationBarModel {
     let additionalTitle: String
     let buttonTitle: String
 
-    init(title: String, additionalTitle: String, buttonTitle: String = "") {
+    init(title: String, additionalTitle: String = "", buttonTitle: String = "") {
         self.title = title
         self.additionalTitle = additionalTitle
         self.buttonTitle = buttonTitle

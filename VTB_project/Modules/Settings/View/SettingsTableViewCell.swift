@@ -9,7 +9,7 @@
 import UIKit
 
 
-class TableViewCell: UITableViewCell {
+class SettingsTableViewCell: UITableViewCell {
 
 //    MARK: - Properties
 
@@ -66,7 +66,7 @@ class TableViewCell: UITableViewCell {
 
     //    MARK: - UI update
 
-    func update(with model: CellViewModel, isFirst: Bool, isLast: Bool, isDestructive: Bool) {
+    func update(with model: SettingsCellViewModel, isFirst: Bool, isLast: Bool, isDestructive: Bool) {
         imageView?.image = model.image
         textLabel?.text = model.title
         self.accessoryType = accessoryType

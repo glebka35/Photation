@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension TableViewCell {
+extension SettingsTableViewCell {
     func update(with language: LanguageCellViewModel, isFirst: Bool, isLast: Bool) {
 
         textLabel?.text = language.main

@@ -12,9 +12,9 @@
 		2B46C52024D2AB8E00CA143E /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C51F24D2AB8E00CA143E /* SettingsPresenter.swift */; };
 		2B46C52224D2ABF600CA143E /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C52124D2ABF600CA143E /* SettingsInteractor.swift */; };
 		2B46C52424D2AC2200CA143E /* SettingsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C52324D2AC2200CA143E /* SettingsAssembly.swift */; };
-		2B46C52624D2B8B500CA143E /* TableViewSupervisor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C52524D2B8B500CA143E /* TableViewSupervisor.swift */; };
-		2B46C52824D2B91A00CA143E /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C52724D2B91A00CA143E /* ViewModel.swift */; };
-		2B46C52A24D2CAF400CA143E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C52924D2CAF400CA143E /* TableViewCell.swift */; };
+		2B46C52624D2B8B500CA143E /* SettingsTableViewSupervisor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C52524D2B8B500CA143E /* SettingsTableViewSupervisor.swift */; };
+		2B46C52824D2B91A00CA143E /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C52724D2B91A00CA143E /* SettingsViewModel.swift */; };
+		2B46C52A24D2CAF400CA143E /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C52924D2CAF400CA143E /* SettingsTableViewCell.swift */; };
 		2B46C53424D2E33400CA143E /* DetailSettingsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C53324D2E33400CA143E /* DetailSettingsProtocol.swift */; };
 		2B46C53624D2E38F00CA143E /* DetailSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C53524D2E38F00CA143E /* DetailSettingsView.swift */; };
 		2B46C53824D2E3C100CA143E /* DetailSettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C53724D2E3C100CA143E /* DetailSettingsRouter.swift */; };
@@ -126,9 +126,9 @@
 		2B46C51F24D2AB8E00CA143E /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		2B46C52124D2ABF600CA143E /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
 		2B46C52324D2AC2200CA143E /* SettingsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAssembly.swift; sourceTree = "<group>"; };
-		2B46C52524D2B8B500CA143E /* TableViewSupervisor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSupervisor.swift; sourceTree = "<group>"; };
-		2B46C52724D2B91A00CA143E /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		2B46C52924D2CAF400CA143E /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		2B46C52524D2B8B500CA143E /* SettingsTableViewSupervisor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewSupervisor.swift; sourceTree = "<group>"; };
+		2B46C52724D2B91A00CA143E /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		2B46C52924D2CAF400CA143E /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		2B46C53324D2E33400CA143E /* DetailSettingsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingsProtocol.swift; sourceTree = "<group>"; };
 		2B46C53524D2E38F00CA143E /* DetailSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingsView.swift; sourceTree = "<group>"; };
 		2B46C53724D2E3C100CA143E /* DetailSettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingsRouter.swift; sourceTree = "<group>"; };
@@ -290,9 +290,9 @@
 			isa = PBXGroup;
 			children = (
 				2B6BC13C24AF45EB00ED4125 /* SettingsView.swift */,
-				2B46C52524D2B8B500CA143E /* TableViewSupervisor.swift */,
-				2B46C52724D2B91A00CA143E /* ViewModel.swift */,
-				2B46C52924D2CAF400CA143E /* TableViewCell.swift */,
+				2B46C52524D2B8B500CA143E /* SettingsTableViewSupervisor.swift */,
+				2B46C52724D2B91A00CA143E /* SettingsViewModel.swift */,
+				2B46C52924D2CAF400CA143E /* SettingsTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1114,7 +1114,7 @@
 				2BD8D3DC24CEB5D60099C575 /* CollectionHeaderReusableView.swift in Sources */,
 				2B6BC13724AF45B500ED4125 /* CollectionView.swift in Sources */,
 				2BD8D3D724CEB1B40099C575 /* DetailRouter.swift in Sources */,
-				2B46C52824D2B91A00CA143E /* ViewModel.swift in Sources */,
+				2B46C52824D2B91A00CA143E /* SettingsViewModel.swift in Sources */,
 				2B676D9124EC2BC900AC4BB8 /* RememberHeaderView.swift in Sources */,
 				2B46C53624D2E38F00CA143E /* DetailSettingsView.swift in Sources */,
 				2B80004424C37630004D1A12 /* ImagePickerProtocols.swift in Sources */,
@@ -1200,10 +1200,10 @@
 				2B46C54024D2E7A500CA143E /* DetailSettingsAssembly.swift in Sources */,
 				2B46C52224D2ABF600CA143E /* SettingsInteractor.swift in Sources */,
 				2BDA769A24F6CA4600D82E9D /* RememberViewModel.swift in Sources */,
-				2B46C52A24D2CAF400CA143E /* TableViewCell.swift in Sources */,
+				2B46C52A24D2CAF400CA143E /* SettingsTableViewCell.swift in Sources */,
 				2B80004A24C6D5C9004D1A12 /* CloudMersiveClient.swift in Sources */,
 				2BD8D3CD24CEAE530099C575 /* DetailProtocols.swift in Sources */,
-				2B46C52624D2B8B500CA143E /* TableViewSupervisor.swift in Sources */,
+				2B46C52624D2B8B500CA143E /* SettingsTableViewSupervisor.swift in Sources */,
 				2B9B124B24EA9AD900646455 /* RememberProtocols.swift in Sources */,
 				2BD8D37124C8A8050099C575 /* ImagePickerRouter.swift in Sources */,
 			);

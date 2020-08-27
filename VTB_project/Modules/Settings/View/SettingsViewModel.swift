@@ -9,7 +9,13 @@
 import Foundation
 import UIKit
 
-struct CellViewModel {
+struct SettingsViewModel {
+    let navigationBarModel: MainNavigationBarModel
+
+    let cellModels: [[SettingsCellViewModel]]
+}
+
+struct SettingsCellViewModel {
     let title: String
     let image: UIImage?
 }

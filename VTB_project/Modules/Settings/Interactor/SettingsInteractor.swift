@@ -22,7 +22,8 @@ class SettingsInteractor: SettingsInteractorInput {
     }
 
     func viewDidLoad() {
-        presenter?.display(settings: settings)
+        update()
+
     }
 
     //    MARK: - Data update
@@ -38,7 +39,11 @@ class SettingsInteractor: SettingsInteractorInput {
     }
 
     @objc private func languageChanged() {
-        presenter?.display(settings: settings)
-        presenter?.languageChanged()
+        update()
+    }
+
+    private func update() {
+        let navBarModel = MainNavigationBarModel(title: LocalizedString().settings)
+        presenter?.display(settings: settings, with: navBarModel)
     }
 }

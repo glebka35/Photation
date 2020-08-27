@@ -15,7 +15,7 @@ class SettingsView: UIViewController, SettingsViewInput {
     var presenter: SettingsViewOutput?
 
     private var navigationBar: MainNavigationBar!
-    private var tableViewSupervisor: TableViewSupervisor?
+    private var tableViewSupervisor: SettingsTableViewSupervisor?
 
 //    MARK: - Life cycle
 
@@ -33,7 +33,7 @@ class SettingsView: UIViewController, SettingsViewInput {
 //    MARK: -  UI configuration
 
     private func addAndConfigureTableView() {
-        let tableViewSupervisor = TableViewSupervisor()
+        let tableViewSupervisor = SettingsTableViewSupervisor()
         tableViewSupervisor.delegate = self
         let table = tableViewSupervisor.getConfiguredTableView()
         view.addSubview(table)
@@ -63,15 +63,9 @@ class SettingsView: UIViewController, SettingsViewInput {
 
 //    MARK: - UI update
 
-    func updateTable(with data: [[CellViewModel]]) {
-        tableViewSupervisor?.update(with: data)
-    }
-
-    func languageChanged() {
-        let newTitle = LocalizedString().settings
-        title = newTitle
-
-        navigationBar.updateMainTitle(with: newTitle)
+    func updateTable(with data: SettingsViewModel) {
+        navigationBar.update(with: data.navigationBarModel)
+        tableViewSupervisor?.update(with: data.cellModels)
     }
 }
 

@@ -73,10 +73,10 @@ extension DetailTableSupervisor: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "cellDetail") as? TableViewCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: "cellDetail") as? SettingsTableViewCell
 
         if cell == nil {
-            cell = TableViewCell(style: .subtitle, reuseIdentifier: "cellDetail")
+            cell = SettingsTableViewCell(style: .subtitle, reuseIdentifier: "cellDetail")
         }
 
         let isFirst = indexPath.row == 0

@@ -20,6 +20,8 @@ class CollectionPresenter: NSObject, CollectionViewOutput {
 
     private var objects: [ObjectsOnImage] = [] {
         didSet {
+            nativeLanguage = self.objects.first?.nativeLanguage.humanRepresentingNative ?? ""
+            foreignLanguage = self.objects.first?.foreignLanguage.humanRepresentingNative ?? ""
             updateData()
         }
     }
@@ -125,8 +127,6 @@ class CollectionPresenter: NSObject, CollectionViewOutput {
 
 extension CollectionPresenter: CollectionInteractorOutput {
     func objectsDidFetch(objects: [ObjectsOnImage]) {
-        nativeLanguage = objects.first?.nativeLanguage.humanRepresentingNative ?? ""
-        foreignLanguage = objects.first?.foreignLanguage.humanRepresentingNative ?? ""
         self.objects.append(contentsOf: objects)
     }
 

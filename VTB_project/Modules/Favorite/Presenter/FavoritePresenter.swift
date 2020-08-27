@@ -18,6 +18,8 @@ class FavoritePresenter: NSObject, FavoriteViewOutput {
     
     private var displayingObjects: [SingleObject] = [] {
         didSet {
+            nativeLanguage = objectsAndImages.first?.nativeLanguage.humanRepresentingNative ?? ""
+            foreignLanguage = objectsAndImages.first?.foreignLanguage.humanRepresentingNative ?? ""
             updateData()
         }
     }
@@ -138,8 +140,6 @@ extension FavoritePresenter: UISearchBarDelegate {
 
 extension FavoritePresenter: FavoriteInteractorOutput {
     func objectsDidFetch(images: [ObjectsOnImage], objects: [SingleObject]) {
-        nativeLanguage = images.first?.nativeLanguage.humanRepresentingNative ?? ""
-        foreignLanguage = images.first?.foreignLanguage.humanRepresentingNative ?? ""
         self.objectsAndImages.append(contentsOf: images)
         self.displayingObjects.append(contentsOf: objects)
     }

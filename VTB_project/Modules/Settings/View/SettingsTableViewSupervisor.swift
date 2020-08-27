@@ -9,11 +9,11 @@
 import Foundation
 import UIKit
 
-class TableViewSupervisor: NSObject {
+class SettingsTableViewSupervisor: NSObject {
 //    MARK: - Properties
 
     private var tableView: UITableView
-    private var cellModels: [[CellViewModel]] = []
+    private var cellModels: [[SettingsCellViewModel]] = []
 
     weak var delegate: DetailTableSupervisorDelegate?
 
@@ -37,7 +37,7 @@ class TableViewSupervisor: NSObject {
 
 //    MARK: - UI update
 
-    func update(with data: [[CellViewModel]]) {
+    func update(with data: [[SettingsCellViewModel]]) {
         self.cellModels = data
         tableView.reloadData()
     }
@@ -45,7 +45,7 @@ class TableViewSupervisor: NSObject {
 
 //MARK: - UITableViewDelegate
 
-extension TableViewSupervisor: UITableViewDelegate {
+extension SettingsTableViewSupervisor: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
@@ -64,7 +64,7 @@ extension TableViewSupervisor: UITableViewDelegate {
 
 //MARK: - UITableViewDataSource
 
-extension TableViewSupervisor: UITableViewDataSource {
+extension SettingsTableViewSupervisor: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         cellModels.count
     }

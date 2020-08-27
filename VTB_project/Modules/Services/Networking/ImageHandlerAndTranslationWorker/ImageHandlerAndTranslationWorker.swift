@@ -12,7 +12,7 @@ import UIKit
 //MARK: - ObjectDetectorAndTranslator
 
 protocol ObjectDetectorAndTranslator {
-    func performHandling(image: UIImage, completion: @escaping (_ objects: ObjectsOnImage)->Void)
+    func performHandling(image: UIImage, completion: @escaping (_ objects: ObjectsOnImage?)->Void)
 }
 
 //MARK: - ObjectDetectorAndTranslator
@@ -27,21 +27,23 @@ class ImageHandlerAndTranslationWorker: ObjectDetectorAndTranslator {
 
 //    MARK: - Handling
     
-    func performHandling(image: UIImage, completion: @escaping (_ objects: ObjectsOnImage)->Void) {
+    func performHandling(image: UIImage, completion: @escaping (_ objects: ObjectsOnImage?)->Void) {
         if let data = image.jpegData(compressionQuality: 0.7) {
             cloudMersiveClient.getRecognition(of: data, name: "") { [weak self] (objects, success) in
-                if let objects = objects {
+                if let objects = objects, !objects.isEmpty {
                     self?.imageHandler.handleResponse(objects: objects, on: image) { (objects) in
                         let nativeLanguage = SettingsStore.shared.getNativeLanguage()
                         let foreignLanguage = SettingsStore.shared.getForeignLanguage()
                         self?.getTranslation(of: objects, firstLanguage: nativeLanguage, secondLanguage: foreignLanguage, completion: completion)
                     }
+                } else {
+                    completion(nil)
                 }
             }
         }
     }
 
-    private func getTranslation(of objects: ObjectsOnImage, firstLanguage: Language, secondLanguage: Language, completion: @escaping (_ objects: ObjectsOnImage)->Void) {
+    private func getTranslation(of objects: ObjectsOnImage, firstLanguage: Language, secondLanguage: Language, completion: @escaping (_ objects: ObjectsOnImage?)->Void) {
         translator.translate(objects: objects, nativeLang: firstLanguage, foreignLang: secondLanguage) { (objects) in
             completion(objects)
         }

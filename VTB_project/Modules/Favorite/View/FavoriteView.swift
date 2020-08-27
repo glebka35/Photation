@@ -42,37 +42,39 @@ class FavoriteView: UIViewController, FavoriteViewInput {
 
     private func addAndConfigureNavigationBar() {
         let rightButton = UIButton()
-        rightButton.setTitle(LocalizedString().remember, for: .normal)
+        rightButton.setTitle("", for: .normal)
         rightButton.setTitleColor(.blue, for: .normal)
-
         rightButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.navigationBarButtonFontSize)
-        let navigationBar = MainNavigationBar(title: LocalizedString().favorite, rightButton: rightButton, isSearchBarNeeded: true)
+
+        let navigationBar = MainNavigationBar(title: "", rightButton: rightButton, isSearchBarNeeded: true)
 
         view.addSubview(navigationBar)
 
         NSLayoutConstraint.activate([
-            navigationBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
-            navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            navigationBar.bottomAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 90)
+            navigationBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 10),
+            navigationBar.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            navigationBar.bottomAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 100)
         ])
 
         navigationBar.searchBarDelegate = presenter
         navigationBar.delegate = self
 
         self.navigationBar = navigationBar
+        showRememberButton(bool: false)
     }
 
     private func addAndConfigureCollectionView() {
-        let collectionView = collectionSupervisor.getConfiguredCollection(with: .table)
+        let collectionView = collectionSupervisor.getConfiguredCollection()
         collectionSupervisor.delegate = self
+        
         view.addSubview(collectionView)
 
         if let navigationBar = navigationBar {
             NSLayoutConstraint.activate([
                 collectionView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
-                collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                collectionView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+                collectionView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
                 collectionView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor)
             ])
         }
@@ -87,16 +89,21 @@ class FavoriteView: UIViewController, FavoriteViewInput {
 
     //    MARK: - UI update
     
-    func updateContent(with objects: [ObjectsOnImage]) {
-        collectionSupervisor.updateContent(with: objects)
-    }
+    func updateContent(with model: FavoriteViewModel) {
+        if let tableModel = model.tableModel {
+            collectionSupervisor.updateContent(with: tableModel)
+        }
+        navigationBar?.update(with: model.navigationBarModel)
 
-    func languageChanged() {
-        title = LocalizedString().favorite
+        title = model.navigationBarModel.title
     }
 
     func showRememberButton(bool: Bool) {
         navigationBar?.showRightButton(bool: bool)
+    }
+
+    func clearSearchBar() {
+        navigationBar?.clearSearchBar()
     }
 }
 

@@ -10,12 +10,12 @@ import UIKit
 
 final class ImageCollectionViewCell: UICollectionViewCell {
 
-//    MARK: - Properties
+    //    MARK: - Properties
 
     private var objectImageView = UIImageView()
     private var objectForeignLabel = UILabel()
 
-//    MARK: - Life cycle
+    //    MARK: - Life cycle
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,7 +31,7 @@ final class ImageCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-//    MARK: - UI configuration
+    //    MARK: - UI configuration
     
     private func addAndConfigureImageView() {
         objectImageView.contentMode = .scaleAspectFill
@@ -73,12 +73,10 @@ final class ImageCollectionViewCell: UICollectionViewCell {
         objectImageView.layer.insertSublayer(gradient, at: 0)
     }
 
-//    MARK: - UI update
+    //    MARK: - UI update
     
-    public func updateStateWith(image: ObjectsOnImage) {
-        if let imageData = image.image {
-            objectImageView.image = UIImage(data: imageData)
-            objectForeignLabel.text = image.objects.first?.foreignName
-        }
+    public func updateStateWith(object: ImageStyleObject) {
+        objectImageView.image = object.image
+        objectForeignLabel.text = object.objectName
     }
 }

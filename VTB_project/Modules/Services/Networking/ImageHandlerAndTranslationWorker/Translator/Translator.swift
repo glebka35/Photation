@@ -14,12 +14,12 @@ class Translator {
 
     private let translationClient = TranslationClient()
 
-    private var firstLangdictionary: SynchronizedStringDictionary = SynchronizedStringDictionary()
-    private var secondLangdictionary: SynchronizedStringDictionary = SynchronizedStringDictionary()
+    private var firstLangdictionary: SynchronizedStringDictionary = SynchronizedStringDictionary<String>()
+    private var secondLangdictionary: SynchronizedStringDictionary = SynchronizedStringDictionary<String>()
 
 //    MARK: - Translation objects
 
-    func translate(objects: ObjectsOnImage, nativeLang: Language, foreignLang: Language, completion: @escaping (_ objects: ObjectsOnImage)->Void) {
+    func translate(objects: ObjectsOnImage, nativeLang: Language, foreignLang: Language, completion: @escaping (_ objects: ObjectsOnImage?)->Void) {
 
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
 
@@ -46,13 +46,11 @@ class Translator {
                 
                 var words: [String] = []
                 objects.objects.forEach() {
-                    if let foreignName = $0.foreignName {
-                        words.append(foreignName)
-                    }
+                    words.append($0.foreignName)
                 }
                 self?.translate(words: words, from: .en, to: foreignLang) { dict in
                     for index in 0..<objects.objects.count {
-                        newObjects.objects[index].foreignName = dict[objects.objects[index].nativeName]
+                        newObjects.objects[index].foreignName = dict[objects.objects[index].nativeName] ?? ""
                     }
                     dispatchGroup.leave()
                 }
@@ -60,16 +58,26 @@ class Translator {
             
             dispatchGroup.wait()
 
-            completion(newObjects)
+            let filteredObjects = newObjects.objects.filter { (object) -> Bool in
+                object.nativeName != "" && object.foreignName != ""
+            }
+
+            if filteredObjects.count == 0 {
+                completion(nil)
+            } else {
+                newObjects = ObjectsOnImage(image: newObjects.image, objects: filteredObjects, date: newObjects.date, nativeLanguage: newObjects.nativeLanguage, foreignLanguage: newObjects.foreignLanguage)
+
+                completion(newObjects)
+            }
         }
     }
 
 //    MARK: - Translation words
 
-    private func translate(words: [String], from inLanguage: Language, to outLanguage: Language, completion: @escaping (_ dictionary: SynchronizedStringDictionary)->Void) {
+    private func translate(words: [String], from inLanguage: Language, to outLanguage: Language, completion: @escaping (_ dictionary: SynchronizedStringDictionary<String>)->Void) {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             let dispatchGroup = DispatchGroup()
-            let dictionary = SynchronizedStringDictionary()
+            let dictionary = SynchronizedStringDictionary<String>()
 
             words.forEach { (word) in
                 dispatchGroup.enter()

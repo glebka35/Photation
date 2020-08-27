@@ -18,5 +18,9 @@ extension TableViewCell {
         bottomSeparator.isHidden = !isLast
 
         accessoryType = language.isChosen ? .checkmark : .none
+
+        rightLabel.isHidden = language.isChosen || language.translationCount == 0
+        rightLabel.text = String(language.translationCount)
+
     }
 }

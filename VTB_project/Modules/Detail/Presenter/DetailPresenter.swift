@@ -16,10 +16,21 @@ class DetailPresenter: DetailViewOutput {
 //    MARK: - Properties
 
     var interactor: DetailInteractorInput?
-    var view: DetailViewInput?
+    weak var view: DetailViewInput?
     var router: DetailRouterInput?
 
-    private var objects: ObjectsOnImage
+    private var objects: ObjectsOnImage {
+        didSet {
+            updateData()
+        }
+    }
+
+    private var navigationBarModel: DefaultNavigationBarModel? {
+        didSet {
+            updateData()
+        }
+    }
+    private var dataConverter: DetailDataConverterProtocol = DetailDataConverter()
 
 //    MARK: - Life cycle
 
@@ -28,13 +39,26 @@ class DetailPresenter: DetailViewOutput {
     }
 
     func viewDidLoad() {
-        view?.configureCollection(with: objects)
+        interactor?.viewDidLoad()
+    }
+
+//    MARK: - UI update
+
+    func updateView(with navigationModel: DefaultNavigationBarModel) {
+        self.navigationBarModel = navigationModel
+    }
+
+    private func updateData() {
+        let collectionModel = dataConverter.convert(from: objects)
+        if let navModel = navigationBarModel {
+            let model = DetailViewModel(defaultNavigationBarModel: navModel, detailCollectionModel: collectionModel)
+            view?.updateContent(with: model)
+        }
     }
 
 //    MARK: - User interaction
 
     func wordChosen(at index: Int) {
-//        objects[index].isFavorite
         let allCases = IsWordFavorite.allCases
 
         guard let currentIndex = allCases.firstIndex(of: objects.objects[index].isFavorite) else { return }
@@ -43,8 +67,6 @@ class DetailPresenter: DetailViewOutput {
         objects.objects[index].isFavorite = newFavorite
 
         interactor?.update(object: objects.objects[index])
-
-        view?.updateContent(with: objects.objects)
     }
 
     func backButtonPressed() {

@@ -13,9 +13,8 @@ import UIKit
 protocol CollectionViewInput: AnyObject {
     var presenter: CollectionViewOutput? { get set }
     
-    func updatePresentation(with style: PresentationStyle)
-    func updateContent(with objects: [ObjectsOnImage])
-    func changeLanguage()
+    func updateContent(with model: CollectionViewModel)
+    func clearSearchBar()
 }
 
 //MARK: - VIEW -> PRESENTER
@@ -35,7 +34,8 @@ protocol CollectionViewOutput: AnyObject, UISearchBarDelegate {
 
 protocol CollectionInteractorInput: AnyObject {
     var presenter: CollectionInteractorOutput? { get set }
-    
+
+    func viewDidLoad()
     func loadObjects()
 }
 
@@ -43,8 +43,8 @@ protocol CollectionInteractorInput: AnyObject {
 
 protocol CollectionInteractorOutput: AnyObject {
     func objectsDidFetch(objects: [ObjectsOnImage])
+    func updateNavigation(with navModel: MainNavigationBarModel)
     func deleteData()
-    func changeLanguage()
 }
 
 //MARK:- PRESENTER -> ROUTER

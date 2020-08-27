@@ -61,7 +61,7 @@ final class ListCollectionViewCell: UICollectionViewCell {
 
 //    MARK: - UI update
     
-    public func updateStateWith(object: SingleObject) {
+    public func updateStateWith(object: TableStyleObject) {
         objectNativeLabel.text = object.nativeName
         objectForeignLabel.text = object.foreignName
     }

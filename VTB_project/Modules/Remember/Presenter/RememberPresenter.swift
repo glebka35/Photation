@@ -25,7 +25,8 @@ class RememberPresenter: RememberViewOutput {
     var router: RememberRouterInput?
 
     private var objects: RememberObjects = []
-    private var currentGameModel: RememberGameModel?
+    private var currentModel: RememberViewModel?
+    private var navigationBarModel: DefaultNavigationBarModel?
 
 //    MARK: - Life cycle
 
@@ -36,7 +37,7 @@ class RememberPresenter: RememberViewOutput {
 //    MARK: - User interaction
 
     func wordChosen(at indexPath: IndexPath) {
-        if let word = currentGameModel?.variants[indexPath.row] {
+        if let word = currentModel?.gameModel.variants[indexPath.row] {
             interactor?.wordChosen(with: word, indexPath: indexPath)
         }
     }
@@ -58,13 +59,17 @@ extension RememberPresenter: RememberInteractorOutput {
         self.objects = objects
     }
 
-    func showWord(at index: Int, with footerModel: FooterModel) {
-        let gameModel = createGameModel(with: index, and: footerModel)
+    func showWord(at index: Int, with footerModel: FooterModel, and navBarModel: DefaultNavigationBarModel) {
+        let gameModel = createGameModel(with: index)
+
+        let model = RememberViewModel(navigationBarModel: navBarModel, gameModel: gameModel, footerModel: footerModel)
         view?.hideNextButton()
-        view?.update(with: gameModel)
+        view?.update(with: model)
+        self.currentModel = model
+
     }
 
-    private func createGameModel(with mainIndex: Int, and footerModel: FooterModel)->RememberGameModel {
+    private func createGameModel(with mainIndex: Int)->RememberGameModel {
         var objectsCopy = objects
 
         let mainObject = objectsCopy.remove(at: mainIndex)
@@ -80,8 +85,7 @@ extension RememberPresenter: RememberInteractorOutput {
 
         variants.shuffle()
 
-        let currentGameModel = RememberGameModel(mainWord: mainObject.foreignName ?? "", variants: variants, footerModel: footerModel)
-        self.currentGameModel = currentGameModel
+        let currentGameModel = RememberGameModel(mainWord: mainObject.foreignName, variants: variants)
         return currentGameModel
     }
 
@@ -95,8 +99,11 @@ extension RememberPresenter: RememberInteractorOutput {
     }
 
     func update(footer: FooterModel) {
-        currentGameModel?.footerModel = footer
-        view?.update(footerWith: footer)
+        if let navBarModel = currentModel?.navigationBarModel, let gameModel = currentModel?.gameModel {
+            let model = RememberViewModel(navigationBarModel: navBarModel, gameModel: gameModel, footerModel: footer)
+            view?.update(with: model)
+            currentModel = model
+        }
     }
 
     func close() {

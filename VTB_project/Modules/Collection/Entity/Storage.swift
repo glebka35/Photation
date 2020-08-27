@@ -20,7 +20,7 @@ struct ObjectsOnImage {
 
 struct SingleObject {
     var nativeName: String
-    var foreignName: String?
+    var foreignName: String
 
     var color: UIColor
     var isFavorite: IsWordFavorite

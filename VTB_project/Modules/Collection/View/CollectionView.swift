@@ -23,13 +23,13 @@ class CollectionView: UIViewController, CollectionViewInput {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        presenter?.viewDidLoad(with: currentStyle)
-
         view.backgroundColor = .white
         
         addAndConfigureNavigationBar()
         addAndConfigureCollectionView()
         addAndConfigureDismissKeyboardTapGesture()
+
+        presenter?.viewDidLoad(with: currentStyle)
     }
 
 //    MARK: - UI configuration
@@ -43,10 +43,10 @@ class CollectionView: UIViewController, CollectionViewInput {
         view.addSubview(navigationBar)
 
         NSLayoutConstraint.activate([
-            navigationBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
-            navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            navigationBar.bottomAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 90)
+            navigationBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 10),
+            navigationBar.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            navigationBar.bottomAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 100)
         ])
 
         navigationBar.delegate = self
@@ -54,14 +54,14 @@ class CollectionView: UIViewController, CollectionViewInput {
     }
 
     private func addAndConfigureCollectionView() {
-        let collectionView = collectionSupervisor.getConfiguredCollection(with: currentStyle)
+        let collectionView = collectionSupervisor.getConfiguredCollection()
         collectionSupervisor.delegate = self
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor)
         ])
     }
@@ -74,23 +74,25 @@ class CollectionView: UIViewController, CollectionViewInput {
     }
 
 //    MARK: - UI update
-    
-    func updatePresentation(with style: PresentationStyle) {
-        navigationBar.rightButtonImage = UIImage(named: style.buttonImage)
-        collectionSupervisor.updatePresentationStyle(with: style)
-        currentStyle = style
-    }
-    
-    func updateContent(with objects: [ObjectsOnImage]) {
-        collectionSupervisor.updateContent(with: objects)
+
+    func updateContent(with model: CollectionViewModel) {
+
+        if let imageModel = model.imageModel {
+            collectionSupervisor.updateContent(with: imageModel)
+            currentStyle = PresentationStyle.images
+        } else if let tableModel = model.tableModel {
+            collectionSupervisor.updateContent(with: tableModel)
+            currentStyle = PresentationStyle.table
+        }
+
+        navigationBar.update(with: model.navigationBarModel)
+        navigationBar.rightButtonImage = UIImage(named: currentStyle.buttonImage)
+
+        title = model.navigationBarModel.title
     }
 
-    func changeLanguage() {
-        navigationBar.updateRightTitle(with: SettingsStore.shared.getForeignLanguage().humanRepresentingNative)
-        let title = LocalizedString().collection
-        navigationBar.updateMainTitle(with: title)
-
-        self.title = title
+    func clearSearchBar() {
+        navigationBar.clearSearchBar()
     }
 }
 

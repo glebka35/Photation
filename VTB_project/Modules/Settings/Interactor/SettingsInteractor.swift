@@ -15,6 +15,8 @@ class SettingsInteractor: SettingsInteractorInput {
     weak var presenter: SettingsInteractorOutput?
     private let settings: [[SettingsList]] = [[SettingsList.mainLanguage, SettingsList.foreignLanguage], [SettingsList.deleteData]]
 
+    private var viewLoaded = false
+
     //    MARK: - LifeCycle
 
     init() {
@@ -22,7 +24,8 @@ class SettingsInteractor: SettingsInteractorInput {
     }
 
     func viewDidLoad() {
-        presenter?.display(settings: settings)
+        viewLoaded = true
+        update()
     }
 
     //    MARK: - Data update
@@ -33,12 +36,22 @@ class SettingsInteractor: SettingsInteractorInput {
         let coreDataManager = CoreDataStore.shared
 
         DispatchQueue.global(qos: .userInitiated).async {
-            coreDataManager.deleteEntities(with: nativeLanguage, and: foreignLanguage)
+            coreDataManager.deleteEntities(with:
+                [
+                    ConstantsKeys.nativeLanguage : nativeLanguage.rawValue,
+                    ConstantsKeys.foreignLanguage : foreignLanguage.rawValue
+            ])
         }
     }
 
     @objc private func languageChanged() {
-        presenter?.display(settings: settings)
-        presenter?.languageChanged()
+        if viewLoaded {
+            update()
+        }
+    }
+
+    private func update() {
+        let navBarModel = MainNavigationBarModel(title: LocalizedString().settings)
+        presenter?.display(settings: settings, with: navBarModel)
     }
 }

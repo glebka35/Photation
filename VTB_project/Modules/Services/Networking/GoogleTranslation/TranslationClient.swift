@@ -27,7 +27,7 @@ class TranslationClient {
     init() {
         headers = [
             "x-rapidapi-host": "google-translate1.p.rapidapi.com",
-            "x-rapidapi-key": "2f1a88b518msh0220f0ba54d444ap15750bjsn6ff203184642",
+            "x-rapidapi-key": "8ce856b7e5msh89f53e186525d37p19d100jsn9e6f5d8717cb",
             "accept-encoding": "application/gzip",
             "content-type": "application/x-www-form-urlencoded"
         ]

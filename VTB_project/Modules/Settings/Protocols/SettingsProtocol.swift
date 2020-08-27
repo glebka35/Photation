@@ -13,8 +13,7 @@ import Foundation
 protocol SettingsViewInput: AnyObject {
     var presenter: SettingsViewOutput? { get set }
 
-    func updateTable(with data: [[CellViewModel]])
-    func languageChanged()
+    func updateTable(with data: SettingsViewModel)
 }
 
 
@@ -41,8 +40,7 @@ protocol SettingsInteractorInput: AnyObject {
 //MARK:- INTERACTOR -> PRESENTER
 
 protocol SettingsInteractorOutput: AnyObject {
-    func display(settings: [[SettingsList]])
-    func languageChanged()
+    func display(settings: [[SettingsList]], with navBarModel: MainNavigationBarModel)
 }
 
 //MARK:- PRESENTER -> ROUTER

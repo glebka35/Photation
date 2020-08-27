@@ -13,61 +13,63 @@ import UIKit
 
 class SettingsPresenter: SettingsViewOutput {
 
-//    MARK: - Properties
+    //    MARK: - Properties
 
     var interactor: SettingsInteractorInput?
     weak var view: SettingsViewInput?
     var router: SettingsRouterInput?
 
-    var data: [[CellViewModel]] = [] {
+    var currentModel: SettingsViewModel? {
         didSet {
-            view?.updateTable(with: data)
+            if let model = currentModel {
+                view?.updateTable(with: model)
+            }
         }
     }
 
-//    MARK: - Life cycle
+    //    MARK: - Life cycle
 
     func viewDidLoad() {
         interactor?.viewDidLoad()
     }
 
-//    MARK: - User interaction
+    //    MARK: - User interaction
 
     func settingChoosed(at indexPath: IndexPath) {
-        if data.count - 1 != indexPath.section {
-            switch indexPath.row {
-            case 0:
-                router?.showDetail(with: .mainLanguage)
-            case 1:
-                router?.showDetail(with: .foreignLanguage)
-            default:
-                break
+        if let model = currentModel {
+            if model.cellModels.count - 1 != indexPath.section {
+                switch indexPath.row {
+                case 0:
+                    router?.showDetail(with: .mainLanguage)
+                case 1:
+                    router?.showDetail(with: .foreignLanguage)
+                default:
+                    break
+                }
+            } else {
+                interactor?.deleteData()
             }
-        } else {
-            interactor?.deleteData()
         }
     }
+
 }
 
 //MARK: - SettingsInteractorOutput
 
 extension SettingsPresenter: SettingsInteractorOutput {
-    func display(settings: [[SettingsList]]) {
-        var data: [[CellViewModel]] = []
-        var section: [CellViewModel] = []
+    func display(settings: [[SettingsList]], with navBarModel: MainNavigationBarModel) {
+        var data: [[SettingsCellViewModel]] = []
+        var section: [SettingsCellViewModel] = []
 
         settings.forEach {
             $0.forEach {
-                section.append(CellViewModel(title: LocalizedString().getSettingsString(settings: $0), image: $0.image))
+                section.append(SettingsCellViewModel(title: LocalizedString().getSettingsString(settings: $0), image: $0.image))
             }
             data.append(contentsOf: [section])
             section = []
         }
 
-        self.data = data
-    }
-
-    func languageChanged() {
-        view?.languageChanged()
+        let model = SettingsViewModel(navigationBarModel: navBarModel, cellModels: data)
+        self.currentModel = model
     }
 }

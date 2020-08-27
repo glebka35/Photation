@@ -7,15 +7,17 @@
 //
 
 import Foundation
-import UIKit // Надо убрать отсюда зависимость от UIKit, пока этого нельзя сделать, так как
-// вместо картинок использую заглушки из ассетов, но после подключения api эта проблема уйдет
 
 class CollectionInteractor: CollectionInteractorInput {
 
     //    MARK: - Properties
 
     weak var presenter: CollectionInteractorOutput?
-    private var coreDataStorage = CoreDataStore.shared
+    private let coreDataStorage = CoreDataStore.shared
+    private let predicates = [
+        ConstantsKeys.nativeLanguage : SettingsStore.shared.getNativeLanguage().rawValue,
+        ConstantsKeys.foreignLanguage : SettingsStore.shared.getForeignLanguage().rawValue
+    ]
     private var loadMoreStatus = false
     private var isStoreEmpty = false
 
@@ -30,19 +32,24 @@ class CollectionInteractor: CollectionInteractorInput {
         NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
     }
 
+    func viewDidLoad() {
+        setNavigationBar()
+        loadObjects()
+    }
+
     //    MARK: - Data fetching
     
     func loadObjects() {
         if !loadMoreStatus && !isStoreEmpty {
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 self?.loadMoreStatus = true
-                if let page = self?.page, let objects = self?.coreDataStorage.loadMoreImages(page: page) {
+                if let self = self, let objects = self.coreDataStorage.loadMoreImages(page: self.page, with: self.predicates) {
                     DispatchQueue.main.async {
-                        self?.presenter?.objectsDidFetch(objects: objects)
-                        self?.page += 1
+                        self.presenter?.objectsDidFetch(objects: objects)
+                        self.page += 1
 
                         if objects.count == 0 {
-                            self?.isStoreEmpty = true
+                            self.isStoreEmpty = true
                         }
                     }
                 }
@@ -64,7 +71,13 @@ class CollectionInteractor: CollectionInteractorInput {
     }
 
     @objc private func languageChanged() {
-        presenter?.changeLanguage()
+        setNavigationBar()
         reloadData()
+    }
+
+    private func setNavigationBar() {
+        let navModel = MainNavigationBarModel(title: LocalizedString().collection, additionalTitle:
+            SettingsStore.shared.getForeignLanguage().humanRepresentingNative)
+        presenter?.updateNavigation(with: navModel)
     }
 }

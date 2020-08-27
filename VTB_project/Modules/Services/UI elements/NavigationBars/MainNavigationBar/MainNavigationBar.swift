@@ -10,7 +10,7 @@ import UIKit
 
 class MainNavigationBar: UIView {
 
-//    MARK: - Properties
+    //    MARK: - Properties
     
     weak var delegate: NavigationBarDelegate?
     weak var searchBarDelegate: UISearchBarDelegate? {
@@ -36,7 +36,7 @@ class MainNavigationBar: UIView {
     private var rightButton: UIButton?
     private var searchBar: UISearchBar?
 
-//    MARK: - Life cycle
+    //    MARK: - Life cycle
 
     init(title: String, rightTitle: String? = nil, rightButton: UIButton? = nil, isSearchBarNeeded: Bool) {
         super.init(frame: .zero)
@@ -65,7 +65,7 @@ class MainNavigationBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-//    MARK: - UI configuration
+    //    MARK: - UI configuration
     
     private func addAndConfigureTitle(with text: String) {
         let title = UILabel()
@@ -89,26 +89,34 @@ class MainNavigationBar: UIView {
         rightTitle.textColor = UIColor(displayP3Red: 104/255, green: 105/255, blue: 105/255, alpha: 1)
         rightTitle.text = name
 
+        rightTitle.minimumScaleFactor = 0.1
+        rightTitle.adjustsFontSizeToFitWidth = true
+        rightTitle.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+
         self.rightTitle = rightTitle
     }
     
     private func addAndConfigureRightButton(with button: UIButton) {
-        addSubview(button)
-        
         button.addTarget(self, action: #selector(rightButtonAction), for: .touchUpInside)
-
         self.rightButton = button
     }
 
     private func addAndConfigureSearchBar() {
         let searchBar = UISearchBar()
-        searchBar.backgroundImage = UIImage()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         addSubview(searchBar)
 
+        if #available(iOS 11, *) {
+            searchBar.backgroundImage = UIImage()
+        } else {
+            searchBar.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+            searchBar.layer.cornerRadius = 5
+            searchBar.clipsToBounds = true
+        }
+
         NSLayoutConstraint.activate([
-            searchBar.leadingAnchor.constraint(equalTo: leadingAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -layoutMargins.left),
+            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: layoutMargins.right),
             searchBar.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
 
@@ -124,18 +132,25 @@ class MainNavigationBar: UIView {
         hStack.distribution = .equalSpacing
         hStack.alignment = .center
         hStack.axis = .horizontal
+        hStack.translatesAutoresizingMaskIntoConstraints = false
+        hStack.spacing = 10
 
         addSubview(hStack)
 
-        hStack.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            hStack.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            hStack.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            hStack.leadingAnchor.constraint(equalTo: leadingAnchor),
+            hStack.trailingAnchor.constraint(equalTo: trailingAnchor),
             hStack.topAnchor.constraint(equalTo: topAnchor)
         ])
     }
 
-//    MARK: - UI update
+    //    MARK: - UI update
+
+    func update(with model: MainNavigationBarModel) {
+        title?.text = model.title
+        rightTitle?.text = model.additionalTitle
+        rightButton?.setTitle(model.buttonTitle, for: .normal)
+    }
 
     func updateRightTitle(with text: String) {
         rightTitle?.text = text
@@ -149,7 +164,12 @@ class MainNavigationBar: UIView {
         rightButton?.isHidden = !bool
     }
 
-//    MARK: - User interaction
+    func clearSearchBar() {
+        searchBar?.text = ""
+    }
+
+
+    //    MARK: - User interaction
     
     @objc func rightButtonAction(sender: UIButton!) {
         delegate?.action(sender: sender)

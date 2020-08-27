@@ -8,14 +8,14 @@
 
 import Foundation
 
-class SettingsStore {
-
 //    MARK: - Constants
 
-    enum Constants {
-        static let nativeLanguageKey = "nativeLanguage"
-        static let foreignLanguageKey = "foreignLanguage"
-    }
+enum ConstantsKeys {
+    static let nativeLanguage = "nativeLanguage"
+    static let foreignLanguage = "foreignLanguage"
+}
+
+class SettingsStore {
 
 //    MARK: - Shared instance
 
@@ -29,7 +29,7 @@ class SettingsStore {
 
     func getNativeLanguage()->Language {
 
-        if let savingLanguageString = UserDefaults.standard.string(forKey: Constants.nativeLanguageKey), let language = Language(rawValue: savingLanguageString) {
+        if let savingLanguageString = UserDefaults.standard.string(forKey: ConstantsKeys.nativeLanguage), let language = Language(rawValue: savingLanguageString) {
             return language
         }
 
@@ -41,7 +41,7 @@ class SettingsStore {
     }
 
     func getForeignLanguage()->Language {
-        if let languageString = UserDefaults.standard.string(forKey: Constants.foreignLanguageKey), let language = Language(rawValue: languageString)  {
+        if let languageString = UserDefaults.standard.string(forKey: ConstantsKeys.foreignLanguage), let language = Language(rawValue: languageString)  {
             return language
         }
         return Language.en
@@ -50,12 +50,12 @@ class SettingsStore {
 //    MARK: - Saving languages
 
     func saveNative(language: Language) {
-        UserDefaults.standard.set(language.rawValue, forKey: Constants.nativeLanguageKey)
+        UserDefaults.standard.set(language.rawValue, forKey: ConstantsKeys.nativeLanguage)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: GlobalConstants.languageChanged), object: nil)
     }
 
     func saveForeign(language: Language) {
-        UserDefaults.standard.set(language.rawValue, forKey: Constants.foreignLanguageKey)
+        UserDefaults.standard.set(language.rawValue, forKey: ConstantsKeys.foreignLanguage)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: GlobalConstants.languageChanged), object: nil)
     }
 }

@@ -29,30 +29,29 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
 
         addAndConfigureNavigationBar()
         addAndConfigurePhotoSourceButtons()
+
+        presenter?.viewDidLoad()
     }
 
 //    MARK: - UI configuration
 
     private func addAndConfigureNavigationBar() {
-        let navigationBar = MainNavigationBar(title: LocalizedString().add, rightTitle: SettingsStore.shared.getForeignLanguage().humanRepresentingNative, rightButton: nil, isSearchBarNeeded: false)
+        let navigationBar = MainNavigationBar(title: "", rightTitle: "", rightButton: nil, isSearchBarNeeded: false)
         view.addSubview(navigationBar)
 
-        let constraint = navigationBar.heightAnchor.constraint(equalToConstant: 0)
         NSLayoutConstraint.activate([
-            navigationBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
-            navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            constraint
+            navigationBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 10),
+            navigationBar.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            navigationBar.heightAnchor.constraint(equalToConstant: 70)
         ])
 
-        let height = CGFloat(60) ///calculated height
-        constraint.constant = height
         self.navigationBar = navigationBar
     }
 
     private func addAndConfigurePhotoSourceButtons() {
-        let cameraButton = createAndCummonConfigureButton(with: LocalizedString().cameraButton)
-        let galeryButton = createAndCummonConfigureButton(with: LocalizedString().galeryButton)
+        let cameraButton = createAndCummonConfigureButton()
+        let galeryButton = createAndCummonConfigureButton()
 
         let stack = UIStackView(arrangedSubviews: [cameraButton, galeryButton])
         stack.axis = .vertical
@@ -77,10 +76,9 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
         self.galeryButton = galeryButton
     }
 
-    private func createAndCummonConfigureButton(with title: String) -> UIButton {
+    private func createAndCummonConfigureButton() -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(title, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 40)
 
@@ -147,15 +145,13 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
         spinner.removeFromParent()
     }
 
-    func languageChanged() {
-        navigationBar?.updateRightTitle(with: SettingsStore.shared.getForeignLanguage().humanRepresentingNative)
 
-        let localizedString = LocalizedString()
-        navigationBar?.updateMainTitle(with: localizedString.add)
-        title = localizedString.add
+    func update(with model: ImagePickerViewModel) {
+        navigationBar?.update(with: model.navigationBarModel)
+        cameraButton?.setTitle(model.cameraButtonTitle, for: .normal)
+        galeryButton?.setTitle(model.galeryButtonTitle, for: .normal)
 
-        cameraButton?.setTitle(localizedString.cameraButton, for: .normal)
-        galeryButton?.setTitle(localizedString.galeryButton, for: .normal)
+        title = model.navigationBarModel.title
     }
 }
 

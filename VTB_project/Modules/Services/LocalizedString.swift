@@ -9,51 +9,51 @@
 import Foundation
 
 struct LocalizedString {
-
+    
     //    MARK: - Properties
-
+    
     private var currentLanguage: Language
-
+    
     //    MARK: - Init
-
+    
     init() {
         currentLanguage = SettingsStore.shared.getNativeLanguage()
     }
-
+    
     //    MARK: - Tab bar items
-
+    
     var collection: String {
         return _collection[currentLanguage] ?? ""
     }
-
+    
     var favorite: String {
         return _favorite[currentLanguage] ?? ""
     }
-
+    
     var add: String {
         return _add[currentLanguage] ?? ""
     }
-
+    
     var settings: String {
         return _settings[currentLanguage] ?? ""
     }
-
+    
     //    MARK: - Buttons
-
+    
     var cameraButton: String {
         return _cameraButton[currentLanguage] ?? ""
     }
-
+    
     var galeryButton: String {
         return _galeryButton[currentLanguage] ?? ""
     }
-
+    
     var backButton: String {
         return _backButton[currentLanguage] ?? ""
     }
-
+    
     //    MARK: - Settings list
-
+    
     func getSettingsString(settings: SettingsList)->String {
         switch settings {
         case .mainLanguage:
@@ -64,21 +64,35 @@ struct LocalizedString {
             return _deleteData[currentLanguage] ?? ""
         }
     }
-
+    
     //    MARK: - Remember game
-
+    
     var remember: String {
         return _remember[currentLanguage] ?? ""
     }
-
+    
+    //    MARK: - Alert
+    
+    var emptyObjectAlertTitle: String {
+        return _emptyObjectAlertTitle[currentLanguage] ?? ""
+    }
+    
+    var alertMessage: String {
+        return _alertMessage[currentLanguage] ?? ""
+    }
+    
+    var alertCancelTitle: String {
+        return _alertCancelTitle[currentLanguage] ?? ""
+    }
+    
     //    MARK: - Other
-
+    
     var image: String {
         return _image[currentLanguage] ?? ""
     }
-
+    
     //    MARK: - Tab bar items (private)
-
+    
     private let _collection: [Language:String] = [
         .en : "Collection",
         .ru : "Коллекция",
@@ -110,7 +124,7 @@ struct LocalizedString {
         .ro : "Colectie",
         .hr : "Kolekcija"
     ]
-
+    
     private let _favorite: [Language:String] = [
         .en : "Favorite",
         .ru : "Избранное",
@@ -142,7 +156,7 @@ struct LocalizedString {
         .ro : "Favorită",
         .hr : "ljubimac"
     ]
-
+    
     private let _add: [Language:String] = [
         .en : "Add",
         .ru : "Добавить",
@@ -174,7 +188,7 @@ struct LocalizedString {
         .ro : "Adăuga",
         .hr : "Dodati"
     ]
-
+    
     private let _settings: [Language:String] = [
         .en : "Settings",
         .ru : "Настройки",
@@ -206,9 +220,9 @@ struct LocalizedString {
         .ro : "Setări",
         .hr : "Postavke"
     ]
-
+    
     //    MARK: - Buttons (private)
-
+    
     private let _cameraButton: [Language:String] = [
         .en : "Camera",
         .ru : "Камера",
@@ -240,7 +254,7 @@ struct LocalizedString {
         .ro : "Aparat foto",
         .hr : "Fotoaparat"
     ]
-
+    
     private let _galeryButton: [Language:String] = [
         .en : "Gallery",
         .ru : "Галерея",
@@ -272,7 +286,7 @@ struct LocalizedString {
         .ro : "Galerie",
         .hr : "Galerija"
     ]
-
+    
     private let _backButton: [Language:String] = [
         .en : "Back",
         .ru : "Назад",
@@ -304,9 +318,9 @@ struct LocalizedString {
         .ro : "Înapoi",
         .hr : "Leđa"
     ]
-
+    
     //    MARK: - Settings list (private)
-
+    
     private let _mainLanguage: [Language:String] = [
         .en : "Main language",
         .ru : "Основной язык",
@@ -338,7 +352,7 @@ struct LocalizedString {
         .ro : "Principala limbă de comunicare",
         .hr : "Glavni jezik"
     ]
-
+    
     private let _foreignLanguage: [Language:String] = [
         .en : "Foreign language",
         .ru : "Иностранный язык",
@@ -370,7 +384,7 @@ struct LocalizedString {
         .ro : "Limbă străină",
         .hr : "Strani jezik"
     ]
-
+    
     private let _deleteData: [Language:String] = [
         .en : "Delete data",
         .ru : "Удалить данные",
@@ -402,41 +416,9 @@ struct LocalizedString {
         .ro : "Ștergeți datele",
         .hr : "Izbriši podatke"
     ]
-
-    //    MARK: - Other (private)
-
-    private let _image: [Language:String] = [
-        .en : "Image",
-        .ru : "Изображение",
-        .es : "Imagen",
-        .fr : "Image",
-        .pt : "Imagem",
-        .it : "Immagine",
-        .de : "Bild",
-        .nl : "Billede",
-        .ja : "画像",
-        .ko : "영상",
-        .vi : "Hình ảnh",
-        .sv : "Bild",
-        .da : "Billede",
-        .fi : "Kuva",
-        .nb : "Bilde",
-        .tr : "görüntü",
-        .el : "Συλλογή",
-        .id : "Gambar",
-        .ms : "Imej",
-        .th : "ภาพ",
-        .hi : "छवि",
-        .hu : "Kép",
-        .pl : "Wizerunek",
-        .cs : "Obraz",
-        .sk : "Obraz",
-        .uk : "Зображення",
-        .ca : "Imatge",
-        .ro : "Imagine",
-        .hr : "Slika"
-    ]
-
+    
+    //    MARK: - Remember (private)
+    
     private let _remember: [Language:String] = [
         .en : "Remember",
         .ru : "Запомнить",
@@ -468,4 +450,137 @@ struct LocalizedString {
         .ro : "Tine minte",
         .hr : "Zapamtit"
     ]
+    
+    //    MARK: - Alert (private)
+    private let _emptyObjectAlertTitle: [Language:String] = [
+        .en : "Error",
+        .ru : "Ошибка",
+        .es : "Error",
+        .fr : "Erreur",
+        .pt : "Erro",
+        .it : "Errore",
+        .de : "Bild",
+        .nl : "Error",
+        .ja : "エラー",
+        .ko : "오류",
+        .vi : "lỗi",
+        .sv : "Fel",
+        .da : "Fejl",
+        .fi : "Virhe",
+        .nb : "Feil",
+        .tr : "Hata",
+        .el : "Λάθος",
+        .id : "Kesalahan",
+        .ms : "Ralat",
+        .th : "ข้อผิดพลาด",
+        .hi : "त्रुटि",
+        .hu : "Hiba",
+        .pl : "Błąd",
+        .cs : "Chyba",
+        .sk : "Chyba",
+        .uk : "Помилка",
+        .ca : "Error",
+        .ro : "Eroare",
+        .hr : "Greška"
+    ]
+    
+    private let _alertMessage: [Language:String] = [
+        .en : "Failed to recognize objects! Try again.",
+        .ru : "Не удалось распознать объекты! Попробуйте снова.",
+        .es : "¡Error al reconocer objetos! Inténtalo de nuevo.",
+        .fr : "Impossible de reconnaître les objets! Réessayer.",
+        .pt : "Falha ao reconhecer objetos! Tente novamente.",
+        .it : "Impossibile riconoscere gli oggetti! Riprova.",
+        .de : "Objekte konnten nicht erkannt werden! Versuch es noch einmal.",
+        .nl : "Kunne ikke genkende genstande! Prøv igen.",
+        .ja : "オブジェクトを認識できませんでした！ 再試行。",
+        .ko : "개체를 인식하지 못했습니다! 다시 시도하십시오.",
+        .vi : "Không thể nhận dạng các đối tượng! Thử lại.",
+        .sv : "Det gick inte att känna igen objekt! Försök igen.",
+        .da : "Kunne ikke genkende genstande! Prøv igen.",
+        .fi : "Objektien tunnistaminen epäonnistui! Yritä uudelleen.",
+        .nb : "Kunne ikke gjenkjenne gjenstander! Prøv igjen.",
+        .tr : "Nesneler tanınamadı! Tekrar deneyin.",
+        .el : "Αποτυχία αναγνώρισης αντικειμένων! Προσπάθησε ξανά.",
+        .id : "Gagal mengenali objek! Coba lagi.",
+        .ms : "Gagal mengenali objek! Cuba lagi.",
+        .th : "ไม่สามารถจดจำวัตถุ! ลองอีกครั้ง.",
+        .hi : "वस्तुओं को पहचानने में विफल! पुनः प्रयास करें।",
+        .hu : "Nem sikerült felismerni az objektumokat! Próbáld újra.",
+        .pl : "Nie udało się rozpoznać obiektów! Spróbuj ponownie.",
+        .cs : "Nepodařilo se rozpoznat objekty! Zkus to znovu.",
+        .sk : "Nepodarilo sa rozpoznať objekty! Skúste to znova.",
+        .uk : "Чи не вдалося розпізнати об'єкти! Спробуйте знову.",
+        .ca : "No s'ha pogut reconèixer els objectes! Torna-ho a provar.",
+        .ro : "Nu a reușit să recunoască obiectele! Încearcă din nou.",
+        .hr : "Prepoznavanje predmeta nije uspjelo! Pokušajte ponovo."
+    ]
+    
+    private let _alertCancelTitle: [Language:String] = [
+        .en : "Okay",
+        .ru : "Хорошо",
+        .es : "Bueno",
+        .fr : "D'accord",
+        .pt : "OK",
+        .it : "Va bene",
+        .de : "In Ordnung",
+        .nl : "Okay",
+        .ja : "はい",
+        .ko : "괜찮아",
+        .vi : "Được chứ",
+        .sv : "Okej",
+        .da : "Okay",
+        .fi : "Okei",
+        .nb : "Greit",
+        .tr : "Tamam",
+        .el : "εντάξει",
+        .id : "Baik",
+        .ms : "Baik",
+        .th : "ตกลง",
+        .hi : "ठीक है",
+        .hu : "Oké",
+        .pl : "W porządku",
+        .cs : "Dobře",
+        .sk : "Dobre",
+        .uk : "Okay",
+        .ca : "Bé",
+        .ro : "Bine",
+        .hr : "U redu"
+    ]
+    
+    
+    //    MARK: - Other (private)
+    
+    private let _image: [Language:String] = [
+        .en : "Image",
+        .ru : "Изображение",
+        .es : "Imagen",
+        .fr : "Image",
+        .pt : "Imagem",
+        .it : "Immagine",
+        .de : "Bild",
+        .nl : "Billede",
+        .ja : "画像",
+        .ko : "영상",
+        .vi : "Hình ảnh",
+        .sv : "Bild",
+        .da : "Billede",
+        .fi : "Kuva",
+        .nb : "Bilde",
+        .tr : "görüntü",
+        .el : "Συλλογή",
+        .id : "Gambar",
+        .ms : "Imej",
+        .th : "ภาพ",
+        .hi : "छवि",
+        .hu : "Kép",
+        .pl : "Wizerunek",
+        .cs : "Obraz",
+        .sk : "Obraz",
+        .uk : "Зображення",
+        .ca : "Imatge",
+        .ro : "Imagine",
+        .hr : "Slika"
+    ]
+    
 }

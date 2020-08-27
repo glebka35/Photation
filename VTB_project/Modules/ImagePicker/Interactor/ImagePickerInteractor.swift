@@ -24,18 +24,32 @@ class ImagePickerInteractor: ImagePickerInteractorInput {
         NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
     }
 
+    func viewDidLoad() {
+        updateModel()
+    }
+
      //    MARK: - Data update
 
     func handle(image: UIImage) {
         imageWorker.performHandling(image: image) { (objects) in
             DispatchQueue.main.async { [weak self] in
-                self?.presenter?.imageDidRecieved(objects: objects)
-                self?.dataStore.save(imageWithObjects: objects)
+                if let objects = objects {
+                    self?.presenter?.imageDidRecieved(objects: objects)
+                    self?.dataStore.save(imageWithObjects: objects)
+                } else {
+                    self?.presenter?.didReceivedEmptyObjects()
+                }
+
             }
         }
     }
 
     @objc private func languageChanged() {
-           presenter?.languageChanged()
+           updateModel()
        }
+
+    private func updateModel() {
+        let model = ImagePickerViewModel(navigationBarModel: MainNavigationBarModel(title: LocalizedString().add, additionalTitle: SettingsStore.shared.getForeignLanguage().humanRepresentingNative), cameraButtonTitle: LocalizedString().cameraButton, galeryButtonTitle: LocalizedString().galeryButton)
+        presenter?.update(with: model)
+    }
 }

@@ -9,10 +9,3 @@
 import Foundation
 
 typealias RememberObjects = [SingleObject]
-
-struct RememberGameModel {
-    var mainWord: String
-    var variants: [String]
-
-    var footerModel: FooterModel
-}

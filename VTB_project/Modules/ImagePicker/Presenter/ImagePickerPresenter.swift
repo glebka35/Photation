@@ -18,6 +18,12 @@ class ImagePickerPresenter: ImagePickerViewOutput {
     var interactor: ImagePickerInteractorInput?
     weak var view: ImagePickerView?
 
+//    MARK: - Life cycle
+
+    func viewDidLoad() {
+        interactor?.viewDidLoad()
+    }
+
 //    MARK: - User interaction
 
     func cameraButtonPressed() {
@@ -42,8 +48,13 @@ extension ImagePickerPresenter: ImagePickerInteractorOutput {
         router?.showDetail(of: objects)
     }
 
-    func languageChanged() {
-        view?.languageChanged()
+    func update(with model: ImagePickerViewModel) {
+        view?.update(with: model)
+    }
+
+    func didReceivedEmptyObjects() {
+        view?.unshowSpinner()
+        router?.showAlert()
     }
 
 }

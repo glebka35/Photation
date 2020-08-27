@@ -15,7 +15,7 @@ class SettingsView: UIViewController, SettingsViewInput {
     var presenter: SettingsViewOutput?
 
     private var navigationBar: MainNavigationBar!
-    private var tableViewSupervisor: TableViewSupervisor?
+    private var tableViewSupervisor: SettingsTableViewSupervisor?
 
 //    MARK: - Life cycle
 
@@ -33,7 +33,7 @@ class SettingsView: UIViewController, SettingsViewInput {
 //    MARK: -  UI configuration
 
     private func addAndConfigureTableView() {
-        let tableViewSupervisor = TableViewSupervisor()
+        let tableViewSupervisor = SettingsTableViewSupervisor()
         tableViewSupervisor.delegate = self
         let table = tableViewSupervisor.getConfiguredTableView()
         view.addSubview(table)
@@ -54,24 +54,20 @@ class SettingsView: UIViewController, SettingsViewInput {
         view.addSubview(navigationBar)
 
         NSLayoutConstraint.activate([
-            navigationBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
-            navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            navigationBar.bottomAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 90)
+            navigationBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 10),
+            navigationBar.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            navigationBar.bottomAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 100)
         ])
     }
 
 //    MARK: - UI update
 
-    func updateTable(with data: [[CellViewModel]]) {
-        tableViewSupervisor?.update(with: data)
-    }
+    func updateTable(with data: SettingsViewModel) {
+        navigationBar.update(with: data.navigationBarModel)
+        tableViewSupervisor?.update(with: data.cellModels)
 
-    func languageChanged() {
-        let newTitle = LocalizedString().settings
-        title = newTitle
-
-        navigationBar.updateMainTitle(with: newTitle)
+        title = data.navigationBarModel.title
     }
 }
 

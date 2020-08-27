@@ -28,9 +28,9 @@ class RememberView: UIViewController, RememberViewInput {
         
         addAndConfigureNavigationBar()
         addAndConfigureHeader()
-        addAndConfigureFooter()
         addAndConfigureCollectionView()
-        
+        addAndConfigureFooter()
+
         presenter?.viewDidLoad()
     }
 
@@ -43,7 +43,7 @@ class RememberView: UIViewController, RememberViewInput {
 
         if let navigationBar = navigationBar {
             NSLayoutConstraint.activate([
-                header.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 40),
+                header.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 20),
                 header.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 header.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                 header.heightAnchor.constraint(equalToConstant: 130)
@@ -57,11 +57,12 @@ class RememberView: UIViewController, RememberViewInput {
         view.addSubview(footer)
 
         NSLayoutConstraint.activate([
-            footer.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor),
+            footer.topAnchor.constraint(equalTo: collectionSupervisor.collectionView.bottomAnchor),
             footer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             footer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            footer.heightAnchor.constraint(equalToConstant: 200)
+            footer.heightAnchor.constraint(equalToConstant: 100)
         ])
+
 
         footer.delegate = self
     }
@@ -89,10 +90,10 @@ class RememberView: UIViewController, RememberViewInput {
         view.addSubview(collectionView)
 
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 40),
+            collectionView.topAnchor.constraint(lessThanOrEqualTo: header.bottomAnchor, constant: 20),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: footer.topAnchor, constant: -40)
+            collectionView.heightAnchor.constraint(equalToConstant: 180)
         ])
 
         collectionSupervisor.delegate = self
@@ -100,14 +101,11 @@ class RememberView: UIViewController, RememberViewInput {
 
     //    MARK: - UI update
 
-    func update(with gameModel: RememberGameModel) {
-        collectionSupervisor.update(with: gameModel.variants)
-        header.update(with: gameModel.mainWord)
-        footer.update(with: gameModel.footerModel)
-    }
-
-    func update(footerWith model: FooterModel) {
-        footer.update(with: model)
+    func update(with model: RememberViewModel) {
+        navigationBar?.update(with: model.navigationBarModel)
+        collectionSupervisor.update(with: model.gameModel.variants)
+        header.update(with: model.gameModel.mainWord)
+        footer.update(with: model.footerModel)
     }
 
     func emphasizeCorrectWord(at indexPath: IndexPath) {
@@ -134,6 +132,7 @@ extension RememberView: FooterActionDelegate {
     func performAction() {
         presenter?.nextButtonPressed()
         isUserInteractionEnable = true
+        collectionSupervisor.resetEmphasizedWords()
     }
 }
 

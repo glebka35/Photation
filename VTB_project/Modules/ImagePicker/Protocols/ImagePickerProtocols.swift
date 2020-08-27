@@ -19,7 +19,7 @@ protocol ImagePickerViewInput: AnyObject {
     func showGaleryImagePicker()
     func showSpinner()
     func unshowSpinner()
-    func languageChanged()
+    func update(with model: ImagePickerViewModel)
 }
 
 //MARK: - VIEW->PRESENTER
@@ -30,6 +30,7 @@ protocol ImagePickerViewOutput: AnyObject {
     var view: ImagePickerView? { get set }
     var router: ImagePickerRouterInput? { get set }
 
+    func viewDidLoad()
     func cameraButtonPressed()
     func galeryButtonPressed()
     func receiveImageFromUser(image: UIImage)
@@ -41,14 +42,16 @@ protocol ImagePickerViewOutput: AnyObject {
 protocol ImagePickerInteractorInput: AnyObject {
     var presenter: ImagePickerInteractorOutput? { get set }
     func handle(image: UIImage)
+    func viewDidLoad()
 }
 
 //MARK: - INTERACTOR->PRESENTER
 
 protocol ImagePickerInteractorOutput: AnyObject {
     func imageDidRecieved(objects: ObjectsOnImage)
+    func didReceivedEmptyObjects()
 
-    func languageChanged()
+    func update(with model: ImagePickerViewModel)
 }
 
 //MARK: - PRESENTER -> ROUTER
@@ -57,5 +60,6 @@ protocol ImagePickerRouterInput: AnyObject {
     var view: ImagePickerView? { get set }
 
     func showDetail(of object: ObjectsOnImage)
+    func showAlert()
     func closeModule()
 }

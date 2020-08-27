@@ -13,8 +13,9 @@ class TableViewCell: UITableViewCell {
 
 //    MARK: - Properties
 
-    var topSeparator = UIView()
-    var bottomSeparator = UIView()
+    let topSeparator = UIView()
+    let bottomSeparator = UIView()
+    let rightLabel = UILabel()
 
 //    MARK: - Life cycle
 
@@ -28,6 +29,7 @@ class TableViewCell: UITableViewCell {
 
         addTopSeparator()
         addBottomSeparator()
+        addRightLabel()
     }
 
     required init?(coder: NSCoder) {
@@ -64,9 +66,25 @@ class TableViewCell: UITableViewCell {
         ])
     }
 
+    private func addRightLabel() {
+        rightLabel.numberOfLines = 1
+        rightLabel.translatesAutoresizingMaskIntoConstraints = false
+        rightLabel.textColor = .blue
+        rightLabel.font = UIFont.systemFont(ofSize: 10)
+
+        addSubview(rightLabel)
+
+        NSLayoutConstraint.activate([
+            rightLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            rightLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
+        ])
+
+        rightLabel.isHidden = true
+    }
+
     //    MARK: - UI update
 
-    func update(with model: CellViewModel, isFirst: Bool, isLast: Bool, isDestructive: Bool) {
+    func update(with model: SettingsCellViewModel, isFirst: Bool, isLast: Bool, isDestructive: Bool) {
         imageView?.image = model.image
         textLabel?.text = model.title
         self.accessoryType = accessoryType

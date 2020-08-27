@@ -35,7 +35,7 @@ class RememberInteractor: RememberInteractorInput {
         } else {
             footerModel.currentIndex += 1
             if let currentIndex = currentIndex {
-                presenter?.showWord(at: currentIndex, with: footerModel)
+                presenter?.showWord(at: currentIndex, with: footerModel, and: getNavigationBar())
             }
         }
     }
@@ -54,5 +54,11 @@ class RememberInteractor: RememberInteractorInput {
 
     private func updateFooter() {
         presenter?.update(footer: footerModel)
+    }
+
+    private func getNavigationBar()->DefaultNavigationBarModel {
+        let navigationBarModel = DefaultNavigationBarModel(title: LocalizedString().remember, backButtonTitle: LocalizedString().backButton)
+        return navigationBarModel
+        
     }
 }

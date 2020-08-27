@@ -8,7 +8,11 @@
 
 import Foundation
 
-enum Language: String, CaseIterable {
+//let urlString = Bundle.main.path(forResource: "Languages", ofType: "plist")
+//
+//let data = Data(contentsOf: URL(string: urlString!)!)
+
+enum Language: String, CaseIterable, Decodable {
     case ru, en, es, fr, pt, it, de, nl, ja, ko, vi, sv, da, fi, nb, tr, el, id, ms, th, hi, hu, pl, cs, sk, uk, ca, ro, hr
 
     var humanRepresentingNative: String {
@@ -34,7 +38,7 @@ enum Language: String, CaseIterable {
         case .ko:
             return "한국어"
         case .vi:
-            return "tiếng Việt,"
+            return "Tiếng Việt,"
         case .sv:
             return "Svenska"
         case .da:
@@ -77,7 +81,7 @@ enum Language: String, CaseIterable {
     var humanRepresentingEnglish: String {
         switch (self) {
         case .ru:
-            return "English"
+            return "Russian"
         case .en:
             return "English"
         case .es:

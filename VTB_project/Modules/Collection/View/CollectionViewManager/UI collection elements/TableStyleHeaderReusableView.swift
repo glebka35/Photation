@@ -50,13 +50,13 @@ class TableStyleHeaderReusableView: UICollectionReusableView {
     private func addConstraints() {
         nativeLanguageLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            nativeLanguageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            nativeLanguageLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             nativeLanguageLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
 
         foreignLanguageLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            foreignLanguageLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            foreignLanguageLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             foreignLanguageLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }

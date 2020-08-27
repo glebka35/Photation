@@ -62,7 +62,7 @@ class RememberFooterView: UIView {
         nextButton.clipsToBounds = true
         nextButton.layer.borderWidth = 2
         nextButton.layer.borderColor = UIColor.blue.cgColor
-        nextButton.titleLabel?.font = UIFont.systemFont(ofSize: 30, weight: .medium)
+        nextButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .medium)
         nextButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 
         nextButton.translatesAutoresizingMaskIntoConstraints = false
@@ -70,9 +70,9 @@ class RememberFooterView: UIView {
         addSubview(nextButton)
 
         NSLayoutConstraint.activate([
-            nextButton.topAnchor.constraint(equalTo: progressLabel.bottomAnchor, constant: 20),
-            nextButton.heightAnchor.constraint(equalToConstant: 70),
-            nextButton.widthAnchor.constraint(equalToConstant: 70),
+            nextButton.topAnchor.constraint(equalTo: progressLabel.bottomAnchor, constant: 8),
+            nextButton.heightAnchor.constraint(equalToConstant: 50),
+            nextButton.widthAnchor.constraint(equalToConstant: 50),
             nextButton.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }

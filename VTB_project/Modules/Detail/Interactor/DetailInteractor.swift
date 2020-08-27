@@ -12,7 +12,7 @@ class DetailInteractor: DetailInteractorInput {
 
 //    MARK: -  Properties
     
-    var presenter: DetailInteractorOutput?
+    weak var presenter: DetailInteractorOutput?
 
     private var coreDataStorage = CoreDataStore.shared
 
@@ -21,6 +21,13 @@ class DetailInteractor: DetailInteractorInput {
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(deleteData), name: NSNotification.Name(GlobalConstants.deletaDataNotification), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(deleteData), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
+    }
+
+    func viewDidLoad() {
+        let title = LocalizedString().image
+        let backButtonTitle = LocalizedString().backButton
+
+        presenter?.updateView(with: DefaultNavigationBarModel(title: title, backButtonTitle: backButtonTitle))
     }
 
 //    MARK: - Data update

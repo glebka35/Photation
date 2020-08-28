@@ -14,10 +14,10 @@ class CollectionInteractor: CollectionInteractorInput {
 
     weak var presenter: CollectionInteractorOutput?
     private let coreDataStorage = CoreDataStore.shared
-    private let predicates = [
-        ConstantsKeys.nativeLanguage : SettingsStore.shared.getNativeLanguage().rawValue,
-        ConstantsKeys.foreignLanguage : SettingsStore.shared.getForeignLanguage().rawValue
-    ]
+    private var predicates: [String: String] {
+        [ConstantsKeys.nativeLanguage : SettingsStore.shared.getNativeLanguage().rawValue,
+        ConstantsKeys.foreignLanguage : SettingsStore.shared.getForeignLanguage().rawValue]
+    }
     private var loadMoreStatus = false
     private var isStoreEmpty = false
 

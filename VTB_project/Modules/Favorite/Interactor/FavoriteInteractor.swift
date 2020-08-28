@@ -14,10 +14,10 @@ class FavoriteInteractor: FavoriteInteractorInput {
     
     weak var presenter: FavoriteInteractorOutput?
     private let coreDataStorage: CoreDataStore = CoreDataStore.shared
-    private let predicates = [
-            "image." + ConstantsKeys.nativeLanguage : SettingsStore.shared.getNativeLanguage().rawValue,
-            "image." + ConstantsKeys.foreignLanguage : SettingsStore.shared.getForeignLanguage().rawValue
-    ]
+    private var predicates: [String:String]  {
+            ["image." + ConstantsKeys.nativeLanguage : SettingsStore.shared.getNativeLanguage().rawValue,
+            "image." + ConstantsKeys.foreignLanguage : SettingsStore.shared.getForeignLanguage().rawValue]
+    }
     private var page = 0
     private var isStoreEmpty = false
     private var loadMoreStatus = false

@@ -8,6 +8,4 @@
 
 import Foundation
 
-extension Array {
-    override subscript
-}
+

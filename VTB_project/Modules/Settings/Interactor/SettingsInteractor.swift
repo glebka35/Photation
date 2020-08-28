@@ -20,7 +20,7 @@ class SettingsInteractor: SettingsInteractorInput {
     //    MARK: - LifeCycle
 
     init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: NSNotification.Name(NotificionIdentifier.languageChanged), object: nil)
     }
 
     func viewDidLoad() {

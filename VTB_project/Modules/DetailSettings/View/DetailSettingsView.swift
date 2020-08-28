@@ -16,6 +16,8 @@ class DetailSettingsView: UIViewController, DetailSettingsViewInput {
     private var navigationBar: DefaultNavigationBar?
     private var tableViewSupervisor: DetailTableSupervisor?
 
+    private var startLocationOfSwipeGesture = CGPoint()
+
     //    MARK: - Life cycle
 
     override func viewDidLoad() {
@@ -23,6 +25,7 @@ class DetailSettingsView: UIViewController, DetailSettingsViewInput {
         view.backgroundColor = .white
         addAndConfigureNavigationBar()
         addAndConfigureTableView()
+        addCloseGesture()
         presenter?.viewDidLoad()
     }
 
@@ -62,19 +65,34 @@ class DetailSettingsView: UIViewController, DetailSettingsViewInput {
         self.navigationBar = navigationBar
     }
 
+    private func addCloseGesture() {
+        let gesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(gesture:)))
+        gesture.direction = .right
+
+        view.addGestureRecognizer(gesture)
+    }
+
 //    MARK: - UI update
 
     func update(with model: DetailSettingsViewModel) {
         navigationBar?.update(with: model.navBarModel)
         tableViewSupervisor?.update(with: model.cellModels)
     }
+
+//    MARK: - User interaction
+
+    @objc private func handleSwipe(gesture: UISwipeGestureRecognizer) {
+        if gesture.location(in: view).x < GlobalConstants.xStartPointMaxValue {
+            presenter?.userClosedModule()
+        }
+    }
 }
 
 //MARK: - NavigationBarDelegate
 
 extension DetailSettingsView: NavigationBarDelegate {
-    func action(sender: UIButton!) {
-        presenter?.backButtonPressed()
+    @objc func action(sender: UIButton!) {
+        presenter?.userClosedModule()
     }
 }
 

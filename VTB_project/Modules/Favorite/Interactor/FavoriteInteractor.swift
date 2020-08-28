@@ -15,8 +15,9 @@ class FavoriteInteractor: FavoriteInteractorInput {
     weak var presenter: FavoriteInteractorOutput?
     private let coreDataStorage: CoreDataStore = CoreDataStore.shared
     private var predicates: [String:String]  {
-            ["image." + ConstantsKeys.nativeLanguage : SettingsStore.shared.getNativeLanguage().rawValue,
-            "image." + ConstantsKeys.foreignLanguage : SettingsStore.shared.getForeignLanguage().rawValue]
+        ["isFavorite" : "1",
+         "image." + ConstantsKeys.nativeLanguage : SettingsStore.shared.getNativeLanguage().rawValue,
+         "image." + ConstantsKeys.foreignLanguage : SettingsStore.shared.getForeignLanguage().rawValue]
     }
     private var page = 0
     private var isStoreEmpty = false
@@ -27,9 +28,9 @@ class FavoriteInteractor: FavoriteInteractorInput {
     //    MARK: - Life cycle
 
     init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.deletaDataNotification), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.dataModified), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(NotificionIdentifier.deletaDataNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(NotificionIdentifier.dataModified), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: NSNotification.Name(NotificionIdentifier.languageChanged), object: nil)
     }
 
     func viewDidLoad() {
@@ -85,8 +86,8 @@ class FavoriteInteractor: FavoriteInteractorInput {
 
     @objc private func languageChanged() {
         if viewLoaded {
-            setNavigationBar()
             reloadData()
         }
+        setNavigationBar()
     }
 }

@@ -26,7 +26,7 @@ protocol DetailSettingsViewOutput: AnyObject {
 
     func viewDidLoad()
     func languageChoosen(at indexPath: IndexPath)
-    func backButtonPressed()
+    func userClosedModule()
 }
 
 //MARK: - PRESENTER -> INTERACTOR

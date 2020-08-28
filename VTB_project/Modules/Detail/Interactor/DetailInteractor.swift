@@ -19,8 +19,8 @@ class DetailInteractor: DetailInteractorInput {
 //    MARK: - Life cycle
 
     init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(deleteData), name: NSNotification.Name(GlobalConstants.deletaDataNotification), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(deleteData), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteData), name: NSNotification.Name(NotificionIdentifier.deletaDataNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteData), name: NSNotification.Name(NotificionIdentifier.languageChanged), object: nil)
     }
 
     func viewDidLoad() {

@@ -124,23 +124,18 @@ extension RememberCollectionViewSupervisor: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "rememberCell", for: indexPath) as? RememberCollectionViewCell {
             if isNeedAnimation {
-                if !cell.isAnimated {
-                    UIView.animate(withDuration: 10, delay: 0.5 * Double(indexPath.row), usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: indexPath.row % 2 == 0 ? .transitionFlipFromLeft : .transitionFlipFromRight, animations: {
-                        cell.isAnimated = true
 
-                        if indexPath.row % 2 == 0 {
-                            AnimationUtility.viewSlideInFromLeft(toRight: cell)
-                        }
-                        else {
-                            AnimationUtility.viewSlideInFromRight(toLeft: cell)
-                        }
+                UIView.animate(withDuration: 10, delay: 0.5 * Double(indexPath.row), usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: indexPath.row % 2 == 0 ? .transitionFlipFromLeft : .transitionFlipFromRight, animations: {
 
-                    }, completion: { (done) in
-                        cell.isAnimated = false
-                    })
-                }
-            }
-        
+                    if indexPath.row % 2 == 0 {
+                        AnimationUtility.viewSlideInFromLeft(toRight: cell)
+                    }
+                    else {
+                        AnimationUtility.viewSlideInFromRight(toLeft: cell)
+                    }
+
+                }, completion: nil)}
+
             return cell
         }
         fatalError("Remember cell error")

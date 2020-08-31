@@ -8,12 +8,11 @@
 
 import UIKit
 
-class RememberCollectionViewCell: UICollectionViewCell, Animated {
+class RememberCollectionViewCell: UICollectionViewCell {
 
 //    MARK: - Properties
 
     private var wordLabel = UILabel()
-    var isAnimated: Bool = false
     
 //    MARK: - Life cycle
 

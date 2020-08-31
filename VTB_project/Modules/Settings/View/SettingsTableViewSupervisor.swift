@@ -73,14 +73,18 @@ extension SettingsTableViewSupervisor: UITableViewDataSource {
         cellModels[section].count
     }
 
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cell = cell as? TableViewCell {
+            let isDestructive = indexPath.section == cellModels.count - 1
+            let isFirst = indexPath.row == 0
+            let isLast = indexPath.row == cellModels[indexPath.section].count - 1
+
+            cell.update(with: cellModels[indexPath.section][indexPath.row], isFirst: isFirst, isLast: isLast, isDestructive: isDestructive)
+        }
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TableViewCell else { return TableViewCell() }
-
-        let isDestructive = indexPath.section == cellModels.count - 1
-        let isFirst = indexPath.row == 0
-        let isLast = indexPath.row == cellModels[indexPath.section].count - 1
-
-        cell.update(with: cellModels[indexPath.section][indexPath.row], isFirst: isFirst, isLast: isLast, isDestructive: isDestructive)
 
         return cell
     }

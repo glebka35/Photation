@@ -10,7 +10,6 @@
 		2B199D4524F7BDDC00B22F68 /* DetailSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B199D4424F7BDDC00B22F68 /* DetailSettingsViewModel.swift */; };
 		2B199D4924F960A000B22F68 /* Collection+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B199D4824F960A000B22F68 /* Collection+.swift */; };
 		2B199D5024FD30FE00B22F68 /* AnimationUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B199D4F24FD30FE00B22F68 /* AnimationUtility.swift */; };
-		2B199D5424FD365500B22F68 /* Animated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B199D5324FD365500B22F68 /* Animated.swift */; };
 		2B46C51C24D2AA0800CA143E /* SettingsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C51B24D2AA0800CA143E /* SettingsProtocol.swift */; };
 		2B46C51E24D2AB6E00CA143E /* SettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C51D24D2AB6E00CA143E /* SettingsRouter.swift */; };
 		2B46C52024D2AB8E00CA143E /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B46C51F24D2AB8E00CA143E /* SettingsPresenter.swift */; };
@@ -127,7 +126,6 @@
 		2B199D4424F7BDDC00B22F68 /* DetailSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingsViewModel.swift; sourceTree = "<group>"; };
 		2B199D4824F960A000B22F68 /* Collection+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+.swift"; sourceTree = "<group>"; };
 		2B199D4F24FD30FE00B22F68 /* AnimationUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationUtility.swift; sourceTree = "<group>"; };
-		2B199D5324FD365500B22F68 /* Animated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animated.swift; sourceTree = "<group>"; };
 		2B46C51B24D2AA0800CA143E /* SettingsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsProtocol.swift; sourceTree = "<group>"; };
 		2B46C51D24D2AB6E00CA143E /* SettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRouter.swift; sourceTree = "<group>"; };
 		2B46C51F24D2AB8E00CA143E /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
@@ -902,7 +900,6 @@
 				2B46C59C24DC013400CA143E /* GlobalConstants.swift */,
 				2B9B124024E5308B00646455 /* LocalizedString.swift */,
 				2B199D4F24FD30FE00B22F68 /* AnimationUtility.swift */,
-				2B199D5324FD365500B22F68 /* Animated.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1212,7 +1209,6 @@
 				2B5125DF24D04C6700021937 /* Language.swift in Sources */,
 				2B676D8D24EBDD8D00AC4BB8 /* RememberFooterView.swift in Sources */,
 				2BD8D3DA24CEB3CB0099C575 /* DetailCollectionSupervisor.swift in Sources */,
-				2B199D5424FD365500B22F68 /* Animated.swift in Sources */,
 				2BD8D36E24C8A1DE0099C575 /* CollectionRouter.swift in Sources */,
 				2B46C59A24DBE56E00CA143E /* ImageEntity+CoreDataClass.swift in Sources */,
 				2B5125DA24D0210A00021937 /* Translator.swift in Sources */,

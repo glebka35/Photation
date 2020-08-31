@@ -66,7 +66,7 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
         NSLayoutConstraint.activate([
             stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stack.heightAnchor.constraint(equalToConstant: stackHeight),
-            stack.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            stack.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -25)
         ])
 
         cameraButton.addTarget(self, action: #selector(cameraButtonTapped), for: .touchUpInside)
@@ -97,10 +97,12 @@ class ImagePickerView: UIViewController, ImagePickerViewInput {
 //    MARK: - User interaction
 
     @objc private func cameraButtonTapped() {
+        cameraButton?.pulsate()
         presenter?.cameraButtonPressed()
     }
 
     @objc private func galeryButtonTapped() {
+        galeryButton?.pulsate()
         presenter?.galeryButtonPressed()
     }
 

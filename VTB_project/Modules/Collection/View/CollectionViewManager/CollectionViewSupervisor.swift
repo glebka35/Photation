@@ -57,17 +57,26 @@ final class CollectionViewSupervisor: NSObject, CollectionViewSupervisorProtocol
     private var presentationStyle: PresentationStyle! {
         didSet {
             collectionView.delegate = styleDelegates[presentationStyle]
+            if !(oldValue == presentationStyle) {
+                animatedIndecies.removeAll()
+            }
         }
     }
 
     private var imageModel: ImageStyleCollectionModel? {
         didSet {
+            if imageModel?.objects.count == 0 {
+                animatedIndecies.removeAll()
+            }
             collectionView.reloadData()
         }
     }
 
     private var tableModel: TableStyleCollectionModel? {
         didSet {
+            if imageModel?.objects.count == 0 {
+                animatedIndecies.removeAll()
+            }
             collectionView.reloadData()
         }
     }
@@ -80,6 +89,12 @@ final class CollectionViewSupervisor: NSObject, CollectionViewSupervisorProtocol
             return tableModel?.objects.count ?? 0
         case .none:
             return 0
+        }
+    }
+
+    private var animatedIndecies: [IndexPath] = [] {
+        didSet {
+            
         }
     }
 
@@ -132,27 +147,59 @@ extension CollectionViewSupervisor: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return numberOfRows
     }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let cell = cell as? ImageCollectionViewCell, let imageWithObjects = imageModel?.objects[indexPath.row] {
+            cell.updateStateWith(object: imageWithObjects)
+        }
+
+        if let cell = cell as? ListCollectionViewCell, let object = tableModel?.objects[indexPath.row] {
+            cell.updateStateWith(object: object)
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        var returnCell: UICollectionViewCell!
         switch(presentationStyle) {
         case .images:
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as? ImageCollectionViewCell {
                 if let imageWithObjects = imageModel?.objects[indexPath.row] {
                     cell.updateStateWith(object: imageWithObjects)
                 }
-                return cell
+
+                returnCell = cell
             }
         case .table:
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "listCell", for: indexPath) as? ListCollectionViewCell {
                 if let object = tableModel?.objects[indexPath.row] {
                     cell.updateStateWith(object: object)
                 }
-                return cell
+                returnCell = cell
             }
         default:
-            break
+            fatalError("Can't take a cell!")
         }
-        return UICollectionViewCell()
+
+        animate(cell: returnCell, with: indexPath)
+
+        return returnCell
+    }
+
+    private func animate(cell: UICollectionViewCell, with indexPath: IndexPath) {
+        if  !animatedIndecies.contains(indexPath) {
+            UIView.animate(withDuration: 0.5, delay: 20 * Double(indexPath.row), usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: indexPath.row % 2 == 0 ? .transitionFlipFromLeft : .transitionFlipFromRight, animations: {
+
+                if indexPath.row % 2 == 0 {
+                    AnimationUtility.viewSlideInFromLeft(toRight: cell)
+                }
+                else {
+                    AnimationUtility.viewSlideInFromRight(toLeft: cell)
+                }
+
+            }, completion: { (done) in
+                self.animatedIndecies.append(indexPath)
+            })
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

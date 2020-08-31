@@ -50,11 +50,11 @@ class FavoriteInteractor: FavoriteInteractorInput {
                     let (objects, images) = self.coreDataStorage.loadFavoriteImages(page: self.page, with: self.predicates)
                     DispatchQueue.main.async {
                         if let images = images, let objects = objects {
-                            self.presenter?.objectsDidFetch(images: images, objects: objects)
-                            self.page += 1
-
                             if objects.count == 0 {
                                 self.isStoreEmpty = true
+                            } else {
+                                self.presenter?.objectsDidFetch(images: images, objects: objects)
+                                self.page += 1
                             }
                         }
                     }

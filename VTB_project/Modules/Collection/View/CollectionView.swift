@@ -81,6 +81,7 @@ class CollectionView: UIViewController, CollectionViewInput {
             collectionSupervisor.updateContent(with: imageModel)
             currentStyle = PresentationStyle.images
         } else if let tableModel = model.tableModel {
+
             collectionSupervisor.updateContent(with: tableModel)
             currentStyle = PresentationStyle.table
         }

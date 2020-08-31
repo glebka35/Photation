@@ -45,11 +45,11 @@ class CollectionInteractor: CollectionInteractorInput {
                 self?.loadMoreStatus = true
                 if let self = self, let objects = self.coreDataStorage.loadMoreImages(page: self.page, with: self.predicates) {
                     DispatchQueue.main.async {
-                        self.presenter?.objectsDidFetch(objects: objects)
-                        self.page += 1
-
                         if objects.count == 0 {
                             self.isStoreEmpty = true
+                        } else {
+                            self.presenter?.objectsDidFetch(objects: objects)
+                            self.page += 1
                         }
                     }
                 }

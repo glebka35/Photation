@@ -8,12 +8,13 @@
 
 import UIKit
 
-class RememberCollectionViewCell: UICollectionViewCell {
+class RememberCollectionViewCell: UICollectionViewCell, Animated {
 
 //    MARK: - Properties
 
     private var wordLabel = UILabel()
-
+    var isAnimated: Bool = false
+    
 //    MARK: - Life cycle
 
     override init(frame: CGRect) {

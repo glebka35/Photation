@@ -101,7 +101,7 @@ extension RememberPresenter: RememberInteractorOutput {
     func update(footer: FooterModel) {
         if let navBarModel = currentModel?.navigationBarModel, let gameModel = currentModel?.gameModel {
             let model = RememberViewModel(navigationBarModel: navBarModel, gameModel: gameModel, footerModel: footer)
-            view?.update(with: model)
+            view?.update(footer: footer)
             currentModel = model
         }
     }

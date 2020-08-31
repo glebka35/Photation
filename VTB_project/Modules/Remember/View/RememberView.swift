@@ -108,6 +108,12 @@ class RememberView: UIViewController, RememberViewInput {
         footer.update(with: model.footerModel)
     }
 
+    func update(footer: FooterModel) {
+        self.footer.update(with: footer)
+    }
+
+    
+
     func emphasizeCorrectWord(at indexPath: IndexPath) {
         collectionSupervisor.emphasizeCorrectWord(at: indexPath)
         isUserInteractionEnable = false

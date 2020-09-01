@@ -14,10 +14,10 @@ class CollectionInteractor: CollectionInteractorInput {
 
     weak var presenter: CollectionInteractorOutput?
     private let coreDataStorage = CoreDataStore.shared
-    private let predicates = [
-        ConstantsKeys.nativeLanguage : SettingsStore.shared.getNativeLanguage().rawValue,
-        ConstantsKeys.foreignLanguage : SettingsStore.shared.getForeignLanguage().rawValue
-    ]
+    private var predicates: [String: String] {
+        [ConstantsKeys.nativeLanguage : SettingsStore.shared.getNativeLanguage().rawValue,
+        ConstantsKeys.foreignLanguage : SettingsStore.shared.getForeignLanguage().rawValue]
+    }
     private var loadMoreStatus = false
     private var isStoreEmpty = false
 
@@ -26,10 +26,10 @@ class CollectionInteractor: CollectionInteractorInput {
     //    MARK: - Life cycle
     
     init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.newImageAdded), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(deleteData), name: NSNotification.Name(GlobalConstants.deletaDataNotification), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(GlobalConstants.dataModified), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(NotificionIdentifier.newImageAdded), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteData), name: NSNotification.Name(NotificionIdentifier.deletaDataNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(NotificionIdentifier.dataModified), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: NSNotification.Name(NotificionIdentifier.languageChanged), object: nil)
     }
 
     func viewDidLoad() {
@@ -45,11 +45,11 @@ class CollectionInteractor: CollectionInteractorInput {
                 self?.loadMoreStatus = true
                 if let self = self, let objects = self.coreDataStorage.loadMoreImages(page: self.page, with: self.predicates) {
                     DispatchQueue.main.async {
-                        self.presenter?.objectsDidFetch(objects: objects)
-                        self.page += 1
-
                         if objects.count == 0 {
                             self.isStoreEmpty = true
+                        } else {
+                            self.presenter?.objectsDidFetch(objects: objects)
+                            self.page += 1
                         }
                     }
                 }

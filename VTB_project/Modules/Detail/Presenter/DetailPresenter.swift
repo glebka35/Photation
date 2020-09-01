@@ -69,7 +69,7 @@ class DetailPresenter: DetailViewOutput {
         interactor?.update(object: objects.objects[index])
     }
 
-    func backButtonPressed() {
+    func closeModule() {
         router?.closeModule()
     }
 }
@@ -77,7 +77,7 @@ class DetailPresenter: DetailViewOutput {
 //MARK: - DetailInteractorOutput
 
 extension DetailPresenter: DetailInteractorOutput {
-    func closeModule() {
+    func userClosedModule() {
         router?.closeModule()
     }
 }

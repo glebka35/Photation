@@ -60,7 +60,7 @@ class CoreDataStore: NSObject, DataStoreProtocol {
             }
         }
         //        Uncomment to get dataStore url
-//        print(NSPersistentContainer.defaultDirectoryURL())
+        print(NSPersistentContainer.defaultDirectoryURL())
         return container
     } ()
 
@@ -82,7 +82,7 @@ class CoreDataStore: NSObject, DataStoreProtocol {
 
     private func newImageAdded() {
         DispatchQueue.main.async {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: GlobalConstants.newImageAdded), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificionIdentifier.newImageAdded), object: nil)
         }
     }
 
@@ -154,7 +154,7 @@ class CoreDataStore: NSObject, DataStoreProtocol {
             try managedContext.save()
 
             DispatchQueue.main.async {
-                NotificationCenter.default.post(name: NSNotification.Name(GlobalConstants.deletaDataNotification), object: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(NotificionIdentifier.deletaDataNotification), object: nil)
             }
         } catch {
             fatalError("Error while deleting objects")
@@ -177,7 +177,7 @@ class CoreDataStore: NSObject, DataStoreProtocol {
             try managedContext.save()
 
             DispatchQueue.main.async {
-                NotificationCenter.default.post(name: NSNotification.Name(GlobalConstants.dataModified), object: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(NotificionIdentifier.dataModified), object: nil)
             }
         } catch {
             fatalError("Error while deleting objects")

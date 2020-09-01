@@ -41,6 +41,9 @@ struct CoreDataObjectConverter: CoreDataObjectConverterProtocol {
                     }
                 }
             }
+            singleObjects = singleObjects.sorted(by: { (firstObject, secondObject) -> Bool in
+                firstObject.color.toHex ?? "" < secondObject.color.toHex ?? ""
+            })
             if  let nativeLanguageString = image.nativeLanguage,
                 let nativeLanguage = Language(rawValue: nativeLanguageString),
                 let foreignLanguageString = image.foreignLanguage,
@@ -52,6 +55,27 @@ struct CoreDataObjectConverter: CoreDataObjectConverterProtocol {
         }
         return imageWithObjects
     }
+
+    func getObjectsAndImages(objects: [ObjectEntity])->(objects: [SingleObject], images: [ObjectsOnImage]) {
+           var singleObjects: [SingleObject] = []
+           var images: [ImageEntity] = []
+
+           objects.forEach {
+               if let nativeName = $0.nativeForm, let foreignName = $0.foreignForm, let color = UIColor(hex: $0.color), let id = $0.id  {
+                   let isFavorite = $0.isFavorite ? IsWordFavorite.yes : .no
+
+                   singleObjects.append(SingleObject(nativeName: nativeName, foreignName: foreignName, color: color, isFavorite: isFavorite, id: id))
+               }
+
+               if let image = $0.image {
+                   images.append(image)
+               }
+           }
+
+           let objectOnImages = convert(managedObject: images)
+
+           return (objects: singleObjects, images: objectOnImages)
+       }
 
     //    MARK: - Convert to coreData
 
@@ -79,26 +103,5 @@ struct CoreDataObjectConverter: CoreDataObjectConverterProtocol {
         managedObjectImage.object = NSSet(array: managedObjects)
 
         return managedObjectImage
-    }
-
-    func getObjectsAndImages(objects: [ObjectEntity])->(objects: [SingleObject], images: [ObjectsOnImage]) {
-        var singleObjects: [SingleObject] = []
-        var images: [ImageEntity] = []
-
-        objects.forEach {
-            if let nativeName = $0.nativeForm, let foreignName = $0.foreignForm, let color = UIColor(hex: $0.color), let id = $0.id  {
-                let isFavorite = $0.isFavorite ? IsWordFavorite.yes : .no
-
-                singleObjects.append(SingleObject(nativeName: nativeName, foreignName: foreignName, color: color, isFavorite: isFavorite, id: id))
-            }
-
-            if let image = $0.image {
-                images.append(image)
-            }
-        }
-
-        let objectOnImages = convert(managedObject: images)
-
-        return (objects: singleObjects, images: objectOnImages)
     }
 }

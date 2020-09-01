@@ -172,6 +172,7 @@ class MainNavigationBar: UIView {
     //    MARK: - User interaction
     
     @objc func rightButtonAction(sender: UIButton!) {
+        sender.pulsate()
         delegate?.action(sender: sender)
     }
 }

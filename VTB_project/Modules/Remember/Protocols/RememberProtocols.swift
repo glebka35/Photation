@@ -14,6 +14,7 @@ protocol RememberViewInput: AnyObject {
     var presenter: RememberViewOutput? { get set }
 
     func update(with model: RememberViewModel)
+    func update(footer: FooterModel)
     func emphasizeCorrectWord(at indexPath: IndexPath)
     func emphasizeWrongWord(at indexPath: IndexPath)
 

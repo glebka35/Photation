@@ -6,9 +6,13 @@
 //  Copyright © 2020 Gleb Uvarkin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum GlobalConstants {
+    static let xStartPointMaxValue: CGFloat = 30
+}
+
+enum NotificionIdentifier {
     static let newImageAdded = "NewImageAdded"
     static let dataModified = "DataModified"
     static let deletaDataNotification = "DeletaDataNotification"

@@ -20,7 +20,7 @@ class DetailSettingsInteractor: DetailSettingsInteractorInput {
 
     init(with setting: SettingsList) {
         self.settings = setting
-        NotificationCenter.default.addObserver(self, selector: #selector(languageChanged), name: NSNotification.Name(GlobalConstants.languageChanged), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(NotificionIdentifier.newImageAdded), object: nil)
     }
 
 
@@ -39,10 +39,6 @@ class DetailSettingsInteractor: DetailSettingsInteractorInput {
         default:
             break
         }
-    }
-
-    @objc private func languageChanged() {
-        reloadData()
     }
 
     private func getEntitiesCount(completion: @escaping (_ countDict: [Language:Int])->Void) {
@@ -70,7 +66,7 @@ class DetailSettingsInteractor: DetailSettingsInteractorInput {
         }
     }
 
-    private func reloadData() {
+    @objc private func reloadData() {
         getEntitiesCount() { dictCount in
             self.dictCount = dictCount
             self.update()

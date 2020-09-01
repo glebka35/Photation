@@ -13,7 +13,7 @@ class RememberCollectionViewCell: UICollectionViewCell {
 //    MARK: - Properties
 
     private var wordLabel = UILabel()
-
+    
 //    MARK: - Life cycle
 
     override init(frame: CGRect) {

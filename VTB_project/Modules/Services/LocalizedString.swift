@@ -120,7 +120,7 @@ struct LocalizedString {
         .cs : "Sbírka",
         .sk : "zbierka",
         .uk : "Колекція",
-        .ca : "Col · lecció",
+        .ca : "Col·lecció",
         .ro : "Colectie",
         .hr : "Kolekcija"
     ]

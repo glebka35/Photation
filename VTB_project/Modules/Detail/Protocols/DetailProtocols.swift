@@ -24,7 +24,7 @@ protocol DetailViewOutput: AnyObject {
 
     func viewDidLoad()
     func wordChosen(at index: Int)
-    func backButtonPressed()
+    func userClosedModule()
 }
 
 // MARK: PRESENTER -> INTERACTOR

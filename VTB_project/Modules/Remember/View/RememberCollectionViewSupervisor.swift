@@ -33,7 +33,13 @@ class RememberCollectionViewSupervisor: NSObject {
     weak var delegate: CollectionViewActionsDelegate?
     weak var footerDelegate: FooterActionDelegate?
 
-    private var variants: [String] = []
+    private var variants: [String] = [] {
+        didSet{
+            isNeedAnimation = true
+        }
+    }
+
+    private var isNeedAnimation = false
 
     private var correctIndecies: [IndexPath] = [] {
         didSet {
@@ -101,8 +107,8 @@ extension RememberCollectionViewSupervisor: UICollectionViewDataSource {
         variants.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "rememberCell", for: indexPath) as? RememberCollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let cell = cell as? RememberCollectionViewCell {
             var color = Colors.none
             if correctIndecies.contains(indexPath) {
                 color = Colors.correctChoice
@@ -110,7 +116,26 @@ extension RememberCollectionViewSupervisor: UICollectionViewDataSource {
             if wrongIndecies.contains(indexPath) {
                 color = Colors.wrongChoice
             }
-            cell.updateStateWith(text: variants[indexPath.row], color: color)
+
+            cell.updateStateWith(text: self.variants[indexPath.row], color: color)
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "rememberCell", for: indexPath) as? RememberCollectionViewCell {
+            if isNeedAnimation {
+
+                UIView.animate(withDuration: 10, delay: 0.5 * Double(indexPath.row), usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: indexPath.row % 2 == 0 ? .transitionFlipFromLeft : .transitionFlipFromRight, animations: {
+
+                    if indexPath.row % 2 == 0 {
+                        AnimationUtility.viewSlideInFromLeft(toRight: cell)
+                    }
+                    else {
+                        AnimationUtility.viewSlideInFromRight(toLeft: cell)
+                    }
+
+                }, completion: nil)}
+
             return cell
         }
         fatalError("Remember cell error")
@@ -123,6 +148,7 @@ extension RememberCollectionViewSupervisor: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !wrongIndecies.contains(indexPath) && !correctIndecies.contains(indexPath) {
             delegate?.cellSelected(at: indexPath)
+            isNeedAnimation = false
         }
     }
 

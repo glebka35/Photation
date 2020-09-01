@@ -13,6 +13,6 @@ class RememberRouter: RememberRouterInput {
 
     func closeModule() {
         view?.navigationController?.setNavigationBarHidden(true, animated: false)
-        view?.navigationController?.popViewController(animated: false)
+        view?.navigationController?.popViewController(animated: true)
     }
 }

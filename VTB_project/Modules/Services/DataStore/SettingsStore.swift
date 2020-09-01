@@ -51,11 +51,11 @@ class SettingsStore {
 
     func saveNative(language: Language) {
         UserDefaults.standard.set(language.rawValue, forKey: ConstantsKeys.nativeLanguage)
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: GlobalConstants.languageChanged), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificionIdentifier.languageChanged), object: nil)
     }
 
     func saveForeign(language: Language) {
         UserDefaults.standard.set(language.rawValue, forKey: ConstantsKeys.foreignLanguage)
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: GlobalConstants.languageChanged), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificionIdentifier.languageChanged), object: nil)
     }
 }

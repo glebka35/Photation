@@ -17,6 +17,12 @@ class DefaultNavigationBar: UIView {
     private let titleLabel = UILabel()
     private let backButton = UIButton()
 
+    lazy var horizontalConstraint: NSLayoutConstraint = {
+        let constraint = backButton.trailingAnchor.constraint(lessThanOrEqualTo: titleLabel.leadingAnchor, constant: -5)
+        constraint.priority = .init(rawValue: 700)
+        return constraint
+    }()
+
     //    MARK: - Life cycle
 
     init(title: String?, backButtonTitle: String?, backButtonImage: UIImage?) {
@@ -68,13 +74,9 @@ class DefaultNavigationBar: UIView {
         backButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: -5)
         backButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
 
-        let horizontalConstraint = backButton.trailingAnchor.constraint(lessThanOrEqualTo: titleLabel.leadingAnchor, constant: -5)
-        horizontalConstraint.priority = .init(rawValue: 700)
-
         NSLayoutConstraint.activate([
             backButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: layoutMargins.left),
             backButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            horizontalConstraint
         ])
 
         backButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)

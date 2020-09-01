@@ -72,19 +72,21 @@ extension DetailTableSupervisor: UITableViewDataSource {
         return viewModel.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "cellDetail") as? TableViewCell
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cell = cell as? TableViewCell {
+            let isFirst = indexPath.row == 0
+            let isLast = indexPath.row == viewModel.count - 1
 
-        if cell == nil {
-            cell = TableViewCell(style: .subtitle, reuseIdentifier: "cellDetail")
+            cell.update(with: viewModel[indexPath.row], isFirst: isFirst, isLast: isLast)
         }
+    }
 
-        let isFirst = indexPath.row == 0
-        let isLast = indexPath.row == viewModel.count - 1
-
-        cell?.update(with: viewModel[indexPath.row], isFirst: isFirst, isLast: isLast)
-
-        return cell!
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "cellDetail") as? TableViewCell {
+            return cell
+        } else {
+            return TableViewCell(style: .subtitle, reuseIdentifier: "cellDetail")
+        }
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

@@ -26,6 +26,8 @@ class DetailView: UIViewController, DetailViewInput {
 
         addAndConfigureNavigationBar()
         addAndConfigureCollection()
+        addCloseGesture()
+        
         presenter?.viewDidLoad()
     }
 
@@ -65,11 +67,26 @@ class DetailView: UIViewController, DetailViewInput {
         self.navigationBar = navigationBar
     }
 
+    private func addCloseGesture() {
+        let gesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(gesture:)))
+        gesture.direction = .right
+
+        view.addGestureRecognizer(gesture)
+    }
+
 //    MARK: - UI update
 
     func updateContent(with model: DetailViewModel) {
         collectionSupervisor?.updateContent(with: model.detailCollectionModel)
         navigationBar?.update(with: model.defaultNavigationBarModel)
+    }
+
+    //    MARK: - User interaction
+
+    @objc private func handleSwipe(gesture: UISwipeGestureRecognizer) {
+        if gesture.location(in: view).x < GlobalConstants.xStartPointMaxValue {
+            presenter?.userClosedModule()
+        }
     }
 }
 
@@ -85,6 +102,6 @@ extension DetailView: DetailCollectionSupervisorDelegate {
 
 extension DetailView: NavigationBarDelegate {
     func action(sender: UIButton!) {
-        presenter?.backButtonPressed()
+        presenter?.userClosedModule()
     }
 }

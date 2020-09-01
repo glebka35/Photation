@@ -47,7 +47,7 @@ class DetailSettingsPresenter: DetailSettingsViewOutput {
         interactor?.languageChosen(at: indexPath)
     }
 
-    func backButtonPressed() {
+    func userClosedModule() {
         router?.closeModule()
     }
 }

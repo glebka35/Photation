@@ -9,7 +9,7 @@
 import Foundation
 
 class DetailSettingsRouter: DetailSettingsRouterInput {
-    var view: DetailSettingsView?
+    weak var view: DetailSettingsView?
 
     func closeModule() {
         view?.navigationController?.popViewController(animated: true)

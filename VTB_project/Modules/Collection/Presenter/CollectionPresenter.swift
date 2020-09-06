@@ -63,13 +63,13 @@ class CollectionPresenter: NSObject, CollectionViewOutput {
 
         switch currentStyle {
         case .images:
-            if let viewObject = currentViewModel?.imageModel?.objects[indexPath.row] {
+            if let viewObject = currentViewModel?.imageModel?.objects[safelyAccess: indexPath.row] {
                 object = objects.first(where: { (image) -> Bool in
                     image.date == viewObject.id
                 })
             }
         case .table:
-            if let viewObject = currentViewModel?.tableModel?.objects[indexPath.row] {
+            if let viewObject = currentViewModel?.tableModel?.objects[safelyAccess: indexPath.row] {
                 object = objects.first(where: { (image) -> Bool in
                     image.date == viewObject.id
                 })

@@ -76,8 +76,9 @@ extension DetailTableSupervisor: UITableViewDataSource {
         if let cell = cell as? TableViewCell {
             let isFirst = indexPath.row == 0
             let isLast = indexPath.row == viewModel.count - 1
-
-            cell.update(with: viewModel[indexPath.row], isFirst: isFirst, isLast: isLast)
+            if let viewModel = viewModel[safelyAccess: indexPath.row] {
+                cell.update(with: viewModel, isFirst: isFirst, isLast: isLast)
+            }
         }
     }
 

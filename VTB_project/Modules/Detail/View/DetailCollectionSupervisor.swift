@@ -87,7 +87,7 @@ extension DetailCollectionSupervisor: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailCell", for: indexPath) as? DetailCollectionViewCell {
-            if let object = viewModel?.objects[indexPath.row] {
+            if let object = viewModel?.objects[safelyAccess: indexPath.row] {
                 cell.updateStateWith(object: object)
             }
             return cell

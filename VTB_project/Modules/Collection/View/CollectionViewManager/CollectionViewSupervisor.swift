@@ -149,11 +149,11 @@ extension CollectionViewSupervisor: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let cell = cell as? ImageCollectionViewCell, let imageWithObjects = imageModel?.objects[indexPath.row] {
+        if let cell = cell as? ImageCollectionViewCell, let imageWithObjects = imageModel?.objects[safelyAccess: indexPath.row] {
             cell.updateStateWith(object: imageWithObjects)
         }
 
-        if let cell = cell as? ListCollectionViewCell, let object = tableModel?.objects[indexPath.row] {
+        if let cell = cell as? ListCollectionViewCell, let object = tableModel?.objects[safelyAccess: indexPath.row] {
             cell.updateStateWith(object: object)
         }
     }
@@ -163,7 +163,7 @@ extension CollectionViewSupervisor: UICollectionViewDataSource {
         switch(presentationStyle) {
         case .images:
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as? ImageCollectionViewCell {
-                if let imageWithObjects = imageModel?.objects[indexPath.row] {
+                if let imageWithObjects = imageModel?.objects[safelyAccess: indexPath.row] {
                     cell.updateStateWith(object: imageWithObjects)
                 }
 
@@ -171,7 +171,7 @@ extension CollectionViewSupervisor: UICollectionViewDataSource {
             }
         case .table:
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "listCell", for: indexPath) as? ListCollectionViewCell {
-                if let object = tableModel?.objects[indexPath.row] {
+                if let object = tableModel?.objects[safelyAccess: indexPath.row] {
                     cell.updateStateWith(object: object)
                 }
                 returnCell = cell

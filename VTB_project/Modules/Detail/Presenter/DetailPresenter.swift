@@ -61,7 +61,7 @@ class DetailPresenter: DetailViewOutput {
     func wordChosen(at index: Int) {
         let allCases = IsWordFavorite.allCases
 
-        guard let currentIndex = allCases.firstIndex(of: objects.objects[index].isFavorite) else { return }
+        guard let objectFavorite = objects.objects[safelyAccess: index]?.isFavorite, let currentIndex = allCases.firstIndex(of: objectFavorite) else { return }
         let nextIndex = (currentIndex + 1) % allCases.count
         let newFavorite = allCases[nextIndex]
         objects.objects[index].isFavorite = newFavorite

@@ -77,7 +77,6 @@
 		2B6BC13B24AF45DE00ED4125 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BC13A24AF45DD00ED4125 /* ImagePickerView.swift */; };
 		2B6BC13D24AF45EB00ED4125 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BC13C24AF45EB00ED4125 /* SettingsView.swift */; };
 		2B6BC13F24AF468E00ED4125 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BC13E24AF468E00ED4125 /* MainTabBarController.swift */; };
-		2B70E28F24FFCCBF00CAEE79 /* AssemblyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B70E28E24FFCCBF00CAEE79 /* AssemblyMock.swift */; };
 		2B70E29124FFCD2400CAEE79 /* InteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B70E29024FFCD2400CAEE79 /* InteractorMock.swift */; };
 		2B70E29324FFCE2B00CAEE79 /* RouterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B70E29224FFCE2B00CAEE79 /* RouterMock.swift */; };
 		2B80002224BDA628004D1A12 /* TableStyleHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B80002124BDA628004D1A12 /* TableStyleHeaderReusableView.swift */; };
@@ -213,7 +212,6 @@
 		2B6BC13A24AF45DD00ED4125 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		2B6BC13C24AF45EB00ED4125 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		2B6BC13E24AF468E00ED4125 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
-		2B70E28E24FFCCBF00CAEE79 /* AssemblyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyMock.swift; sourceTree = "<group>"; };
 		2B70E29024FFCD2400CAEE79 /* InteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractorMock.swift; sourceTree = "<group>"; };
 		2B70E29224FFCE2B00CAEE79 /* RouterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterMock.swift; sourceTree = "<group>"; };
 		2B80002124BDA628004D1A12 /* TableStyleHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableStyleHeaderReusableView.swift; sourceTree = "<group>"; };
@@ -329,7 +327,6 @@
 			isa = PBXGroup;
 			children = (
 				2B199D6F24FFC7C400B22F68 /* ViewMock.swift */,
-				2B70E28E24FFCCBF00CAEE79 /* AssemblyMock.swift */,
 				2B70E29024FFCD2400CAEE79 /* InteractorMock.swift */,
 				2B70E29224FFCE2B00CAEE79 /* RouterMock.swift */,
 			);
@@ -1226,7 +1223,6 @@
 				2B70E29124FFCD2400CAEE79 /* InteractorMock.swift in Sources */,
 				2B199D7024FFC7C400B22F68 /* ViewMock.swift in Sources */,
 				2B478A2924FFC92D00347CF2 /* CollectionPresenterTests.swift in Sources */,
-				2B70E28F24FFCCBF00CAEE79 /* AssemblyMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

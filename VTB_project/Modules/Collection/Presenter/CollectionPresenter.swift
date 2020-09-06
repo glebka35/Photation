@@ -152,7 +152,6 @@ extension CollectionPresenter: CollectionInteractorOutput {
 //MARK: - UISearchBarDelegate
 
 extension CollectionPresenter: UISearchBarDelegate {
-
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }

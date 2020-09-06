@@ -60,7 +60,7 @@ class CoreDataStore: NSObject, DataStoreProtocol {
             }
         }
         //        Uncomment to get dataStore url
-        print(NSPersistentContainer.defaultDirectoryURL())
+//        print(NSPersistentContainer.defaultDirectoryURL())
         return container
     } ()
 

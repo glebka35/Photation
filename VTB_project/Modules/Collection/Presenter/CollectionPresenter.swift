@@ -89,36 +89,41 @@ class CollectionPresenter: NSObject, CollectionViewOutput {
     }
 
     private func updateData() {
-        var objectsToDisplay: [ObjectsOnImage]!
+        DispatchQueue.global(qos: .userInitiated).async {
+            var objectsToDisplay: [ObjectsOnImage]!
 
-        if isSearchActive {
-            objectsToDisplay = filteredObjects
-        } else {
-            objectsToDisplay = objects
-        }
-        if let navBarModel = currentViewModel?.navigationBarModel {
-            var model: CollectionViewModel?
-            var imageModel: ImageStyleCollectionModel?
-            var tableModel: TableStyleCollectionModel?
+            if self.isSearchActive {
+                objectsToDisplay = self.filteredObjects
+            } else {
+                objectsToDisplay = self.objects
+            }
+            if let navBarModel = self.currentViewModel?.navigationBarModel {
+                var model: CollectionViewModel?
+                var imageModel: ImageStyleCollectionModel?
+                var tableModel: TableStyleCollectionModel?
 
-            switch currentStyle {
-            case .images:
-                let imageObjects = dataConverter.convertToImage(from: objectsToDisplay)
-                imageModel = ImageStyleCollectionModel(objects: imageObjects)
+                switch self.currentStyle {
+                case .images:
+                    let imageObjects = self.dataConverter.convertToImage(from: objectsToDisplay)
+                    imageModel = ImageStyleCollectionModel(objects: imageObjects)
 
-            case .table:
-                let tableObjects = dataConverter.convertToTable(from: objectsToDisplay)
-                tableModel = TableStyleCollectionModel(nativeLanguage: nativeLanguage, foreignLanguage: foreignLanguage, objects: tableObjects)
+                case .table:
+                    let tableObjects = self.dataConverter.convertToTable(from: objectsToDisplay)
+                    tableModel = TableStyleCollectionModel(nativeLanguage: self.nativeLanguage, foreignLanguage: self.foreignLanguage, objects: tableObjects)
 
-            default:
-                return
+                default:
+                    return
+                }
+
+                model = CollectionViewModel(navigationBarModel: navBarModel, imageModel: imageModel, tableModel: tableModel)
+                if let model = model {
+                    DispatchQueue.main.async {
+                        self.view?.updateContent(with: model)
+                        self.currentViewModel = model
+                    }
+                }
             }
 
-            model = CollectionViewModel(navigationBarModel: navBarModel, imageModel: imageModel, tableModel: tableModel)
-            if let model = model {
-                view?.updateContent(with: model)
-                self.currentViewModel = model
-            }
         }
     }
 }
